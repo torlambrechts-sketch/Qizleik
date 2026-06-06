@@ -120,6 +120,21 @@ export default async function handler(req, res) {
           updateQuery += `status = $${index}, `;
           params.push(status);
           index++;
+
+          // Persistent Leaderboard recording upon quiz completion
+          if (status === 'completed') {
+            const gRes = await query('SELECT quiz_id FROM games WHERE id = $1', [game_id]);
+            if (gRes.rows.length > 0) {
+              const quizId = gRes.rows[0].quiz_id;
+              const teamsRes = await query('SELECT name, score FROM teams WHERE game_id = $1', [game_id]);
+              for (const team of teamsRes.rows) {
+                await query(
+                  'INSERT INTO leaderboard (quiz_id, team_name, score) VALUES ($1, $2, $3)',
+                  [quizId, team.name, team.score]
+                );
+              }
+            }
+          }
         }
 
         if (current_question_index !== undefined && current_question_index !== null) {

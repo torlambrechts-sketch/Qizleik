@@ -15,7 +15,9 @@ const state = {
   activeGameId: null,
   activeGame: null, // Active game status from API
   pollInterval: null,
-  timerInterval: null
+  timerInterval: null,
+  isAdmin: sessionStorage.getItem('is_admin') === 'true',
+  adminPin: sessionStorage.getItem('admin_pin') || ''
 };
 
 // UI Selectors
@@ -71,7 +73,19 @@ const el = {
   btnAddRate: document.getElementById('btn-add-rate'),
   hostSubmissionsPanel: document.getElementById('host-submissions-panel'),
   hostSubmissionsList: document.getElementById('host-submissions-list'),
-  hostTeamLink: document.getElementById('host-team-link')
+  hostTeamLink: document.getElementById('host-team-link'),
+  
+  // Admin & Leaderboard elements
+  adminStatus: document.getElementById('admin-status'),
+  btnAdminLogin: document.getElementById('btn-admin-login'),
+  adminLoginModal: document.getElementById('admin-login-modal'),
+  adminPinInput: document.getElementById('admin-pin-input'),
+  btnAdminCancel: document.getElementById('btn-admin-cancel'),
+  btnAdminSubmit: document.getElementById('btn-admin-submit'),
+  leaderboardModal: document.getElementById('leaderboard-modal'),
+  leaderboardModalQuiz: document.getElementById('leaderboard-modal-quiz'),
+  leaderboardModalBody: document.getElementById('leaderboard-modal-body'),
+  btnLeaderboardClose: document.getElementById('btn-leaderboard-close')
 };
 
 // Colors palette for teams quick selection
@@ -104,7 +118,10 @@ function showScreen(screenName) {
 async function apiCall(url, method = 'GET', data = null) {
   const options = {
     method,
-    headers: { 'Content-Type': 'application/json' }
+    headers: { 
+      'Content-Type': 'application/json',
+      'X-Admin-Pin': state.adminPin || ''
+    }
   };
   if (data) {
     options.body = JSON.stringify(data);
@@ -141,21 +158,32 @@ function renderQuizList() {
     return;
   }
 
-  el.quizList.innerHTML = state.quizzes.map(quiz => `
-    <div class="glass-panel quiz-card">
-      <h3>${escapeHtml(quiz.title)}</h3>
-      <p>${escapeHtml(quiz.description || 'No description provided.')}</p>
-      <div class="quiz-card-meta">
-        <span>🧩 ${quiz.question_count} Questions</span>
-        <span>📅 ${new Date(quiz.created_at).toLocaleDateString()}</span>
+  el.quizList.innerHTML = state.quizzes.map(quiz => {
+    const actionsHtml = state.isAdmin ? `
+      <button class="btn-primary btn-play" data-id="${quiz.id}" style="padding: 6px 12px; font-size: 0.85rem;">Play</button>
+      <button class="btn-secondary btn-edit" data-id="${quiz.id}" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
+      <button class="btn-secondary btn-view-leaderboard" data-id="${quiz.id}" data-title="${escapeHtml(quiz.title)}" style="padding: 6px 12px; font-size: 0.85rem;">Leaderboard</button>
+      <button class="btn-danger btn-delete" data-id="${quiz.id}" style="padding: 6px 12px; font-size: 0.85rem; margin-left: auto;">Delete</button>
+    ` : `
+      <button class="btn-primary btn-view-leaderboard" data-id="${quiz.id}" data-title="${escapeHtml(quiz.title)}" style="width: 100%; padding: 8px 16px;">
+        🏆 View High Scores Leaderboard
+      </button>
+    `;
+
+    return `
+      <div class="glass-panel quiz-card" style="height: auto; min-height: 220px;">
+        <h3>${escapeHtml(quiz.title)}</h3>
+        <p>${escapeHtml(quiz.description || 'No description provided.')}</p>
+        <div class="quiz-card-meta">
+          <span>🧩 ${quiz.question_count} Questions</span>
+          <span>📅 ${new Date(quiz.created_at).toLocaleDateString()}</span>
+        </div>
+        <div class="quiz-card-actions" style="margin-top: 20px;">
+          ${actionsHtml}
+        </div>
       </div>
-      <div class="quiz-card-actions">
-        <button class="btn-primary btn-play" data-id="${quiz.id}" style="padding: 6px 12px; font-size: 0.85rem;">Play</button>
-        <button class="btn-secondary btn-edit" data-id="${quiz.id}" style="padding: 6px 12px; font-size: 0.85rem;">Edit</button>
-        <button class="btn-danger btn-delete" data-id="${quiz.id}" style="padding: 6px 12px; font-size: 0.85rem; margin-left: auto;">Delete</button>
-      </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
   // Attach event listeners to card actions
   el.quizList.querySelectorAll('.btn-play').forEach(btn => {
@@ -163,6 +191,9 @@ function renderQuizList() {
   });
   el.quizList.querySelectorAll('.btn-edit').forEach(btn => {
     btn.onclick = () => startEditScreen(btn.dataset.id);
+  });
+  el.quizList.querySelectorAll('.btn-view-leaderboard').forEach(btn => {
+    btn.onclick = () => showLeaderboard(btn.dataset.id, btn.dataset.title);
   });
   el.quizList.querySelectorAll('.btn-delete').forEach(btn => {
     btn.onclick = () => deleteQuiz(btn.dataset.id);
@@ -215,7 +246,9 @@ function addCreatorQuestion(type) {
     question_type: type,
     options: type === 'multiple-choice' ? ['', '', '', ''] : null,
     correct_answer: '',
-    points: 10
+    points: 10,
+    timer_duration: 0,
+    rating_scale: 10
   });
   renderCreatorQuestions();
 }
@@ -243,6 +276,20 @@ function renderCreatorQuestions() {
       <div class="form-group">
         <label>Question Text</label>
         <input type="text" class="q-text" data-index="${qIndex}" value="${escapeHtml(q.question_text)}" placeholder="Type question here...">
+      </div>
+      
+      <!-- Advanced Settings foldout -->
+      <div style="display: flex; gap: 15px; background: rgba(0,0,0,0.15); padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+        <div style="flex: 1;">
+          <label style="font-size: 0.8rem; color: var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Time Limit (0 = manual)</label>
+          <input type="number" class="q-timer-limit" data-index="${qIndex}" value="${q.timer_duration || 0}" min="0" max="300" style="padding: 6px; font-size: 0.85rem;">
+        </div>
+        ${q.question_type === 'rate-submission' ? `
+          <div style="flex: 1;">
+            <label style="font-size: 0.8rem; color: var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Rating Scale Max</label>
+            <input type="number" class="q-rating-scale" data-index="${qIndex}" value="${q.rating_scale || 10}" min="2" max="100" style="padding: 6px; font-size: 0.85rem;">
+          </div>
+        ` : ''}
       </div>
     `;
 
@@ -295,6 +342,18 @@ function renderCreatorQuestions() {
   el.questionsBuilderList.querySelectorAll('.q-points').forEach(input => {
     input.onchange = (e) => {
       state.creatorQuestions[e.target.dataset.index].points = parseInt(e.target.value) || 10;
+    };
+  });
+
+  el.questionsBuilderList.querySelectorAll('.q-timer-limit').forEach(input => {
+    input.onchange = (e) => {
+      state.creatorQuestions[e.target.dataset.index].timer_duration = parseInt(e.target.value) || 0;
+    };
+  });
+
+  el.questionsBuilderList.querySelectorAll('.q-rating-scale').forEach(input => {
+    input.onchange = (e) => {
+      state.creatorQuestions[e.target.dataset.index].rating_scale = parseInt(e.target.value) || 10;
     };
   });
 
@@ -500,11 +559,15 @@ async function startGame() {
     });
 
     // 3. Set status to active
+    const firstQuestion = state.activeQuiz && state.activeQuiz.questions ? state.activeQuiz.questions[0] : null;
+    const firstTimer = firstQuestion ? (firstQuestion.timer_duration || 0) : 0;
+
     await apiCall('/api/game', 'POST', {
       action: 'update',
       game_id: gameId,
       status: 'active',
-      current_question_index: 0
+      current_question_index: 0,
+      timer_duration: firstTimer
     });
 
     // Load Host Console
@@ -537,6 +600,12 @@ async function refreshGameState() {
   try {
     const game = await apiCall(`/api/game?id=${state.activeGameId}`);
     state.activeGame = game;
+    
+    // Auto-load quiz details if missing (needed for advanced question metadata)
+    if (!state.activeQuiz || state.activeQuiz.id !== game.quiz_id) {
+      state.activeQuiz = await apiCall(`/api/quizzes?id=${game.quiz_id}`);
+    }
+    
     renderHostState();
   } catch (error) {
     console.error('Error fetching game status:', error);
@@ -750,12 +819,15 @@ async function navigateQuestion(direction) {
   clearInterval(state.timerInterval);
   el.hostTimer.classList.remove('pulse');
 
+  const targetQuestion = state.activeQuiz && state.activeQuiz.questions ? state.activeQuiz.questions[target] : null;
+  const autoTimerDuration = targetQuestion ? (targetQuestion.timer_duration || 0) : 0;
+
   try {
     await apiCall('/api/game', 'POST', {
       action: 'update',
       game_id: state.activeGameId,
       current_question_index: target,
-      timer_duration: 0 // Reset timer
+      timer_duration: autoTimerDuration
     });
     refreshGameState();
   } catch (error) {
@@ -851,6 +923,93 @@ function stopPolling() {
   if (state.timerInterval) clearInterval(state.timerInterval);
 }
 
+// --- ADMIN & LEADERBOARD HELPERS ---
+
+async function showLeaderboard(quizId, quizTitle) {
+  try {
+    const entries = await apiCall(`/api/quizzes?leaderboard=true&quizId=${quizId}`);
+    el.leaderboardModalQuiz.textContent = `Quiz: ${quizTitle}`;
+    
+    if (entries.length === 0) {
+      el.leaderboardModalBody.innerHTML = `
+        <tr>
+          <td colspan="4" style="text-align: center; padding: 20px; color: var(--text-muted);">
+            No high scores recorded yet. Be the first to play!
+          </td>
+        </tr>
+      `;
+    } else {
+      el.leaderboardModalBody.innerHTML = entries.map((entry, idx) => `
+        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.95rem;">
+          <td style="padding: 12px; font-weight: 800; color: ${idx === 0 ? 'var(--color-warning)' : 'var(--text-primary)'};">
+            ${idx + 1}${idx === 0 ? ' 👑' : ''}
+          </td>
+          <td style="padding: 12px; font-weight: 600; color: #fff;">
+            ${escapeHtml(entry.team_name)}
+          </td>
+          <td style="padding: 12px; text-align: right; font-weight: 800; color: var(--accent-secondary);">
+            ${entry.score}
+          </td>
+          <td style="padding: 12px; text-align: right; color: var(--text-muted); font-size: 0.8rem;">
+            ${new Date(entry.played_at).toLocaleDateString()}
+          </td>
+        </tr>
+      `).join('');
+    }
+    
+    el.leaderboardModal.style.display = 'flex';
+  } catch (error) {
+    alert('Failed to load leaderboard: ' + error.message);
+  }
+}
+
+function toggleAdminMode() {
+  if (state.isAdmin) {
+    // Logout
+    state.isAdmin = false;
+    state.adminPin = '';
+    sessionStorage.removeItem('is_admin');
+    sessionStorage.removeItem('admin_pin');
+    
+    el.adminStatus.style.display = 'none';
+    el.btnAdminLogin.textContent = 'Admin Login';
+    el.btnCreateQuiz.style.display = 'none';
+    
+    loadQuizzes();
+  } else {
+    // Show Login Modal
+    el.adminPinInput.value = '';
+    el.adminLoginModal.style.display = 'flex';
+    el.adminPinInput.focus();
+  }
+}
+
+async function verifyAdminPin() {
+  const pin = el.adminPinInput.value.trim();
+  if (!pin) return;
+
+  try {
+    const res = await apiCall('/api/auth', 'POST', { pin });
+    if (res.success) {
+      state.isAdmin = true;
+      state.adminPin = pin;
+      sessionStorage.setItem('is_admin', 'true');
+      sessionStorage.setItem('admin_pin', pin);
+      
+      el.adminStatus.style.display = 'inline-flex';
+      el.btnAdminLogin.textContent = 'Admin Logout';
+      el.btnCreateQuiz.style.display = 'inline-flex';
+      el.adminLoginModal.style.display = 'none';
+      
+      loadQuizzes();
+    }
+  } catch (error) {
+    alert('Verification failed: ' + error.message);
+    el.adminPinInput.value = '';
+    el.adminPinInput.focus();
+  }
+}
+
 // -------------------------------------------------------------
 // INITIALIZATION
 // -------------------------------------------------------------
@@ -907,6 +1066,32 @@ function init() {
   el.btnSfxConfetti.onclick = () => {
     triggerConfetti();
   };
+
+  // Admin Login & Leaderboard bindings
+  el.btnAdminLogin.onclick = toggleAdminMode;
+  el.btnAdminCancel.onclick = () => {
+    el.adminLoginModal.style.display = 'none';
+  };
+  el.btnAdminSubmit.onclick = verifyAdminPin;
+  el.adminPinInput.onkeypress = (e) => {
+    if (e.key === 'Enter') {
+      verifyAdminPin();
+    }
+  };
+  el.btnLeaderboardClose.onclick = () => {
+    el.leaderboardModal.style.display = 'none';
+  };
+
+  // Sync initial Admin GUI state
+  if (state.isAdmin) {
+    el.adminStatus.style.display = 'inline-flex';
+    el.btnAdminLogin.textContent = 'Admin Logout';
+    el.btnCreateQuiz.style.display = 'inline-flex';
+  } else {
+    el.adminStatus.style.display = 'none';
+    el.btnAdminLogin.textContent = 'Admin Login';
+    el.btnCreateQuiz.style.display = 'none';
+  }
 
   // Start app
   loadQuizzes();

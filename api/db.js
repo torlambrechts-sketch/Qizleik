@@ -44,7 +44,7 @@ async function initDb() {
       );
     `);
 
-    // Create Questions Table
+    // Create Questions Table (Modified: includes timer_duration and rating_scale)
     await client.query(`
       CREATE TABLE IF NOT EXISTS questions (
         id SERIAL PRIMARY KEY,
@@ -55,6 +55,8 @@ async function initDb() {
         correct_answer TEXT,
         points INTEGER DEFAULT 10,
         order_index INTEGER NOT NULL,
+        timer_duration INTEGER DEFAULT 0, -- 0 means no time limit, >0 sets auto-timer
+        rating_scale INTEGER DEFAULT 10,  -- Custom rating range for rate-submission
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
@@ -92,14 +94,33 @@ async function initDb() {
         team_id INTEGER REFERENCES teams(id) ON DELETE CASCADE,
         question_index INTEGER NOT NULL,
         submitted_text TEXT,
-        submitted_image TEXT, -- Base64 encoded data URI
+        submitted_image TEXT, 
         points_awarded INTEGER DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
+    // Create Leaderboard Table (NEW)
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS leaderboard (
+        id SERIAL PRIMARY KEY,
+        quiz_id INTEGER REFERENCES quizzes(id) ON DELETE CASCADE,
+        team_name VARCHAR(255) NOT NULL,
+        score INTEGER NOT NULL,
+        played_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    // Alter table schemas for existing databases just in case they were initialized previously
+    await client.query(`
+      ALTER TABLE questions ADD COLUMN IF NOT EXISTS timer_duration INTEGER DEFAULT 0;
+    `);
+    await client.query(`
+      ALTER TABLE questions ADD COLUMN IF NOT EXISTS rating_scale INTEGER DEFAULT 10;
+    `);
+
     await client.query('COMMIT');
-    console.log('Database tables successfully verified.');
+    console.log('Database schemas verified and upgraded.');
 
     // --- SEED CHECK ---
     const countCheck = await pool.query('SELECT COUNT(*) FROM quizzes');
@@ -137,7 +158,9 @@ async function seedData() {
         options: JSON.stringify(['8 seconds', '8 minutes', '8 hours', '8 days']),
         ans: '8 minutes',
         pts: 10,
-        idx: 0
+        idx: 0,
+        timer: 30, // 30 seconds auto-timer
+        scale: 10
       },
       {
         text: 'Which planet is known as the "Red Planet"?',
@@ -145,7 +168,9 @@ async function seedData() {
         options: null,
         ans: 'Mars',
         pts: 10,
-        idx: 1
+        idx: 1,
+        timer: 20, // 20 seconds auto-timer
+        scale: 10
       },
       {
         text: 'What is the tallest active volcano in Europe?',
@@ -153,15 +178,17 @@ async function seedData() {
         options: JSON.stringify(['Mount Vesuvius', 'Mount Etna', 'Mount Stromboli', 'Mount Olympus']),
         ans: 'Mount Etna',
         pts: 15,
-        idx: 2
+        idx: 2,
+        timer: 30, // 30 seconds auto-timer
+        scale: 10
       }
     ];
 
     for (const q of quiz1Questions) {
       await client.query(
-        `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-        [q1Id, q.text, q.type, q.options, q.ans, q.pts, q.idx]
+        `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index, timer_duration, rating_scale)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        [q1Id, q.text, q.type, q.options, q.ans, q.pts, q.idx, q.timer, q.scale]
       );
     }
 
@@ -180,7 +207,9 @@ async function seedData() {
         options: null,
         ans: 'Text submission to be rated by host.',
         pts: 20,
-        idx: 0
+        idx: 0,
+        timer: 60, // 60 seconds to write
+        scale: 10 // Rated 0 - 10
       },
       {
         text: 'PROMPT: What would be the worst slogan for a brand new anti-gravity theme park ride?',
@@ -188,15 +217,17 @@ async function seedData() {
         options: null,
         ans: 'Text submission to be rated by host.',
         pts: 20,
-        idx: 1
+        idx: 1,
+        timer: 60,
+        scale: 10
       }
     ];
 
     for (const q of quiz2Questions) {
       await client.query(
-        `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-        [q2Id, q.text, q.type, q.options, q.ans, q.pts, q.idx]
+        `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index, timer_duration, rating_scale)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        [q2Id, q.text, q.type, q.options, q.ans, q.pts, q.idx, q.timer, q.scale]
       );
     }
 
@@ -215,7 +246,9 @@ async function seedData() {
         options: null,
         ans: 'Image upload or sketch submission to be rated by host.',
         pts: 30,
-        idx: 0
+        idx: 0,
+        timer: 90, // 90 seconds to draw
+        scale: 5 // Rated 0 - 5 stars/points
       },
       {
         text: 'PROMPT: Design a brand new official flag for human colonies on Mars.',
@@ -223,15 +256,17 @@ async function seedData() {
         options: null,
         ans: 'Image upload or sketch submission to be rated by host.',
         pts: 30,
-        idx: 1
+        idx: 1,
+        timer: 90,
+        scale: 5
       }
     ];
 
     for (const q of quiz3Questions) {
       await client.query(
-        `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-        [q3Id, q.text, q.type, q.options, q.ans, q.pts, q.idx]
+        `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index, timer_duration, rating_scale)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        [q3Id, q.text, q.type, q.options, q.ans, q.pts, q.idx, q.timer, q.scale]
       );
     }
 

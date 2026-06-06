@@ -13,8 +13,9 @@
     <div class="logo">
       QuizMaster <span>PRO</span>
     </div>
-    <div id="header-actions">
-      <!-- Dynamic header content (like 'Back to Dashboard' button) -->
+    <div id="header-actions" style="display: flex; align-items: center; gap: 15px;">
+      <span id="admin-status" style="color: var(--accent-pink); font-size: 0.9rem; font-weight: 700; display: none;">🔒 ADMIN MODE</span>
+      <button id="btn-admin-login" class="btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">Admin Login</button>
     </div>
   </header>
 
@@ -245,6 +246,49 @@
     </section>
 
   </main>
+
+  <!-- Admin Login PIN Modal -->
+  <div id="admin-login-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); backdrop-filter:blur(8px); z-index:99999; align-items:center; justify-content:center;">
+    <div class="glass-panel" style="width:100%; max-width:400px; padding:30px; text-align:center;">
+      <h2 style="color:white; margin-bottom:10px;">Admin Verification</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Enter the Admin PIN to unlock management tools.</p>
+      <div class="form-group">
+        <input type="password" id="admin-pin-input" placeholder="Enter PIN (default: 1234)" style="text-align:center; letter-spacing:0.3em; font-size:1.4rem;">
+      </div>
+      <div style="display:flex; gap:12px; justify-content:center; margin-top:20px;">
+        <button id="btn-admin-cancel" class="btn-secondary">Cancel</button>
+        <button id="btn-admin-submit" class="btn-primary">Verify</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Leaderboard Modal -->
+  <div id="leaderboard-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); backdrop-filter:blur(8px); z-index:99999; align-items:center; justify-content:center;">
+    <div class="glass-panel" style="width:100%; max-width:550px; padding:30px; text-align:left;">
+      <h2 id="leaderboard-modal-title" style="color:white; margin-bottom:5px; font-size:1.6rem;">High Scores</h2>
+      <p id="leaderboard-modal-quiz" style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:20px;">Quiz Name</p>
+      
+      <div style="max-height:300px; overflow-y:auto; background:rgba(0,0,0,0.2); border-radius:10px; padding:10px; border:1px solid rgba(255,255,255,0.05); margin-bottom: 20px;">
+        <table style="width:100%; border-collapse:collapse; text-align:left;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--panel-border); color:var(--text-muted); font-size:0.8rem; text-transform:uppercase; letter-spacing:0.05em;">
+              <th style="padding:10px;">Rank</th>
+              <th style="padding:10px;">Team Name</th>
+              <th style="padding:10px; text-align:right;">Score</th>
+              <th style="padding:10px; text-align:right;">Date</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-modal-body">
+            <!-- Filled dynamically -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div style="display:flex; justify-content:flex-end;">
+        <button id="btn-leaderboard-close" class="btn-secondary">Close</button>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="./src/main.js"></script>
 </body>

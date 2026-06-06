@@ -2,12 +2,24 @@ import { query } from './db.js';
 
 export default async function handler(req, res) {
   const { method } = req;
-  const { id } = req.query;
+  const { id, leaderboard, quizId } = req.query;
 
   try {
     if (method === 'GET') {
+      // 1. Resolve leaderboard checks
+      if (leaderboard === 'true' && quizId) {
+        const leaderRes = await query(
+          `SELECT * FROM leaderboard 
+           WHERE quiz_id = $1 
+           ORDER BY score DESC, played_at DESC 
+           LIMIT 10`,
+          [quizId]
+        );
+        return res.status(200).json(leaderRes.rows);
+      }
+
+      // 2. Fetch specific quiz details
       if (id) {
-        // Fetch details for a specific quiz, including all questions
         const quizRes = await query('SELECT * FROM quizzes WHERE id = $1', [id]);
         if (quizRes.rows.length === 0) {
           return res.status(404).json({ error: 'Quiz not found' });
@@ -21,7 +33,9 @@ export default async function handler(req, res) {
         const quiz = quizRes.rows[0];
         quiz.questions = questionsRes.rows.map(q => ({
           ...q,
-          options: q.options ? JSON.parse(q.options) : []
+          options: q.options ? JSON.parse(q.options) : [],
+          timer_duration: q.timer_duration || 0,
+          rating_scale: q.rating_scale || 10
         }));
         
         return res.status(200).json(quiz);
@@ -38,6 +52,16 @@ export default async function handler(req, res) {
       }
     } 
     
+    // --- AUTHENTICATION SHIELD FOR WRITES / DELETES ---
+    if (method === 'POST' || method === 'DELETE') {
+      const clientPin = req.headers['x-admin-pin'];
+      const adminPin = process.env.ADMIN_PIN || '1234';
+
+      if (clientPin !== adminPin) {
+        return res.status(401).json({ error: 'Unauthorized: Invalid Admin PIN' });
+      }
+    }
+
     if (method === 'POST') {
       const { title, description, questions } = req.body;
       if (!title) {
@@ -58,8 +82,8 @@ export default async function handler(req, res) {
           for (let i = 0; i < questions.length; i++) {
             const q = questions[i];
             await query(
-              `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index) 
-               VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+              `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index, timer_duration, rating_scale) 
+               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
               [
                 id,
                 q.question_text,
@@ -67,7 +91,9 @@ export default async function handler(req, res) {
                 q.options ? JSON.stringify(q.options) : null,
                 q.correct_answer || '',
                 parseInt(q.points) || 10,
-                i
+                i,
+                parseInt(q.timer_duration) || 0,
+                parseInt(q.rating_scale) || 10
               ]
             );
           }
@@ -85,8 +111,8 @@ export default async function handler(req, res) {
           for (let i = 0; i < questions.length; i++) {
             const q = questions[i];
             await query(
-              `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index) 
-               VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+              `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index, timer_duration, rating_scale) 
+               VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
               [
                 newQuizId,
                 q.question_text,
@@ -94,7 +120,9 @@ export default async function handler(req, res) {
                 q.options ? JSON.stringify(q.options) : null,
                 q.correct_answer || '',
                 parseInt(q.points) || 10,
-                i
+                i,
+                parseInt(q.timer_duration) || 0,
+                parseInt(q.rating_scale) || 10
               ]
             );
           }
