@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizMaster Team Portal</title>
+  <link rel="stylesheet" href="./src/style.css">
+  <style>
+    /* Mobile portal specific overrides */
+    body {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .portal-card {
+      width: 100%;
+      max-width: 500px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .sketchpad-container {
+      margin-top: 15px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+    }
+    canvas#sketchpad {
+      background: #fff;
+      border-radius: 8px;
+      cursor: crosshair;
+      touch-action: none; /* Prevents scrolling while drawing */
+      width: 100%;
+      max-width: 100%;
+      height: 250px;
+    }
+    .canvas-controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .mcq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .btn-mcq-choice {
+      height: 80px;
+      font-size: 1.4rem;
+      border-radius: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STEP 1: Login / Join game -->
+  <div id="portal-join" class="glass-panel portal-card">
+    <h2 style="font-size: 1.8rem; color: #fff; margin-bottom: 8px; text-align: center;">Join Game</h2>
+    <p style="color: var(--text-muted); text-align: center; margin-bottom: 24px;">Enter Game ID and select your team</p>
+    
+    <div class="form-group">
+      <label for="join-game-id">Game ID</label>
+      <input type="number" id="join-game-id" placeholder="e.g. 1">
+    </div>
+    
+    <button id="btn-fetch-teams" class="btn-primary" style="width: 100%; margin-bottom: 20px;">
+      Find Game
+    </button>
+    
+    <div id="join-team-select-group" class="form-group" style="display: none;">
+      <label for="join-team-select">Select Your Team</label>
+      <select id="join-team-select">
+        <!-- Filled dynamically -->
+      </select>
+      
+      <button id="btn-join-game" class="btn-cyan" style="width: 100%; margin-top: 20px;">
+        Connect Team
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Main Active game portal -->
+  <div id="portal-arena" class="glass-panel portal-card" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--panel-border); padding-bottom: 12px;">
+      <div>
+        <h3 id="portal-team-badge" style="color: #fff; font-size: 1.2rem;">Team Name</h3>
+        <span id="portal-score-badge" style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 700;">Score: 0 pts</span>
+      </div>
+      <button id="btn-portal-logout" class="btn-danger" style="padding: 4px 8px; font-size: 0.75rem;">Leave</button>
+    </div>
+
+    <!-- State A: Game Setup Lobby -->
+    <div id="portal-state-lobby" style="text-align: center; padding: 30px 0;">
+      <h2 style="color: white; margin-bottom: 10px;">Lobby</h2>
+      <p style="color: var(--text-muted);">Waiting for the Host to start the quiz. Keep this screen open...</p>
+    </div>
+
+    <!-- State B: Active Question Responder -->
+    <div id="portal-state-active" style="display: none;">
+      <div id="portal-question-progress" style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 800; text-transform: uppercase;">Question 0 of 0</div>
+      <h3 id="portal-question-prompt" style="color: white; font-size: 1.3rem; margin: 10px 0 20px 0; line-height: 1.4;">Active Question Prompt</h3>
+
+      <div id="portal-responder-container">
+        <!-- Rendered dynamically depending on question type -->
+      </div>
+      
+      <div id="portal-submitted-status" style="display: none; text-align: center; padding: 20px; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 12px; margin-top: 20px;">
+        <span style="color: var(--color-success); font-weight: 800; font-size: 1rem; display: block; margin-bottom: 4px;">✓ Response Submitted!</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Waiting for host to score or advance the quiz...</span>
+      </div>
+    </div>
+
+    <!-- State C: Game Completed -->
+    <div id="portal-state-completed" style="text-align: center; padding: 30px 0; display: none;">
+      <h2 style="color: var(--color-warning); margin-bottom: 10px;">Quiz Completed!</h2>
+      <p style="color: var(--text-secondary);">Check the main projector screen to see the final winner podium!</p>
+    </div>
+  </div>
+
+  <script type="module" src="./src/team.js"></script>
+</body>
+</html>

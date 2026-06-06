@@ -97,8 +97,10 @@ function renderPresenterState(game) {
     el.questionPanel.style.display = 'block';
     el.completed.style.display = 'none';
     
-    // Only repaint question area if the question index actually changed
-    if (game.current_question_index !== localState.currentQuestionIndex) {
+    // For rate-submission, always render question to update submissions list in real-time.
+    // For other types, only render if question index changes.
+    const isRateSubmission = game.question && game.question.question_type === 'rate-submission';
+    if (game.current_question_index !== localState.currentQuestionIndex || isRateSubmission) {
       localState.currentQuestionIndex = game.current_question_index;
       renderQuestion(game);
     }
@@ -166,6 +168,35 @@ function renderQuestion(game) {
         <div>${escapeHtml(opt)}</div>
       </div>
     `).join('');
+  } else if (q.question_type === 'rate-submission') {
+    el.options.style.display = 'grid';
+    if (game.submissions && game.submissions.length > 0) {
+      el.options.innerHTML = game.submissions.map(sub => {
+        let subMedia = '';
+        if (sub.submitted_text) {
+          subMedia += `<div class="submission-text" style="font-size:1.15rem; padding:12px; margin-bottom:8px; line-height:1.4;">"${escapeHtml(sub.submitted_text)}"</div>`;
+        }
+        if (sub.submitted_image) {
+          subMedia += `
+            <div class="submission-image-wrapper" style="height: 150px; background: #ffffff; border-radius: 8px; display:flex; justify-content:center; align-items:center; overflow:hidden;">
+              <img class="submission-image" src="${sub.submitted_image}" style="max-height:100%; max-width:100%; object-fit:contain;" alt="drawing">
+            </div>
+          `;
+        }
+        
+        return `
+          <div class="glass-panel submission-card" style="border-left: 4px solid ${sub.team_color || '#fff'}; width: 100%; text-align: left; padding: 15px;">
+            <div class="submission-meta" style="font-size:0.95rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; font-weight:700;">
+              <span style="color: ${sub.team_color || '#fff'}">${escapeHtml(sub.team_name)}</span>
+              <span style="color: var(--color-warning);">${sub.points_awarded} pts</span>
+            </div>
+            ${subMedia}
+          </div>
+        `;
+      }).join('');
+    } else {
+      el.options.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px; font-size:1.4rem;">Waiting for team submissions...</div>';
+    }
   } else {
     // Hide MCQ cards for Text answers (allows audience to discuss answers without seeing them)
     el.options.style.display = 'none';

@@ -43,6 +43,15 @@ export default async function handler(req, res) {
         [id]
       );
 
+      // 5. Fetch submissions for the current question
+      const submissionsRes = await query(
+        `SELECT s.*, t.name as team_name, t.color as team_color 
+         FROM submissions s 
+         JOIN teams t ON s.team_id = t.id 
+         WHERE s.game_id = $1 AND s.question_index = $2`,
+        [id, game.current_question_index]
+      );
+
       // Return the compiled state of the active session
       return res.status(200).json({
         id: game.id,
@@ -53,6 +62,7 @@ export default async function handler(req, res) {
         total_questions: totalQuestions,
         question: activeQuestion,
         teams: teamsRes.rows,
+        submissions: submissionsRes.rows,
         timer_ends_at: game.timer_ends_at
       });
     }
@@ -153,6 +163,86 @@ export default async function handler(req, res) {
           team_id, 
           new_score: updateRes.rows[0].score, 
           message: 'Score adjusted successfully' 
+        });
+      }
+
+      // --- SUBMISSIONS WORKFLOW ACTIONS ---
+
+      if (action === 'submit') {
+        const { game_id, team_id, question_index, submitted_text, submitted_image } = req.body;
+        if (!game_id || !team_id || question_index === undefined) {
+          return res.status(400).json({ error: 'game_id, team_id, and question_index are required' });
+        }
+
+        // Check if submission already exists
+        const existRes = await query(
+          `SELECT id FROM submissions 
+           WHERE game_id = $1 AND team_id = $2 AND question_index = $3`,
+          [game_id, team_id, question_index]
+        );
+
+        if (existRes.rows.length > 0) {
+          await query(
+            `UPDATE submissions 
+             SET submitted_text = $1, submitted_image = $2, created_at = CURRENT_TIMESTAMP 
+             WHERE id = $3`,
+            [submitted_text || '', submitted_image || null, existRes.rows[0].id]
+          );
+          return res.status(200).json({ message: 'Submission updated successfully' });
+        } else {
+          await query(
+            `INSERT INTO submissions (game_id, team_id, question_index, submitted_text, submitted_image) 
+             VALUES ($1, $2, $3, $4, $5)`,
+            [game_id, team_id, question_index, submitted_text || '', submitted_image || null]
+          );
+          return res.status(201).json({ message: 'Submission recorded successfully' });
+        }
+      }
+
+      if (action === 'rate') {
+        const { game_id, team_id, question_index, points_awarded } = req.body;
+        if (!game_id || !team_id || question_index === undefined || points_awarded === undefined) {
+          return res.status(400).json({ error: 'game_id, team_id, question_index, and points_awarded are required' });
+        }
+
+        // Get current points rated for this submission
+        const subRes = await query(
+          `SELECT id, points_awarded FROM submissions 
+           WHERE game_id = $1 AND team_id = $2 AND question_index = $3`,
+          [game_id, team_id, question_index]
+        );
+
+        let diff = parseInt(points_awarded);
+        let subId = null;
+
+        if (subRes.rows.length > 0) {
+          diff = parseInt(points_awarded) - parseInt(subRes.rows[0].points_awarded);
+          subId = subRes.rows[0].id;
+          await query(
+            'UPDATE submissions SET points_awarded = $1 WHERE id = $2',
+            [parseInt(points_awarded), subId]
+          );
+        } else {
+          // Create a mock submission row to save rating if team has not submitted yet
+          const insRes = await query(
+            `INSERT INTO submissions (game_id, team_id, question_index, points_awarded, submitted_text) 
+             VALUES ($1, $2, $3, $4, 'Host manual scoring') RETURNING id`,
+            [game_id, team_id, question_index, parseInt(points_awarded)]
+          );
+          subId = insRes.rows[0].id;
+        }
+
+        // Apply point difference directly to the team's total score
+        await query(
+          'UPDATE teams SET score = score + $1 WHERE id = $2 AND game_id = $3',
+          [diff, team_id, game_id]
+        );
+
+        return res.status(200).json({ 
+          team_id, 
+          points_awarded: parseInt(points_awarded), 
+          score_difference: diff, 
+          message: 'Rating saved and team score adjusted.' 
         });
       }
 

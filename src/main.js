@@ -67,7 +67,11 @@ const el = {
   btnSfxIncorrect: document.getElementById('btn-sfx-incorrect'),
   btnSfxVictory: document.getElementById('btn-sfx-victory'),
   btnSfxConfetti: document.getElementById('btn-sfx-confetti'),
-  hostTeamsScoringList: document.getElementById('host-teams-scoring-list')
+  hostTeamsScoringList: document.getElementById('host-teams-scoring-list'),
+  btnAddRate: document.getElementById('btn-add-rate'),
+  hostSubmissionsPanel: document.getElementById('host-submissions-panel'),
+  hostSubmissionsList: document.getElementById('host-submissions-list'),
+  hostTeamLink: document.getElementById('host-team-link')
 };
 
 // Colors palette for teams quick selection
@@ -229,7 +233,7 @@ function renderCreatorQuestions() {
       <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 15px;">
         <span style="font-weight: 800; font-size: 1.1rem; color: var(--text-secondary);">Q${qIndex + 1}</span>
         <span style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; background: rgba(139,92,246,0.15); padding: 4px 8px; border-radius: 4px; color: var(--text-secondary); font-weight: 600;">
-          ${q.question_type === 'multiple-choice' ? 'Multiple Choice' : 'Text Answer'}
+          ${q.question_type === 'multiple-choice' ? 'Multiple Choice' : q.question_type === 'text' ? 'Text Answer' : 'Rate Submission'}
         </span>
         <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
           <label style="font-size: 0.85rem; color: var(--text-muted); font-weight:600;">Points:</label>
@@ -259,12 +263,20 @@ function renderCreatorQuestions() {
         `;
       });
       html += `</div>`;
-    } else {
+    } else if (q.question_type === 'text') {
       // Text Answer
       html += `
         <div class="form-group">
           <label>Correct Answer Value</label>
           <input type="text" class="q-correct-text" data-index="${qIndex}" value="${escapeHtml(q.correct_answer)}" placeholder="e.g. Venus">
+        </div>
+      `;
+    } else {
+      // Rate Submission
+      html += `
+        <div class="form-group">
+          <label>Submission Prompt Information</label>
+          <input type="text" class="q-correct-text" data-index="${qIndex}" value="${escapeHtml(q.correct_answer)}" placeholder="e.g. Image upload or caption prompt information">
         </div>
       `;
     }
@@ -509,6 +521,12 @@ async function startGame() {
 async function loadHostScreen(gameId) {
   state.activeGameId = gameId;
   showScreen('host');
+  
+  // Set the portal link
+  const portalUrl = `${window.location.origin}/team.html?gameId=${gameId}`;
+  el.hostTeamLink.href = portalUrl;
+  el.hostTeamLink.textContent = portalUrl;
+
   await refreshGameState();
   startPolling();
 }
@@ -538,7 +556,7 @@ function renderHostState() {
   // Render question card
   if (game.question) {
     const q = game.question;
-    el.hostQuestionType.textContent = q.question_type === 'multiple-choice' ? 'Multiple Choice' : 'Text Answer';
+    el.hostQuestionType.textContent = q.question_type === 'multiple-choice' ? 'Multiple Choice' : q.question_type === 'text' ? 'Text Answer' : 'Rate Submission';
     el.hostQuestionText.textContent = q.question_text;
     
     if (q.question_type === 'multiple-choice') {
@@ -553,10 +571,13 @@ function renderHostState() {
           </div>
         `;
       }).join('');
-    } else {
+    } else if (q.question_type === 'text') {
       el.hostAnswersContainer.style.display = 'none';
       el.hostTextAnswer.style.display = 'block';
       el.hostTextAnswerVal.textContent = q.correct_answer;
+    } else {
+      el.hostAnswersContainer.style.display = 'none';
+      el.hostTextAnswer.style.display = 'none';
     }
   } else {
     // If complete
@@ -564,6 +585,77 @@ function renderHostState() {
     el.hostQuestionText.textContent = 'Game complete! Open Projector View to see the Winner podium.';
     el.hostAnswersContainer.style.display = 'none';
     el.hostTextAnswer.style.display = 'none';
+  }
+
+  // Render submissions list if rate-submission question type
+  if (game.question && game.question.question_type === 'rate-submission') {
+    el.hostSubmissionsPanel.style.display = 'block';
+    el.hostSubmissionsList.innerHTML = '';
+    
+    game.teams.forEach(team => {
+      const sub = game.submissions.find(s => String(s.team_id) === String(team.id));
+      const subCard = document.createElement('div');
+      subCard.className = 'glass-panel submission-card';
+      subCard.style.borderLeftColor = team.color || '#fff';
+      
+      let contentHtml = '';
+      if (sub) {
+        if (sub.submitted_text) {
+          contentHtml += `<div class="submission-text">"${escapeHtml(sub.submitted_text)}"</div>`;
+        }
+        if (sub.submitted_image) {
+          contentHtml += `
+            <div class="submission-image-wrapper">
+              <img class="submission-image" src="${sub.submitted_image}" alt="Team drawing">
+            </div>
+          `;
+        }
+      } else {
+        contentHtml += `<div style="color: var(--text-muted); font-size: 0.9rem;">Waiting for submission...</div>`;
+      }
+      
+      // Generate rating buttons scaled to question points
+      const maxPoints = game.question.points;
+      const scoreSteps = [
+        0,
+        Math.round(maxPoints * 0.25),
+        Math.round(maxPoints * 0.5),
+        Math.round(maxPoints * 0.75),
+        maxPoints
+      ];
+      
+      const currentPoints = sub ? sub.points_awarded : 0;
+      
+      const ratingButtonsHtml = scoreSteps.map(pts => `
+        <button class="btn-rating-pill ${currentPoints === pts ? 'selected' : ''}" 
+                data-teamid="${team.id}" data-points="${pts}">
+          ${pts} pts
+        </button>
+      `).join('');
+      
+      subCard.innerHTML = `
+        <div class="submission-meta">
+          <span style="color: ${team.color || '#fff'}">${escapeHtml(team.name)}</span>
+          <span style="color: var(--text-secondary);">${currentPoints} / ${maxPoints} rated</span>
+        </div>
+        ${contentHtml}
+        <div class="submission-rating-group">
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight:700;">Score Awarded:</span>
+          <div class="rating-pill-container">
+            ${ratingButtonsHtml}
+          </div>
+        </div>
+      `;
+      
+      // Bind rating buttons
+      subCard.querySelectorAll('.btn-rating-pill').forEach(btn => {
+        btn.onclick = () => rateSubmission(team.id, btn.dataset.points);
+      });
+      
+      el.hostSubmissionsList.appendChild(subCard);
+    });
+  } else {
+    el.hostSubmissionsPanel.style.display = 'none';
   }
 
   // Render scoring panel
@@ -593,6 +685,29 @@ function renderHostState() {
   el.hostTeamsScoringList.querySelectorAll('.btn-score-inc').forEach(btn => {
     btn.onclick = () => adjustScore(btn.dataset.id, currentPoints);
   });
+}
+
+async function rateSubmission(teamId, points) {
+  if (!state.activeGame || !state.activeGame.question) return;
+
+  if (parseInt(points) > 0) {
+    playCorrect();
+  } else {
+    playIncorrect();
+  }
+
+  try {
+    await apiCall('/api/game', 'POST', {
+      action: 'rate',
+      game_id: state.activeGameId,
+      team_id: teamId,
+      question_index: state.activeGame.current_question_index,
+      points_awarded: parseInt(points)
+    });
+    refreshGameState();
+  } catch (error) {
+    console.error('Failed to rate submission:', error);
+  }
 }
 
 // Adjust Score API call
@@ -758,6 +873,7 @@ function init() {
   el.btnSaveQuiz.onclick = saveQuiz;
   el.btnAddMcq.onclick = () => addCreatorQuestion('multiple-choice');
   el.btnAddText.onclick = () => addCreatorQuestion('text');
+  el.btnAddRate.onclick = () => addCreatorQuestion('rate-submission');
 
   // Screen-Setup Bindings
   el.btnAddTeam.onclick = addTeamToBuilder;

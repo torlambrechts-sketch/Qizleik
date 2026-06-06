@@ -662,3 +662,100 @@ main {
   margin-bottom: 8px;
   color: rgba(255, 255, 255, 0.8);
 }
+
+/* Submissions Display Grid */
+.submissions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.submission-card {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-left: 4px solid var(--accent-primary);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.submission-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.submission-text {
+  font-style: italic;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.submission-image-wrapper {
+  width: 100%;
+  height: 180px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.submission-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Rating controller group */
+.submission-rating-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 10px;
+}
+
+.rating-pill-container {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.btn-rating-pill {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.btn-rating-pill:hover {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.btn-rating-pill.selected {
+  background: var(--accent-pink);
+  color: white;
+  box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+}
+
+/* Mobile specific helpers */
+@media (max-width: 600px) {
+  .setup-container, .host-layout {
+    grid-template-columns: 1fr;
+  }
+}
+

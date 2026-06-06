@@ -72,6 +72,10 @@
             <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
             Add Text Question
           </button>
+          <button id="btn-add-rate" class="btn-secondary">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+            Add Rate Submission
+          </button>
         </div>
       </div>
 
@@ -170,6 +174,16 @@
               <span style="color: var(--color-success); font-weight: 600; display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px;">Correct Answer</span>
               <h3 id="host-text-answer-val" style="color: white; font-size: 1.3rem;">Answer Value</h3>
             </div>
+
+            <!-- Submissions panel for Rate Submissions -->
+            <div id="host-submissions-panel" class="glass-panel" style="margin-top: 25px; padding: 20px; display: none; text-align: left;">
+              <h3 style="color: white; font-size: 1.2rem; margin-bottom: 12px; border-bottom: 1px solid var(--panel-border); padding-bottom: 8px;">
+                Team Submissions & Ratings
+              </h3>
+              <div id="host-submissions-list" class="submissions-grid">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
           </div>
 
           <!-- Question Controls -->
@@ -215,6 +229,12 @@
         <div>
           <div class="glass-panel" style="padding: 24px; height: 100%;">
             <h2 style="font-size: 1.4rem; color: white; margin-bottom: 20px;">Teams & Scoring</h2>
+            
+            <!-- Responder Link Box -->
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 0.85rem; text-align: left;">
+              <span style="color: var(--text-secondary); font-weight: 700; display: block; margin-bottom: 4px;">Wireless Responder Link:</span>
+              <a id="host-team-link" href="#" target="_blank" style="color: var(--accent-secondary); text-decoration: none; word-break: break-all; font-weight: 600;">Loading portal link...</a>
+            </div>
             
             <div id="host-teams-scoring-list" class="host-teams-panel">
               <!-- Rendered dynamically -->
