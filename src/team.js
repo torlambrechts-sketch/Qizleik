@@ -33,7 +33,10 @@ const el = {
   questionProgress: document.getElementById('portal-question-progress'),
   questionPrompt: document.getElementById('portal-question-prompt'),
   responderContainer: document.getElementById('portal-responder-container'),
-  submittedStatus: document.getElementById('portal-submitted-status')
+  submittedStatus: document.getElementById('portal-submitted-status'),
+  teamModeFeed: document.getElementById('portal-team-mode-feed'),
+  teamModeStatusText: document.getElementById('portal-team-mode-status-text'),
+  teamModeAnswersList: document.getElementById('portal-team-mode-answers-list')
 };
 
 // -------------------------------------------------------------
@@ -119,16 +122,34 @@ async function pollGameStatus() {
     });
     state.game = game;
 
-    // Update score badge
+    // Update score badge (Freeze/Hide current question score in team competition mode until all submit)
     const myTeam = game.teams.find(t => String(t.id) === String(state.teamId));
     if (myTeam) {
-      el.scoreBadge.textContent = `Score: ${myTeam.score} pts`;
+      if (game.team_mode) {
+        const mySubmission = game.submissions.find(s => String(s.team_id) === String(state.teamId));
+        const totalSubmittedCount = game.submissions.length;
+        const allSubmitted = totalSubmittedCount === game.teams.length;
+        
+        if (allSubmitted) {
+          el.scoreBadge.textContent = `Score: ${myTeam.score} pts`;
+        } else {
+          // Subtract points awarded for this question so far to show previous total score
+          const pointsThisRound = mySubmission ? (mySubmission.points_awarded || 0) : 0;
+          el.scoreBadge.textContent = `Score: ${myTeam.score - pointsThisRound} pts (Locked)`;
+        }
+      } else {
+        el.scoreBadge.textContent = `Score: ${myTeam.score} pts`;
+      }
     }
 
     renderPortalState();
   } catch (error) {
     console.error('Polling failed:', error);
   }
+}
+
+function subHasContent(sub) {
+  return (sub.submitted_text && sub.submitted_text !== 'Host manual scoring') || sub.submitted_image;
 }
 
 function renderPortalState() {
@@ -145,14 +166,91 @@ function renderPortalState() {
     el.stateActive.style.display = 'block';
     el.stateCompleted.style.display = 'none';
 
+    // Check if we have submitted an answer
+    const mySubmission = game.submissions.find(s => String(s.team_id) === String(state.teamId));
+    const hasSubmitted = mySubmission && subHasContent(mySubmission);
+
     // Clear and redraw responder form if question index changes
     if (game.current_question_index !== state.currentQuestionIndex) {
       state.currentQuestionIndex = game.current_question_index;
       el.submittedStatus.style.display = 'none';
       el.responderContainer.style.display = 'block';
+      el.teamModeFeed.style.display = 'none';
       renderResponder();
+    } else if (hasSubmitted) {
+      // Hide input panel and display success badge
+      el.responderContainer.style.display = 'none';
+      el.submittedStatus.style.display = 'block';
+      
+      // Update submitted status label to wait or show graded feedback
+      const totalSubmittedCount = game.submissions.length;
+      const totalTeams = game.teams.length;
+      const allSubmitted = totalSubmittedCount === totalTeams;
+      
+      if (game.team_mode) {
+        el.teamModeFeed.style.display = 'block';
+        
+        if (allSubmitted) {
+          el.teamModeStatusText.textContent = `🎉 All teams have submitted! Results unlocked.`;
+          
+          if (mySubmission.points_awarded !== undefined && mySubmission.points_awarded !== null) {
+            el.submittedStatus.innerHTML = `
+              <span style="color: #10b981; font-weight: 800; font-size: 1rem; display: block; margin-bottom: 4px;">✓ Response Graded!</span>
+              <span style="font-size: 0.9rem; color: var(--text-dark); font-weight: 700;">+${mySubmission.points_awarded} Points Awarded</span>
+              ${game.question && game.question.correct_answer ? `<div style="font-size: 0.8rem; color: var(--text-medium); margin-top: 4px;">Correct Answer: ${escapeHtml(game.question.correct_answer)}</div>` : ''}
+            `;
+          } else {
+            el.submittedStatus.innerHTML = `
+              <span style="color: #10b981; font-weight: 800; font-size: 1rem; display: block; margin-bottom: 4px;">✓ Response Submitted!</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">All submissions are in. Waiting for host to grade or advance...</span>
+            `;
+          }
+        } else {
+          el.teamModeStatusText.textContent = `⏳ Waiting for other teams to submit... (${totalSubmittedCount} of ${totalTeams} completed)`;
+          el.submittedStatus.innerHTML = `
+            <span style="color: #10b981; font-weight: 800; font-size: 1rem; display: block; margin-bottom: 4px;">✓ Response Submitted!</span>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Waiting for all other teams to submit...</span>
+          `;
+        }
+
+        // Render other teams' answers
+        el.teamModeAnswersList.innerHTML = game.submissions.map(sub => {
+          if (String(sub.team_id) === String(state.teamId)) return '';
+          
+          let mediaHtml = '';
+          if (sub.submitted_text) {
+            mediaHtml += `<div style="margin-top: 4px; font-weight: 500; color: var(--text-dark);">"${escapeHtml(sub.submitted_text)}"</div>`;
+          }
+          if (sub.submitted_image) {
+            mediaHtml += `
+              <div style="margin-top: 8px; max-width: 250px; border: 1px solid var(--border-color-light); border-radius: 8px; padding: 4px; background: #fff;">
+                <img src="${sub.submitted_image}" style="width: 100%; border-radius: 6px; object-fit: contain; max-height: 140px;">
+              </div>
+            `;
+          }
+          
+          return `
+            <div style="padding: 12px; border: 1px solid var(--border-color-light); border-radius: 12px; background: #fafafb; border-left: 4px solid ${sub.team_color || '#ccc'}; text-align: left;">
+              <strong style="color: ${sub.team_color || 'var(--text-dark)'}; font-size: 0.85rem;">
+                ${escapeHtml(sub.team_name)}
+              </strong>
+              ${mediaHtml}
+            </div>
+          `;
+        }).join('');
+      } else {
+        el.teamModeFeed.style.display = 'none';
+        el.submittedStatus.innerHTML = `
+          <span style="color: #10b981; font-weight: 800; font-size: 1rem; display: block; margin-bottom: 4px;">✓ Response Submitted!</span>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Waiting for host to score or advance the quiz...</span>
+        `;
+      }
+    } else {
+      el.responderContainer.style.display = 'block';
+      el.submittedStatus.style.display = 'none';
+      el.teamModeFeed.style.display = 'none';
     }
-  } 
+  }
   else if (game.status === 'completed') {
     el.stateLobby.style.display = 'none';
     el.stateActive.style.display = 'none';

@@ -124,11 +124,7 @@ function renderPresenterState(game) {
   }
 
   // 3. Render Scoreboard columns at bottom (always visible)
-  const currentTeamsJson = JSON.stringify(game.teams);
-  if (currentTeamsJson !== localState.teamsJson) {
-    localState.teamsJson = currentTeamsJson;
-    renderScoreboard(game.teams);
-  }
+  renderScoreboard(game);
 
   // Keep state status cache updated
   localState.status = game.status;
@@ -160,42 +156,67 @@ function renderQuestion(game) {
   el.progress.textContent = `Question ${game.current_question_index + 1} of ${game.total_questions}`;
   el.questionText.textContent = q.question_text;
 
+  const submissionsCount = game.submissions.length;
+  const totalTeams = game.teams.length;
+  const allSubmitted = submissionsCount === totalTeams;
+
   if (q.question_type === 'multiple-choice') {
     el.options.style.display = 'grid';
     el.options.innerHTML = q.options.map((opt, idx) => `
-      <div class="presenter-option-box glass-panel">
+      <div class="presenter-option-box glass-panel" style="color: var(--text-dark); background: #fff;">
         <div class="presenter-option-letter">${String.fromCharCode(65 + idx)}</div>
         <div>${escapeHtml(opt)}</div>
       </div>
     `).join('');
   } else if (q.question_type === 'rate-submission') {
     el.options.style.display = 'grid';
-    if (game.submissions && game.submissions.length > 0) {
-      el.options.innerHTML = game.submissions.map(sub => {
-        let subMedia = '';
-        if (sub.submitted_text) {
-          subMedia += `<div class="submission-text" style="font-size:1.15rem; padding:12px; margin-bottom:8px; line-height:1.4;">"${escapeHtml(sub.submitted_text)}"</div>`;
-        }
-        if (sub.submitted_image) {
-          subMedia += `
-            <div class="submission-image-wrapper" style="height: 150px; background: #ffffff; border-radius: 8px; display:flex; justify-content:center; align-items:center; overflow:hidden;">
-              <img class="submission-image" src="${sub.submitted_image}" style="max-height:100%; max-width:100%; object-fit:contain;" alt="drawing">
-            </div>
-          `;
-        }
+    
+    if (game.team_mode && !allSubmitted) {
+      // Hide actual text/drawings from audience, display sub status cards
+      el.options.innerHTML = game.teams.map(team => {
+        const sub = game.submissions.find(s => String(s.team_id) === String(team.id));
+        const hasSubmitted = sub && (sub.submitted_text || sub.submitted_image);
         
         return `
-          <div class="glass-panel submission-card" style="border-left: 4px solid ${sub.team_color || '#fff'}; width: 100%; text-align: left; padding: 15px;">
-            <div class="submission-meta" style="font-size:0.95rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; font-weight:700;">
-              <span style="color: ${sub.team_color || '#fff'}">${escapeHtml(sub.team_name)}</span>
-              <span style="color: var(--color-warning);">${sub.points_awarded} pts</span>
+          <div class="glass-panel submission-card" style="border-left: 4px solid ${team.color || '#fff'}; width: 100%; text-align: left; padding: 15px; opacity: ${hasSubmitted ? '1' : '0.55'};">
+            <div style="font-size:1.15rem; font-weight:700; display:flex; justify-content:space-between; align-items:center; color: var(--text-dark);">
+              <span>🎨 ${escapeHtml(team.name)}</span>
+              <span style="font-size: 0.95rem; font-weight:800; color: ${hasSubmitted ? '#10b981' : 'var(--text-muted)'};">
+                ${hasSubmitted ? '✓ Answered' : '⏳ Thinking...'}
+              </span>
             </div>
-            ${subMedia}
           </div>
         `;
       }).join('');
     } else {
-      el.options.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px; font-size:1.4rem;">Waiting for team submissions...</div>';
+      // Reveal submissions
+      if (game.submissions && game.submissions.length > 0) {
+        el.options.innerHTML = game.submissions.map(sub => {
+          let subMedia = '';
+          if (sub.submitted_text) {
+            subMedia += `<div class="submission-text" style="font-size:1.15rem; padding:12px; margin-bottom:8px; line-height:1.4; color: var(--text-dark);">"${escapeHtml(sub.submitted_text)}"</div>`;
+          }
+          if (sub.submitted_image) {
+            subMedia += `
+              <div class="submission-image-wrapper" style="height: 150px; background: #ffffff; border-radius: 8px; display:flex; justify-content:center; align-items:center; overflow:hidden;">
+                <img class="submission-image" src="${sub.submitted_image}" style="max-height:100%; max-width:100%; object-fit:contain;" alt="drawing">
+              </div>
+            `;
+          }
+          
+          return `
+            <div class="glass-panel submission-card" style="border-left: 4px solid ${sub.team_color || '#fff'}; width: 100%; text-align: left; padding: 15px;">
+              <div class="submission-meta" style="font-size:0.95rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; font-weight:700; color: var(--text-muted);">
+                <span style="color: ${sub.team_color || '#333'}">${escapeHtml(sub.team_name)}</span>
+                <span style="color: var(--accent-coral);">${sub.points_awarded} pts</span>
+              </div>
+              ${subMedia}
+            </div>
+          `;
+        }).join('');
+      } else {
+        el.options.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px; font-size:1.4rem;">Waiting for team submissions...</div>';
+      }
     }
   } else {
     // Hide MCQ cards for Text answers (allows audience to discuss answers without seeing them)
@@ -231,16 +252,33 @@ function renderPodium(teams) {
 }
 
 // Live Footer Scoreboard Bar Charts
-function renderScoreboard(teams) {
+function renderScoreboard(game) {
+  const teams = game.teams;
   if (teams.length === 0) {
     el.scoreboard.innerHTML = '';
     return;
   }
 
+  // If in team mode, subtract current round's points until everyone has submitted
+  const submissionsCount = game.submissions.length;
+  const allSubmitted = submissionsCount === teams.length;
+
+  const displayTeams = teams.map(team => {
+    if (game.team_mode && !allSubmitted) {
+      const sub = game.submissions.find(s => String(s.team_id) === String(team.id));
+      const pointsThisRound = sub ? (sub.points_awarded || 0) : 0;
+      return {
+        ...team,
+        score: team.score - pointsThisRound
+      };
+    }
+    return team;
+  });
+
   // Find max score to normalize bar heights
-  const maxScore = Math.max(...teams.map(t => t.score));
+  const maxScore = Math.max(...displayTeams.map(t => t.score));
   
-  el.scoreboard.innerHTML = teams.map(team => {
+  el.scoreboard.innerHTML = displayTeams.map(team => {
     // Normalise height percentage (between 5% and 85%)
     let pct = 5;
     if (maxScore > 0 && team.score > 0) {

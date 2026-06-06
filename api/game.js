@@ -63,7 +63,8 @@ export default async function handler(req, res) {
         question: activeQuestion,
         teams: teamsRes.rows,
         submissions: submissionsRes.rows,
-        timer_ends_at: game.timer_ends_at
+        timer_ends_at: game.timer_ends_at,
+        team_mode: game.team_mode
       });
     }
 
@@ -71,15 +72,15 @@ export default async function handler(req, res) {
       const { action } = req.body;
 
       if (action === 'start') {
-        const { quiz_id } = req.body;
+        const { quiz_id, team_mode } = req.body;
         if (!quiz_id) {
           return res.status(400).json({ error: 'Quiz ID is required to start a game' });
         }
         
         // Start a new game session in 'setup' state
         const insertGameRes = await query(
-          'INSERT INTO games (quiz_id, status, current_question_index) VALUES ($1, $2, $3) RETURNING id',
-          [quiz_id, 'setup', 0]
+          'INSERT INTO games (quiz_id, status, current_question_index, team_mode) VALUES ($1, $2, $3, $4) RETURNING id',
+          [quiz_id, 'setup', 0, team_mode || false]
         );
         const gameId = insertGameRes.rows[0].id;
         
@@ -107,7 +108,7 @@ export default async function handler(req, res) {
       }
 
       if (action === 'update') {
-        const { game_id, status, current_question_index, timer_duration } = req.body;
+        const { game_id, status, current_question_index, timer_duration, team_mode } = req.body;
         if (!game_id) {
           return res.status(400).json({ error: 'Game ID is required' });
         }
@@ -147,6 +148,12 @@ export default async function handler(req, res) {
           updateQuery += `timer_ends_at = $${index}, `;
           const endsAt = timer_duration > 0 ? new Date(Date.now() + timer_duration * 1000).toISOString() : null;
           params.push(endsAt);
+          index++;
+        }
+
+        if (team_mode !== undefined) {
+          updateQuery += `team_mode = $${index}, `;
+          params.push(team_mode);
           index++;
         }
 

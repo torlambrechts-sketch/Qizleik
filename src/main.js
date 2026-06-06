@@ -48,18 +48,16 @@ const el = {
   btnCancelSetup: document.getElementById('btn-cancel-setup'),
   btnStartGame: document.getElementById('btn-start-game'),
   
-  // Host Screen
-  hostGameTitle: document.getElementById('host-game-title'),
-  hostProgressText: document.getElementById('host-progress-text'),
+  // HUD banner elements
+  bannerQuizTitle: document.getElementById('banner-quiz-title'),
+  bannerQuestionsCount: document.getElementById('banner-questions-count'),
+  bannerActionsContainer: document.getElementById('banner-actions-container'),
+
+  // Host Screen elements
   hostTimer: document.getElementById('host-timer'),
   hostTimerSec: document.getElementById('host-timer-sec'),
   btnOpenProjector: document.getElementById('btn-open-projector'),
   btnEndGame: document.getElementById('btn-end-game'),
-  hostQuestionType: document.getElementById('host-question-type'),
-  hostQuestionText: document.getElementById('host-question-text'),
-  hostAnswersContainer: document.getElementById('host-answers-container'),
-  hostTextAnswer: document.getElementById('host-text-answer'),
-  hostTextAnswerVal: document.getElementById('host-text-answer-val'),
   btnPrevQuestion: document.getElementById('btn-prev-question'),
   btnNextQuestion: document.getElementById('btn-next-question'),
   btnTimerStart: document.getElementById('btn-timer-start'),
@@ -69,11 +67,13 @@ const el = {
   btnSfxIncorrect: document.getElementById('btn-sfx-incorrect'),
   btnSfxVictory: document.getElementById('btn-sfx-victory'),
   btnSfxConfetti: document.getElementById('btn-sfx-confetti'),
+  hostQTracker: document.getElementById('host-q-tracker'),
+  hostQuestionQueueList: document.getElementById('host-question-queue-list'),
   hostTeamsScoringList: document.getElementById('host-teams-scoring-list'),
-  btnAddRate: document.getElementById('btn-add-rate'),
-  hostSubmissionsPanel: document.getElementById('host-submissions-panel'),
-  hostSubmissionsList: document.getElementById('host-submissions-list'),
+  hostChatHeader: document.getElementById('host-chat-header'),
+  hostChatFeed: document.getElementById('host-chat-feed'),
   hostTeamLink: document.getElementById('host-team-link'),
+  btnAddRate: document.getElementById('btn-add-rate'),
   
   // Admin & Leaderboard elements
   adminStatus: document.getElementById('admin-status'),
@@ -104,6 +104,27 @@ function showScreen(screenName) {
       el.screens[key].classList.remove('active');
     }
   });
+
+  // Handle dynamic HUD banner updates
+  if (screenName === 'dashboard') {
+    el.bannerQuizTitle.textContent = "Mastering Trivia & Team Play Unleashed";
+    el.bannerQuestionsCount.textContent = "🏆 Persisted High Scores";
+    el.bannerActionsContainer.style.display = 'none';
+  } else if (screenName === 'creator') {
+    el.bannerQuizTitle.textContent = state.editingQuizId ? "Edit Quiz Challenge" : "Create Quiz Challenge";
+    el.bannerQuestionsCount.textContent = "🧩 Configure custom rounds and scoring metrics";
+    el.bannerActionsContainer.style.display = 'none';
+  } else if (screenName === 'setup') {
+    el.bannerQuizTitle.textContent = state.activeQuiz ? state.activeQuiz.title : "Hosting Setup";
+    el.bannerQuestionsCount.textContent = `🧩 ${state.activeQuiz ? state.activeQuiz.questions.length : 0} rounds`;
+    el.bannerActionsContainer.style.display = 'none';
+  } else if (screenName === 'host') {
+    if (state.activeGame) {
+      el.bannerQuizTitle.textContent = state.activeGame.quiz_title;
+      el.bannerQuestionsCount.textContent = `🧩 Round ${state.activeGame.current_question_index + 1} of ${state.activeGame.total_questions}`;
+    }
+    el.bannerActionsContainer.style.display = 'flex';
+  }
 
   // Handle screen transition side-effects
   if (screenName !== 'host') {
@@ -543,10 +564,12 @@ async function startGame() {
   }
 
   try {
+    const teamMode = document.getElementById('setup-team-mode').checked;
     // 1. Start game session
     const startRes = await apiCall('/api/game', 'POST', {
       action: 'start',
-      quiz_id: state.activeQuiz.id
+      quiz_id: state.activeQuiz.id,
+      team_mode: teamMode
     });
     const gameId = startRes.game_id;
     state.activeGameId = gameId;
@@ -616,130 +639,212 @@ function renderHostState() {
   const game = state.activeGame;
   if (!game) return;
 
-  el.hostGameTitle.textContent = game.quiz_title;
-  el.hostProgressText.textContent = `Question ${game.current_question_index + 1} of ${game.total_questions}`;
+  // Update dynamic HUD banner title & subtitle
+  el.bannerQuizTitle.textContent = game.quiz_title;
+  el.bannerQuestionsCount.textContent = `🧩 Question ${game.current_question_index + 1} of ${game.total_questions}`;
 
   // Handle timer countdown
   updateTimerDisplay();
 
-  // Render question card
-  if (game.question) {
-    const q = game.question;
-    el.hostQuestionType.textContent = q.question_type === 'multiple-choice' ? 'Multiple Choice' : q.question_type === 'text' ? 'Text Answer' : 'Rate Submission';
-    el.hostQuestionText.textContent = q.question_text;
+  // 1. Render Left-Side Question Queue
+  if (state.activeQuiz && state.activeQuiz.questions) {
+    const questions = state.activeQuiz.questions;
+    el.hostQTracker.textContent = `Completed: ${game.current_question_index}/${game.total_questions}`;
     
-    if (q.question_type === 'multiple-choice') {
-      el.hostAnswersContainer.style.display = 'grid';
-      el.hostTextAnswer.style.display = 'none';
-      el.hostAnswersContainer.innerHTML = q.options.map((opt, idx) => {
-        const isCorrect = q.correct_answer === opt;
-        return `
-          <div class="answer-option-pill ${isCorrect ? 'correct-ans' : ''}">
-            <span style="font-weight: 800; margin-right: 8px;">${String.fromCharCode(65 + idx)}.</span>
-            ${escapeHtml(opt)}
-          </div>
-        `;
-      }).join('');
-    } else if (q.question_type === 'text') {
-      el.hostAnswersContainer.style.display = 'none';
-      el.hostTextAnswer.style.display = 'block';
-      el.hostTextAnswerVal.textContent = q.correct_answer;
-    } else {
-      el.hostAnswersContainer.style.display = 'none';
-      el.hostTextAnswer.style.display = 'none';
-    }
-  } else {
-    // If complete
-    el.hostQuestionType.textContent = 'Quiz Finished';
-    el.hostQuestionText.textContent = 'Game complete! Open Projector View to see the Winner podium.';
-    el.hostAnswersContainer.style.display = 'none';
-    el.hostTextAnswer.style.display = 'none';
-  }
-
-  // Render submissions list if rate-submission question type
-  if (game.question && game.question.question_type === 'rate-submission') {
-    el.hostSubmissionsPanel.style.display = 'block';
-    el.hostSubmissionsList.innerHTML = '';
-    
-    game.teams.forEach(team => {
-      const sub = game.submissions.find(s => String(s.team_id) === String(team.id));
-      const subCard = document.createElement('div');
-      subCard.className = 'glass-panel submission-card';
-      subCard.style.borderLeftColor = team.color || '#fff';
-      
-      let contentHtml = '';
-      if (sub) {
-        if (sub.submitted_text) {
-          contentHtml += `<div class="submission-text">"${escapeHtml(sub.submitted_text)}"</div>`;
-        }
-        if (sub.submitted_image) {
-          contentHtml += `
-            <div class="submission-image-wrapper">
-              <img class="submission-image" src="${sub.submitted_image}" alt="Team drawing">
-            </div>
-          `;
-        }
-      } else {
-        contentHtml += `<div style="color: var(--text-muted); font-size: 0.9rem;">Waiting for submission...</div>`;
+    el.hostQuestionQueueList.innerHTML = questions.map((q, idx) => {
+      let stateClass = 'future';
+      let icon = '🔒';
+      if (idx < game.current_question_index) {
+        stateClass = 'completed';
+        icon = '✓';
+      } else if (idx === game.current_question_index) {
+        stateClass = 'active';
+        icon = '▶';
       }
       
-      // Generate rating buttons scaled to question points
-      const maxPoints = game.question.points;
-      const scoreSteps = [
-        0,
-        Math.round(maxPoints * 0.25),
-        Math.round(maxPoints * 0.5),
-        Math.round(maxPoints * 0.75),
-        maxPoints
-      ];
-      
-      const currentPoints = sub ? sub.points_awarded : 0;
-      
-      const ratingButtonsHtml = scoreSteps.map(pts => `
-        <button class="btn-rating-pill ${currentPoints === pts ? 'selected' : ''}" 
-                data-teamid="${team.id}" data-points="${pts}">
-          ${pts} pts
-        </button>
-      `).join('');
-      
-      subCard.innerHTML = `
-        <div class="submission-meta">
-          <span style="color: ${team.color || '#fff'}">${escapeHtml(team.name)}</span>
-          <span style="color: var(--text-secondary);">${currentPoints} / ${maxPoints} rated</span>
-        </div>
-        ${contentHtml}
-        <div class="submission-rating-group">
-          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight:700;">Score Awarded:</span>
-          <div class="rating-pill-container">
-            ${ratingButtonsHtml}
+      return `
+        <div class="queue-question-item ${stateClass}" data-index="${idx}">
+          <div class="queue-icon-circle">${icon}</div>
+          <div class="queue-info-text">
+            <div class="queue-info-title">${escapeHtml(q.question_text)}</div>
+            <div class="queue-info-meta">${q.question_type === 'multiple-choice' ? 'MCQ' : q.question_type === 'text' ? 'Text' : 'Rating'} &bull; ${q.points} pts</div>
           </div>
         </div>
       `;
-      
-      // Bind rating buttons
-      subCard.querySelectorAll('.btn-rating-pill').forEach(btn => {
-        btn.onclick = () => rateSubmission(team.id, btn.dataset.points);
-      });
-      
-      el.hostSubmissionsList.appendChild(subCard);
+    }).join('');
+    
+    // Bind click events to jump question
+    el.hostQuestionQueueList.querySelectorAll('.queue-question-item').forEach(item => {
+      item.onclick = async () => {
+        const idx = parseInt(item.dataset.index);
+        clearInterval(state.timerInterval);
+        el.hostTimer.classList.remove('pulse');
+        const targetQ = state.activeQuiz.questions[idx];
+        const autoTimerDuration = targetQ ? (targetQ.timer_duration || 0) : 0;
+        try {
+          await apiCall('/api/game', 'POST', {
+            action: 'update',
+            game_id: state.activeGameId,
+            current_question_index: idx,
+            timer_duration: autoTimerDuration
+          });
+          refreshGameState();
+        } catch (error) {
+          console.error('Jump question failed:', error);
+        }
+      };
     });
-  } else {
-    el.hostSubmissionsPanel.style.display = 'none';
   }
 
-  // Render scoring panel
+  // 2. Render Right-Side Chat Console Feed
+  el.hostChatHeader.textContent = game.question 
+    ? `Round ${game.current_question_index + 1}: ${game.question.question_type === 'multiple-choice' ? 'Multiple Choice' : game.question.question_type === 'text' ? 'Text Answer' : 'Rate Submission'}`
+    : 'Quiz Completed';
+
+  let chatHtml = '';
+  if (game.question) {
+    chatHtml += `
+      <div class="chat-message-row system-announcement" style="margin-bottom: 15px;">
+        <div class="chat-avatar-circle" style="background: var(--accent-coral-light); color: var(--accent-coral);">📢</div>
+        <div class="chat-message-bubble" style="max-width: 90%;">
+          <div class="chat-message-meta">SYSTEM ANNOUNCEMENT &bull; ACTIVE QUESTION</div>
+          <div class="chat-bubble-body" style="background: var(--accent-coral-light); border-color: rgba(240, 86, 56, 0.15); border-radius: 0 16px 16px 16px;">
+            <strong style="color: var(--accent-coral); font-size: 0.85rem; text-transform: uppercase; display: block; margin-bottom: 4px;">
+              ${game.question.question_type === 'multiple-choice' ? 'Multiple Choice' : game.question.question_type === 'text' ? 'Text Answer' : 'Rate Submission'} (${game.question.points} pts)
+            </strong>
+            <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-dark); margin-bottom: 8px;">
+              ${escapeHtml(game.question.question_text)}
+            </div>
+            ${game.question.question_type === 'multiple-choice' ? `
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;">
+                ${game.question.options.map((opt, idx) => {
+                  const isCorrect = game.question.correct_answer === opt;
+                  return `
+                    <div style="padding: 6px 12px; background: #fff; border: 1px solid ${isCorrect ? 'var(--accent-coral)' : 'var(--border-color-light)'}; border-radius: 8px; font-size: 0.85rem; font-weight: ${isCorrect ? '700' : '500'}; color: ${isCorrect ? 'var(--accent-coral-hover)' : 'var(--text-dark)'};">
+                      <strong>${String.fromCharCode(65 + idx)}.</strong> ${escapeHtml(opt)} ${isCorrect ? '✓' : ''}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            ` : game.question.correct_answer ? `
+              <div style="margin-top: 8px; font-size: 0.85rem; color: var(--text-medium);">
+                Correct Answer: <strong style="color: var(--text-dark);">${escapeHtml(game.question.correct_answer)}</strong>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Render team answers in chat
+    if (game.submissions && game.submissions.length > 0) {
+      game.submissions.forEach(sub => {
+        const team = game.teams.find(t => String(t.id) === String(sub.team_id));
+        const teamName = team ? team.name : sub.team_name || 'Unknown Team';
+        const teamColor = team ? team.color : sub.team_color || '#ccc';
+        const pointsAwarded = sub.points_awarded || 0;
+        
+        let subMedia = '';
+        if (sub.submitted_text) {
+          subMedia += `<div style="font-style: italic; font-weight: 500; font-size: 1rem;">"${escapeHtml(sub.submitted_text)}"</div>`;
+        }
+        if (sub.submitted_image) {
+          subMedia += `
+            <div class="chat-bubble-image-wrapper">
+              <img class="chat-bubble-image" src="${sub.submitted_image}" alt="drawing">
+            </div>
+          `;
+        }
+        
+        // Rating controls if rate-submission
+        let ratingFooter = '';
+        if (game.question && game.question.question_type === 'rate-submission') {
+          const maxPoints = game.question.points;
+          
+          // Generate rating scale options
+          const scoreSteps = [
+            0,
+            Math.round(maxPoints * 0.25),
+            Math.round(maxPoints * 0.5),
+            Math.round(maxPoints * 0.75),
+            maxPoints
+          ];
+          
+          ratingFooter = `
+            <div class="chat-rating-footer">
+              <span class="chat-rating-title">Award Score:</span>
+              <div class="chat-rating-container">
+                ${scoreSteps.map(pts => `
+                  <button class="chat-rating-btn ${pointsAwarded === pts ? 'selected' : ''}" 
+                          data-teamid="${sub.team_id}" data-points="${pts}">
+                    ${pts} pts
+                  </button>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+        
+        chatHtml += `
+          <div class="chat-message-row" style="margin-bottom: 15px;">
+            <div class="chat-avatar-circle" style="background: ${teamColor}; color: #fff;">
+              ${teamName.charAt(0).toUpperCase()}
+            </div>
+            <div class="chat-message-bubble" style="max-width: 80%;">
+              <div class="chat-message-meta">
+                <span style="font-weight: 700; color: var(--text-dark);">${escapeHtml(teamName)}</span>
+                &bull; ${new Date(sub.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                ${pointsAwarded > 0 ? `&bull; <span style="color: var(--accent-coral); font-weight:700;">+${pointsAwarded} pts</span>` : ''}
+              </div>
+              <div class="chat-bubble-body" style="border-left: 4px solid ${teamColor};">
+                ${subMedia}
+                ${ratingFooter}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    } else {
+      chatHtml += `
+        <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 40px;">
+          Waiting for team submissions...
+        </div>
+      `;
+    }
+  } else {
+    chatHtml += `
+      <div class="chat-message-row system-announcement">
+        <div class="chat-avatar-circle" style="background: var(--accent-coral-light); color: var(--accent-coral);">🏆</div>
+        <div class="chat-message-bubble">
+          <div class="chat-message-meta">SYSTEM ANNOUNCEMENT</div>
+          <div class="chat-bubble-body">
+            <strong>Quiz Finished!</strong> Open the Projector View to see the Winner podium.
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  el.hostChatFeed.innerHTML = chatHtml;
+
+  // Bind rating buttons inside chat feed
+  el.hostChatFeed.querySelectorAll('.chat-rating-btn').forEach(btn => {
+    btn.onclick = () => rateSubmission(btn.dataset.teamid, btn.dataset.points);
+  });
+
+  // 3. Render manual score adjusting panel
   el.hostTeamsScoringList.innerHTML = game.teams.map(team => `
-    <div class="glass-panel host-team-row" style="border-left-color: ${team.color || '#fff'}">
+    <div class="host-team-row" style="border-left: 4px solid ${team.color || '#fff'}">
       <div class="host-team-info">
         <div class="team-avatar" style="background: ${team.color || '#fff'}"></div>
         <div>
-          <div style="font-weight:700; color:#fff;">${escapeHtml(team.name)}</div>
+          <div style="font-weight:700; color:var(--text-dark);">${escapeHtml(team.name)}</div>
           <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(team.players)}</div>
         </div>
       </div>
       <div class="host-score-controls">
         <button class="btn-danger btn-score-dec" data-id="${team.id}" style="padding: 4px 10px; font-size: 0.8rem;">-</button>
-        <span class="host-score-display">${team.score}</span>
+        <span class="host-score-display" style="color: var(--text-dark);">${team.score}</span>
         <button class="btn-primary btn-score-inc" data-id="${team.id}" style="padding: 4px 10px; font-size: 0.8rem;">+</button>
       </div>
     </div>
@@ -1048,9 +1153,15 @@ function init() {
     }
   };
 
-  el.btnTimerStart.onclick = () => triggerTimer(30);
+  el.btnTimerStart.onclick = () => {
+    const qDuration = state.activeGame && state.activeGame.question ? (state.activeGame.question.timer_duration || 30) : 30;
+    triggerTimer(qDuration);
+  };
   el.btnTimerStop.onclick = stopTimer;
-  el.btnTimerReset.onclick = () => triggerTimer(30);
+  el.btnTimerReset.onclick = () => {
+    const qDuration = state.activeGame && state.activeGame.question ? (state.activeGame.question.timer_duration || 30) : 30;
+    triggerTimer(qDuration);
+  };
 
   // Presenter Link
   el.btnOpenProjector.onclick = () => {

@@ -69,6 +69,7 @@ async function initDb() {
         status VARCHAR(50) DEFAULT 'setup', 
         current_question_index INTEGER DEFAULT 0,
         timer_ends_at TIMESTAMP,
+        team_mode BOOLEAN DEFAULT FALSE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
@@ -117,6 +118,9 @@ async function initDb() {
     `);
     await client.query(`
       ALTER TABLE questions ADD COLUMN IF NOT EXISTS rating_scale INTEGER DEFAULT 10;
+    `);
+    await client.query(`
+      ALTER TABLE games ADD COLUMN IF NOT EXISTS team_mode BOOLEAN DEFAULT FALSE;
     `);
 
     await client.query('COMMIT');
