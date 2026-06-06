@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizMaster Pro - Team Quiz & Scoring Platform</title>
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header>
+    <div class="logo">
+      QuizMaster <span>PRO</span>
+    </div>
+    <div id="header-actions">
+      <!-- Dynamic header content (like 'Back to Dashboard' button) -->
+    </div>
+  </header>
+
+  <!-- Main Application Wrapper -->
+  <main>
+
+    <!-- SCREEN 1: Dashboard (Quiz List) -->
+    <section id="screen-dashboard" class="screen active">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <div>
+          <h1 style="font-size: 2.2rem; color: #fff;">Your Quizzes</h1>
+          <p style="color: var(--text-muted);">Select a quiz to host or create a new one</p>
+        </div>
+        <button id="btn-create-quiz" class="btn-primary">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+          Create New Quiz
+        </button>
+      </div>
+
+      <!-- Quiz cards container -->
+      <div id="quiz-list" class="quiz-grid">
+        <!-- Rendered dynamically -->
+        <div style="grid-column: 1/-1; text-align: center; padding: 50px; color: var(--text-muted);">
+          Loading quizzes...
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: Quiz Creator / Editor -->
+    <section id="screen-creator" class="screen">
+      <div style="margin-bottom: 30px;">
+        <h1 id="creator-title" style="font-size: 2.2rem; color: #fff;">Create Quiz</h1>
+        <p style="color: var(--text-muted);">Define your quiz parameters and questions</p>
+      </div>
+
+      <div class="glass-panel" style="padding: 30px; margin-bottom: 30px;">
+        <div class="form-group">
+          <label for="quiz-title-input">Quiz Title</label>
+          <input type="text" id="quiz-title-input" placeholder="e.g. Pub Trivia Night - Week 1">
+        </div>
+        <div class="form-group">
+          <label for="quiz-desc-input">Description (Optional)</label>
+          <textarea id="quiz-desc-input" rows="3" placeholder="e.g. General knowledge, science, and music rounds..."></textarea>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="font-size: 1.5rem; color: #fff;">Questions</h2>
+        <div style="display: flex; gap: 10px;">
+          <button id="btn-add-mcq" class="btn-secondary">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+            Add Multiple Choice
+          </button>
+          <button id="btn-add-text" class="btn-secondary">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"></path></svg>
+            Add Text Question
+          </button>
+        </div>
+      </div>
+
+      <!-- Question builder item cards -->
+      <div id="questions-builder-list">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div style="display: flex; gap: 15px; margin-top: 30px; justify-content: flex-end;">
+        <button id="btn-cancel-creator" class="btn-secondary">Cancel</button>
+        <button id="btn-save-quiz" class="btn-primary">Save Quiz</button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: Team Setup -->
+    <section id="screen-setup" class="screen">
+      <div style="margin-bottom: 30px;">
+        <h1 style="font-size: 2.2rem; color: #fff;">Divide into Teams</h1>
+        <p id="setup-quiz-subtitle" style="color: var(--text-muted);">Quiz: General Trivia</p>
+      </div>
+
+      <div class="setup-container">
+        <!-- Left: Team list creator -->
+        <div class="glass-panel" style="padding: 30px;">
+          <h2 style="font-size: 1.4rem; margin-bottom: 20px; color: #fff; display: flex; justify-content: space-between; align-items: center;">
+            Teams Configuration
+            <button id="btn-add-team" class="btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">
+              + Add Team
+            </button>
+          </h2>
+          
+          <div id="team-list-builder" class="team-list-builder">
+            <!-- Rendered dynamically (default 2 teams) -->
+          </div>
+        </div>
+
+        <!-- Right: Game Launch Options -->
+        <div class="glass-panel" style="padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h2 style="font-size: 1.4rem; margin-bottom: 20px; color: #fff;">Ready to Launch?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 15px;">
+              Once teams are configured, click **Start Game** to open the Host Control Dashboard.
+            </p>
+            <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+              <h4 style="color: #fff; margin-bottom: 5px;">Projector Sync Mode</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">
+                This app runs in dual-screen mode. You can open a clean **Audience Projector View** on another monitor or tab. The scores and active questions sync instantly.
+              </p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 15px; justify-content: flex-end;">
+            <button id="btn-cancel-setup" class="btn-secondary">Back</button>
+            <button id="btn-start-game" class="btn-cyan">Start Game</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: Host Controller -->
+    <section id="screen-host" class="screen">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+        <div>
+          <h1 id="host-game-title" style="font-size: 2.2rem; color: #fff;">Host Control Panel</h1>
+          <p id="host-progress-text" style="color: var(--text-secondary); font-weight: 600;">Question 0 of 0</p>
+        </div>
+        
+        <div style="display: flex; gap: 12px; align-items: center;">
+          <!-- Timer HUD -->
+          <div id="host-timer" class="timer-container">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3M12 21a9 9 0 100-18 9 9 0 000 18z"></path></svg>
+            <span id="host-timer-sec">30</span>s
+          </div>
+
+          <button id="btn-open-projector" class="btn-cyan">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 10l5-5v14l-5-5v-4zM4 6h11a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z"></path></svg>
+            Open Projector View
+          </button>
+          <button id="btn-end-game" class="btn-danger">End Game</button>
+        </div>
+      </div>
+
+      <div class="host-layout">
+        <!-- Left: Question Detail -->
+        <div>
+          <div class="glass-panel question-card">
+            <div id="host-question-type" style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 10px; font-weight: 800;">
+              Multiple Choice
+            </div>
+            <h2 id="host-question-text">Loading question details...</h2>
+            
+            <div id="host-answers-container" class="answer-options-grid">
+              <!-- Rendered dynamically -->
+            </div>
+            
+            <div id="host-text-answer" class="glass-panel" style="margin-top: 25px; padding: 15px; border-color: rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.03); display: none;">
+              <span style="color: var(--color-success); font-weight: 600; display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px;">Correct Answer</span>
+              <h3 id="host-text-answer-val" style="color: white; font-size: 1.3rem;">Answer Value</h3>
+            </div>
+          </div>
+
+          <!-- Question Controls -->
+          <div class="glass-panel" style="padding: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <div style="display: flex; gap: 10px;">
+              <button id="btn-prev-question" class="btn-secondary">
+                &larr; Previous
+              </button>
+              <button id="btn-next-question" class="btn-primary">
+                Next Question &rarr;
+              </button>
+            </div>
+
+            <!-- Timer controls -->
+            <div style="display: flex; gap: 8px;">
+              <button id="btn-timer-start" class="btn-secondary" style="padding: 8px 14px; font-size: 0.85rem;">Start Timer</button>
+              <button id="btn-timer-stop" class="btn-secondary" style="padding: 8px 14px; font-size: 0.85rem;">Pause</button>
+              <button id="btn-timer-reset" class="btn-secondary" style="padding: 8px 14px; font-size: 0.85rem;">Reset</button>
+            </div>
+          </div>
+
+          <!-- SFX Sound Board -->
+          <div class="glass-panel" style="padding: 20px; display: flex; flex-direction: column; gap: 15px;">
+            <h3 style="font-size: 1.1rem; color: #fff;">Host Soundboard</h3>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button id="btn-sfx-correct" class="btn-secondary" style="border-color: rgba(16, 185, 129, 0.3); color: var(--color-success);">
+                🔔 Correct Chime
+              </button>
+              <button id="btn-sfx-incorrect" class="btn-secondary" style="border-color: rgba(239, 68, 68, 0.3); color: #ff8a8a;">
+                🚨 Incorrect Buzz
+              </button>
+              <button id="btn-sfx-victory" class="btn-secondary" style="border-color: rgba(6, 182, 212, 0.3); color: var(--accent-secondary);">
+                🎉 Victory Fanfare
+              </button>
+              <button id="btn-sfx-confetti" class="btn-secondary" style="border-color: rgba(236, 72, 153, 0.3); color: var(--accent-pink);">
+                ✨ Confetti Cannon
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Teams & Score Control -->
+        <div>
+          <div class="glass-panel" style="padding: 24px; height: 100%;">
+            <h2 style="font-size: 1.4rem; color: white; margin-bottom: 20px;">Teams & Scoring</h2>
+            
+            <div id="host-teams-scoring-list" class="host-teams-panel">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

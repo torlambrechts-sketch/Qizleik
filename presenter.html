@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuizMaster Presenter View</title>
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body class="presenter-body">
+
+  <!-- Confetti Canvas (Mounted dynamically, but styled globally) -->
+  <canvas id="confetti-canvas" style="display:none;"></canvas>
+
+  <!-- Presenter Screen Header -->
+  <div class="presenter-header">
+    <div class="logo">
+      QuizMaster <span>LIVE</span>
+    </div>
+    <div id="presenter-game-title" class="presenter-game-title">
+      Connecting to game...
+    </div>
+    
+    <!-- Countdown Timer -->
+    <div id="presenter-timer" class="timer-container" style="font-size: 1.6rem; padding: 10px 24px; min-width: 120px; justify-content: center;">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3M12 21a9 9 0 100-18 9 9 0 000 18z"></path></svg>
+      <span id="presenter-timer-sec">30</span>s
+    </div>
+  </div>
+
+  <!-- Main Game Arena -->
+  <div class="presenter-main">
+    
+    <!-- Lobby / Setup Overlay -->
+    <div id="presenter-lobby" class="presenter-overlay">
+      <h1>Join the Challenge!</h1>
+      <p>Wait for the Host to start the quiz. Active teams:</p>
+      <div id="presenter-lobby-teams" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+        <!-- Rendered dynamically -->
+        <span style="color: var(--text-muted);">No teams registered yet...</span>
+      </div>
+    </div>
+
+    <!-- Active Question Board -->
+    <div id="presenter-question" class="presenter-question-panel glass-panel" style="display: none;">
+      <div id="presenter-progress" class="presenter-progress" style="margin-bottom: 20px;">Question 0 of 0</div>
+      <div id="presenter-question-text" class="presenter-question-text">
+        Loading active question...
+      </div>
+      
+      <div id="presenter-options" class="presenter-options-container">
+        <!-- MCQ options filled dynamically -->
+      </div>
+    </div>
+
+    <!-- Victory Podium Screen -->
+    <div id="presenter-completed" class="presenter-overlay" style="display: none;">
+      <h1 style="background: linear-gradient(to right, #facc15, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        QUIZ COMPLETE!
+      </h1>
+      <p style="font-size: 1.6rem; color: #fff;">Final Scoreboard Podium</p>
+      
+      <div id="presenter-podium" class="winner-podium">
+        <!-- 3D style columns generated dynamically -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Live Scoreboard Columns (Always docked at bottom for audience tracking) -->
+  <div id="presenter-scoreboard" class="presenter-footer">
+    <!-- Rendered dynamically -->
+  </div>
+
+  <script type="module" src="./src/presenter.js"></script>
+</body>
+</html>
