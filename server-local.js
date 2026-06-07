@@ -2,6 +2,7 @@ import express from 'express';
 import { spawn } from 'child_process';
 import quizzesHandler from './api/quizzes.js';
 import gameHandler from './api/game.js';
+import authHandler from './api/auth.js';
 
 const app = express();
 app.use(express.json());
@@ -9,6 +10,8 @@ app.use(express.json());
 // Emulate Vercel's serverless routing by routing Express requests to the handler functions
 app.all('/api/quizzes', (req, res) => quizzesHandler(req, res));
 app.all('/api/game', (req, res) => gameHandler(req, res));
+app.all('/api/auth', (req, res) => authHandler(req, res));
+
 
 const PORT = process.env.PORT || 3000;
 
