@@ -11,7 +11,9 @@ const state = {
   pollInterval: null,
   isDrawing: false,
   canvasCtx: null,
-  canvasElement: null
+  canvasElement: null,
+  timerEndsAt: null,
+  lastSfxTime: undefined
 };
 
 // UI Selectors
@@ -60,7 +62,11 @@ const el = {
 
   // Join Pre-created inputs
   joinUsername: document.getElementById('join-username'),
-  joinCompany: document.getElementById('join-company')
+  joinCompany: document.getElementById('join-company'),
+  
+  // Timer Elements
+  timer: document.getElementById('portal-timer'),
+  timerSec: document.getElementById('portal-timer-sec')
 };
 
 // -------------------------------------------------------------
@@ -150,7 +156,7 @@ function enterArena() {
   el.teamBadge.style.color = state.teamColor;
   
   pollGameStatus();
-  state.pollInterval = setInterval(pollGameStatus, 2000); // Poll game status every 2 seconds
+  state.pollInterval = setInterval(pollGameStatus, 1000); // Poll game status every 1 second
 }
 
 async function signupAndJoin() {
@@ -271,10 +277,73 @@ async function pollGameStatus() {
       }
     }
 
+    // Handle Remote SFX
+    if (state.lastSfxTime === undefined) {
+      state.lastSfxTime = game.last_sfx_time || 0;
+    } else if (game.last_sfx_time && game.last_sfx_time > state.lastSfxTime) {
+      state.lastSfxTime = game.last_sfx_time;
+      if (game.last_sfx === 'correct') {
+        playCorrect();
+      } else if (game.last_sfx === 'incorrect') {
+        playIncorrect();
+      } else if (game.last_sfx === 'victory') {
+        playVictory();
+      }
+    }
+
+    // Handle Timer Sync
+    const timerRemaining = game.timer_remaining;
+    if (timerRemaining !== null && timerRemaining !== undefined) {
+      if (timerInterval) clearInterval(timerInterval);
+      el.timer.style.display = 'flex';
+      el.timerSec.textContent = timerRemaining;
+      if (timerRemaining <= 5 && timerRemaining > 0) {
+        el.timer.classList.add('pulse');
+      } else {
+        el.timer.classList.remove('pulse');
+      }
+      state.timerEndsAt = null;
+    } else {
+      if (game.timer_ends_at !== state.timerEndsAt) {
+        state.timerEndsAt = game.timer_ends_at;
+        runTimer(game.timer_ends_at);
+      }
+    }
+
     renderPortalState();
   } catch (error) {
     console.error('Polling failed:', error);
   }
+}
+
+let timerInterval = null;
+
+function runTimer(endsAtString) {
+  if (timerInterval) clearInterval(timerInterval);
+  
+  if (!endsAtString) {
+    el.timer.style.display = 'none';
+    return;
+  }
+  
+  el.timer.style.display = 'flex';
+  const endsTime = new Date(endsAtString).getTime();
+  
+  const tick = () => {
+    const timeLeft = Math.max(0, Math.ceil((endsTime - Date.now()) / 1000));
+    el.timerSec.textContent = timeLeft;
+
+    if (timeLeft <= 5 && timeLeft > 0) {
+      el.timer.classList.add('pulse');
+      playTick();
+    } else if (timeLeft === 0) {
+      el.timer.classList.remove('pulse');
+      clearInterval(timerInterval);
+    }
+  };
+
+  tick();
+  timerInterval = setInterval(tick, 1000);
 }
 
 function subHasContent(sub) {
@@ -621,6 +690,7 @@ async function submitAnswer(textVal, imageVal) {
 
 function stopPolling() {
   if (state.pollInterval) clearInterval(state.pollInterval);
+  if (timerInterval) clearInterval(timerInterval);
 }
 
 // Initialize Portal script

@@ -70,6 +70,7 @@ async function initDb() {
         status VARCHAR(50) DEFAULT 'setup', 
         current_question_index INTEGER DEFAULT 0,
         timer_ends_at TIMESTAMP,
+        timer_remaining INTEGER DEFAULT NULL,
         team_mode BOOLEAN DEFAULT FALSE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
@@ -132,6 +133,15 @@ async function initDb() {
     `);
     await client.query(`
       ALTER TABLE teams ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT FALSE;
+    `);
+    await client.query(`
+      ALTER TABLE games ADD COLUMN IF NOT EXISTS timer_remaining INTEGER DEFAULT NULL;
+    `);
+    await client.query(`
+      ALTER TABLE games ADD COLUMN IF NOT EXISTS last_sfx VARCHAR(50) DEFAULT NULL;
+    `);
+    await client.query(`
+      ALTER TABLE games ADD COLUMN IF NOT EXISTS last_sfx_time BIGINT DEFAULT NULL;
     `);
 
     await client.query('COMMIT');

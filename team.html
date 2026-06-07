@@ -148,8 +148,15 @@
 
     <!-- State B: Active Question Responder -->
     <div id="portal-state-active" style="display: none;">
-      <div id="portal-question-progress" style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 800; text-transform: uppercase;">Question 0 of 0</div>
-      <h3 id="portal-question-prompt" style="color: var(--text-dark); font-size: 1.3rem; margin: 10px 0 20px 0; line-height: 1.4;">Active Question Prompt</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <div id="portal-question-progress" style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 800; text-transform: uppercase;">Question 0 of 0</div>
+        <!-- Player Countdown Timer -->
+        <div id="portal-timer" class="timer-container" style="font-size: 0.95rem; padding: 4px 10px; display: none; align-items: center; gap: 4px; background: rgba(0,0,0,0.05); border-radius: 8px;">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3M12 21a9 9 0 100-18 9 9 0 000 18z"></path></svg>
+          <span id="portal-timer-sec">30</span>s
+        </div>
+      </div>
+      <h3 id="portal-question-prompt" style="color: var(--text-dark); font-size: 1.3rem; margin: 0 0 20px 0; line-height: 1.4;">Active Question Prompt</h3>
 
       <div id="portal-responder-container">
         <!-- Rendered dynamically depending on question type -->

@@ -793,33 +793,69 @@ function renderHostState() {
           `;
         }
         
-        // Rating controls if rate-submission
+        // Rating/Override controls for all question types
         let ratingFooter = '';
-        if (game.question && game.question.question_type === 'rate-submission') {
-          const maxPoints = game.question.points;
+        if (game.question) {
+          const maxPoints = game.question.points !== undefined && game.question.points !== null ? game.question.points : 10;
           
-          // Generate rating scale options
-          const scoreSteps = [
-            0,
-            Math.round(maxPoints * 0.25),
-            Math.round(maxPoints * 0.5),
-            Math.round(maxPoints * 0.75),
-            maxPoints
-          ];
-          
-          ratingFooter = `
-            <div class="chat-rating-footer">
-              <span class="chat-rating-title">Award Score:</span>
-              <div class="chat-rating-container">
-                ${scoreSteps.map(pts => `
-                  <button class="chat-rating-btn ${pointsAwarded === pts ? 'selected' : ''}" 
-                          data-teamid="${sub.team_id}" data-points="${pts}">
-                    ${pts} pts
+          if (game.question.question_type === 'multiple-choice') {
+            const isCorrect = sub.submitted_text === game.question.correct_answer;
+            ratingFooter = `
+              <div class="chat-rating-footer">
+                <span class="chat-rating-title">Status: ${isCorrect ? '✅ Auto-Correct' : '❌ Auto-Incorrect'}</span>
+                <div class="chat-rating-container" style="margin-top: 5px;">
+                  <button class="chat-rating-btn ${pointsAwarded === maxPoints ? 'selected' : ''}" 
+                          data-teamid="${sub.team_id}" data-points="${maxPoints}" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 8px;">
+                    ✓ Correct
                   </button>
-                `).join('')}
+                  <button class="chat-rating-btn ${pointsAwarded === 0 ? 'selected' : ''}" 
+                          data-teamid="${sub.team_id}" data-points="0" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 8px;">
+                    ✗ Incorrect
+                  </button>
+                </div>
               </div>
-            </div>
-          `;
+            `;
+          } else if (game.question.question_type === 'text') {
+            const isCorrect = game.question.correct_answer && sub.submitted_text && 
+                              sub.submitted_text.trim().toLowerCase() === game.question.correct_answer.trim().toLowerCase();
+            ratingFooter = `
+              <div class="chat-rating-footer">
+                <span class="chat-rating-title">Status: ${isCorrect ? '✅ Auto-Correct' : '❌ Auto-Incorrect'}</span>
+                <div class="chat-rating-container" style="margin-top: 5px;">
+                  <button class="chat-rating-btn ${pointsAwarded === maxPoints ? 'selected' : ''}" 
+                          data-teamid="${sub.team_id}" data-points="${maxPoints}" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 8px;">
+                    ✓ Correct
+                  </button>
+                  <button class="chat-rating-btn ${pointsAwarded === 0 ? 'selected' : ''}" 
+                          data-teamid="${sub.team_id}" data-points="0" style="padding: 4px 10px; font-size: 0.75rem; border-radius: 8px;">
+                    ✗ Incorrect
+                  </button>
+                </div>
+              </div>
+            `;
+          } else {
+            const scoreSteps = [
+              0,
+              Math.round(maxPoints * 0.25),
+              Math.round(maxPoints * 0.5),
+              Math.round(maxPoints * 0.75),
+              maxPoints
+            ];
+            
+            ratingFooter = `
+              <div class="chat-rating-footer">
+                <span class="chat-rating-title">Award Score:</span>
+                <div class="chat-rating-container">
+                  ${scoreSteps.map(pts => `
+                    <button class="chat-rating-btn ${pointsAwarded === pts ? 'selected' : ''}" 
+                            data-teamid="${sub.team_id}" data-points="${pts}">
+                      ${pts} pts
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }
         }
         
         chatHtml += `
@@ -902,11 +938,8 @@ function renderHostState() {
 async function rateSubmission(teamId, points) {
   if (!state.activeGame || !state.activeGame.question) return;
 
-  if (parseInt(points) > 0) {
-    playCorrect();
-  } else {
-    playIncorrect();
-  }
+  const sfxType = parseInt(points) > 0 ? 'correct' : 'incorrect';
+  triggerRemoteSfx(sfxType);
 
   try {
     await apiCall('/api/game', 'POST', {
@@ -924,11 +957,8 @@ async function rateSubmission(teamId, points) {
 
 // Adjust Score API call
 async function adjustScore(teamId, scoreChange) {
-  if (scoreChange > 0) {
-    playCorrect();
-  } else {
-    playIncorrect();
-  }
+  const sfxType = scoreChange > 0 ? 'correct' : 'incorrect';
+  triggerRemoteSfx(sfxType);
   
   try {
     await apiCall('/api/game', 'POST', {
@@ -982,6 +1012,22 @@ async function navigateQuestion(direction) {
 function updateTimerDisplay() {
   if (state.timerInterval) clearInterval(state.timerInterval);
   
+  const timerRemaining = state.activeGame.timer_remaining;
+  if (timerRemaining !== null && timerRemaining !== undefined) {
+    el.btnTimerStop.textContent = 'Resume';
+    el.btnTimerStop.classList.add('paused-state');
+    el.hostTimerSec.textContent = timerRemaining;
+    if (timerRemaining <= 5 && timerRemaining > 0) {
+      el.hostTimer.classList.add('pulse');
+    } else {
+      el.hostTimer.classList.remove('pulse');
+    }
+    return;
+  } else {
+    el.btnTimerStop.textContent = 'Pause';
+    el.btnTimerStop.classList.remove('paused-state');
+  }
+
   const timerEndsAt = state.activeGame.timer_ends_at;
   if (!timerEndsAt) {
     el.hostTimerSec.textContent = '30';
@@ -1035,6 +1081,48 @@ async function stopTimer() {
   }
 }
 
+async function togglePauseResumeTimer() {
+  if (!state.activeGameId || !state.activeGame) return;
+  const isPaused = state.activeGame.timer_remaining !== null && state.activeGame.timer_remaining !== undefined;
+  
+  try {
+    if (isPaused) {
+      await apiCall('/api/game', 'POST', {
+        action: 'resume_timer',
+        game_id: state.activeGameId
+      });
+    } else {
+      await apiCall('/api/game', 'POST', {
+        action: 'pause_timer',
+        game_id: state.activeGameId
+      });
+    }
+    refreshGameState();
+  } catch (error) {
+    console.error('Failed to toggle pause/resume timer:', error);
+  }
+}
+
+async function triggerRemoteSfx(sfxType) {
+  if (sfxType === 'correct') playCorrect();
+  else if (sfxType === 'incorrect') playIncorrect();
+  else if (sfxType === 'victory') playVictory();
+  else if (sfxType === 'confetti') triggerConfetti();
+  
+  if (!state.activeGameId) return;
+  
+  try {
+    await apiCall('/api/game', 'POST', {
+      action: 'update',
+      game_id: state.activeGameId,
+      last_sfx: sfxType,
+      last_sfx_time: Date.now()
+    });
+  } catch (error) {
+    console.error('Failed to trigger remote SFX:', error);
+  }
+}
+
 // End Quiz Session
 async function endGameSession() {
   playVictory();
@@ -1057,8 +1145,8 @@ async function endGameSession() {
 
 function startPolling() {
   stopPolling();
-  // Poll database every 3 seconds for host sync (so host window stays aligned)
-  state.pollInterval = setInterval(refreshGameState, 3000);
+  // Poll database every 1 second for host sync (so host window stays aligned)
+  state.pollInterval = setInterval(refreshGameState, 1000);
 }
 
 function stopPolling() {
@@ -1203,7 +1291,7 @@ function init() {
     const qDuration = state.activeGame && state.activeGame.question ? (state.activeGame.question.timer_duration || 30) : 30;
     triggerTimer(qDuration);
   };
-  el.btnTimerStop.onclick = stopTimer;
+  el.btnTimerStop.onclick = togglePauseResumeTimer;
   el.btnTimerReset.onclick = () => {
     const qDuration = state.activeGame && state.activeGame.question ? (state.activeGame.question.timer_duration || 30) : 30;
     triggerTimer(qDuration);
@@ -1217,11 +1305,11 @@ function init() {
   };
 
   // Sound board bindings
-  el.btnSfxCorrect.onclick = playCorrect;
-  el.btnSfxIncorrect.onclick = playIncorrect;
-  el.btnSfxVictory.onclick = playVictory;
+  el.btnSfxCorrect.onclick = () => triggerRemoteSfx('correct');
+  el.btnSfxIncorrect.onclick = () => triggerRemoteSfx('incorrect');
+  el.btnSfxVictory.onclick = () => triggerRemoteSfx('victory');
   el.btnSfxConfetti.onclick = () => {
-    triggerConfetti();
+    triggerRemoteSfx('confetti');
   };
 
   // Admin Login & Leaderboard bindings

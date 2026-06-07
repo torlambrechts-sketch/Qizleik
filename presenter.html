@@ -38,11 +38,26 @@
     
     <!-- Lobby / Setup Overlay -->
     <div id="presenter-lobby" class="presenter-overlay">
-      <h1>Join the Challenge!</h1>
-      <p>Wait for the Host to start the quiz. Active teams:</p>
-      <div id="presenter-lobby-teams" style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
-        <!-- Rendered dynamically -->
-        <span style="color: var(--text-muted);">No teams registered yet...</span>
+      <h1 style="margin-bottom: 5px;">Join the Challenge!</h1>
+      <p style="color: rgba(255,255,255,0.8); font-size: 1.1rem; margin-bottom: 30px;">Wait for the Host to start the quiz.</p>
+      
+      <div id="presenter-lobby-container" style="display: flex; flex-direction: row; gap: 50px; justify-content: center; align-items: stretch; max-width: 1000px; margin: 0 auto; flex-wrap: wrap; text-align: left;">
+        <!-- QR Code Column -->
+        <div id="presenter-lobby-qr-container" class="glass-panel" style="padding: 30px; text-align: center; width: 340px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-color: rgba(255,255,255,0.15); background: rgba(0,0,0,0.3); border-radius: 20px;">
+          <h3 style="color: #fff; font-size: 1.3rem; margin-top: 0; margin-bottom: 20px; font-weight: 700;">📱 Scan to Join Instantly</h3>
+          <div style="background: white; padding: 14px; border-radius: 16px; display: inline-block; margin-bottom: 15px; box-shadow: 0 12px 30px rgba(0,0,0,0.4);">
+            <img id="presenter-qr-image" src="" alt="QR Code to Join" style="width: 200px; height: 200px; display: block;">
+          </div>
+          <p style="color: rgba(255,255,255,0.7); font-size: 0.88rem; line-height: 1.45; margin: 0;">Scan with your phone's camera to join the lobby and play!</p>
+        </div>
+        
+        <!-- Active Teams Column -->
+        <div class="glass-panel" style="flex: 1; min-width: 320px; padding: 30px; border-color: rgba(255,255,255,0.15); background: rgba(0,0,0,0.3); border-radius: 20px; display: flex; flex-direction: column;">
+          <h3 style="color: #fff; font-size: 1.3rem; margin-top: 0; margin-bottom: 20px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">👥 Active Teams</h3>
+          <div id="presenter-lobby-teams" style="display: flex; gap: 15px; justify-content: flex-start; flex-wrap: wrap; overflow-y: auto; align-content: flex-start; flex-grow: 1;">
+            <span style="color: var(--text-muted); font-size: 1.1rem;">No teams registered yet...</span>
+          </div>
+        </div>
       </div>
     </div>
 

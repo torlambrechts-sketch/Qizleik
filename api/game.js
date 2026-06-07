@@ -64,6 +64,9 @@ export default async function handler(req, res) {
         teams: teamsRes.rows,
         submissions: submissionsRes.rows,
         timer_ends_at: game.timer_ends_at,
+        timer_remaining: game.timer_remaining,
+        last_sfx: game.last_sfx,
+        last_sfx_time: game.last_sfx_time ? parseInt(game.last_sfx_time) : null,
         team_mode: game.team_mode
       });
     }
@@ -169,8 +172,66 @@ export default async function handler(req, res) {
         });
       }
 
+      if (action === 'pause_timer') {
+        const { game_id } = req.body;
+        if (!game_id) {
+          return res.status(400).json({ error: 'Game ID is required' });
+        }
+
+        const gameRes = await query('SELECT timer_ends_at, timer_remaining FROM games WHERE id = $1', [game_id]);
+        if (gameRes.rows.length === 0) {
+          return res.status(404).json({ error: 'Game session not found' });
+        }
+        const game = gameRes.rows[0];
+
+        if (game.timer_remaining !== null) {
+          return res.status(200).json({ message: 'Timer is already paused', timer_remaining: game.timer_remaining });
+        }
+
+        if (!game.timer_ends_at) {
+          return res.status(200).json({ message: 'No active timer to pause' });
+        }
+
+        const endsTime = new Date(game.timer_ends_at).getTime();
+        const remaining = Math.max(0, Math.ceil((endsTime - Date.now()) / 1000));
+
+        await query(
+          'UPDATE games SET timer_ends_at = NULL, timer_remaining = $1 WHERE id = $2',
+          [remaining, game_id]
+        );
+
+        return res.status(200).json({ message: 'Timer paused', timer_remaining: remaining });
+      }
+
+      if (action === 'resume_timer') {
+        const { game_id } = req.body;
+        if (!game_id) {
+          return res.status(400).json({ error: 'Game ID is required' });
+        }
+
+        const gameRes = await query('SELECT timer_remaining FROM games WHERE id = $1', [game_id]);
+        if (gameRes.rows.length === 0) {
+          return res.status(404).json({ error: 'Game session not found' });
+        }
+        const game = gameRes.rows[0];
+
+        if (game.timer_remaining === null) {
+          return res.status(200).json({ message: 'Timer is not paused' });
+        }
+
+        const remaining = game.timer_remaining;
+        const endsAt = remaining > 0 ? new Date(Date.now() + remaining * 1000).toISOString() : null;
+
+        await query(
+          'UPDATE games SET timer_ends_at = $1, timer_remaining = NULL WHERE id = $2',
+          [endsAt, game_id]
+        );
+
+        return res.status(200).json({ message: 'Timer resumed', timer_ends_at: endsAt });
+      }
+
       if (action === 'update') {
-        const { game_id, status, current_question_index, timer_duration, team_mode } = req.body;
+        const { game_id, status, current_question_index, timer_duration, team_mode, last_sfx, last_sfx_time } = req.body;
         if (!game_id) {
           return res.status(400).json({ error: 'Game ID is required' });
         }
@@ -209,7 +270,7 @@ export default async function handler(req, res) {
         }
 
         if (timer_duration !== undefined) {
-          updateQuery += `timer_ends_at = $${index}, `;
+          updateQuery += `timer_ends_at = $${index}, timer_remaining = NULL, `;
           const endsAt = timer_duration > 0 ? new Date(Date.now() + timer_duration * 1000).toISOString() : null;
           params.push(endsAt);
           index++;
@@ -218,6 +279,18 @@ export default async function handler(req, res) {
         if (team_mode !== undefined) {
           updateQuery += `team_mode = $${index}, `;
           params.push(team_mode);
+          index++;
+        }
+
+        if (last_sfx !== undefined) {
+          updateQuery += `last_sfx = $${index}, `;
+          params.push(last_sfx);
+          index++;
+        }
+
+        if (last_sfx_time !== undefined) {
+          updateQuery += `last_sfx_time = $${index}, `;
+          params.push(last_sfx_time ? parseInt(last_sfx_time) : null);
           index++;
         }
 
@@ -260,28 +333,73 @@ export default async function handler(req, res) {
           return res.status(400).json({ error: 'game_id, team_id, and question_index are required' });
         }
 
+        // Fetch the question to get the correct answer and points
+        const gameRes = await query('SELECT quiz_id FROM games WHERE id = $1', [game_id]);
+        if (gameRes.rows.length === 0) {
+          return res.status(404).json({ error: 'Game session not found' });
+        }
+        const quizId = gameRes.rows[0].quiz_id;
+
+        const questionsRes = await query(
+          'SELECT * FROM questions WHERE quiz_id = $1 ORDER BY order_index ASC',
+          [quizId]
+        );
+        const question = questionsRes.rows[question_index];
+        let pointsAwarded = 0;
+
+        if (question) {
+          const maxPoints = question.points !== undefined && question.points !== null ? question.points : 10;
+          if (question.question_type === 'multiple-choice') {
+            if (submitted_text === question.correct_answer) {
+              pointsAwarded = maxPoints;
+            }
+          } else if (question.question_type === 'text') {
+            if (question.correct_answer && submitted_text &&
+                submitted_text.trim().toLowerCase() === question.correct_answer.trim().toLowerCase()) {
+              pointsAwarded = maxPoints;
+            }
+          }
+        }
+
         // Check if submission already exists
         const existRes = await query(
-          `SELECT id FROM submissions 
+          `SELECT id, points_awarded FROM submissions 
            WHERE game_id = $1 AND team_id = $2 AND question_index = $3`,
           [game_id, team_id, question_index]
         );
 
         if (existRes.rows.length > 0) {
+          const oldPoints = existRes.rows[0].points_awarded || 0;
+          const diff = pointsAwarded - oldPoints;
+
           await query(
             `UPDATE submissions 
-             SET submitted_text = $1, submitted_image = $2, created_at = CURRENT_TIMESTAMP 
-             WHERE id = $3`,
-            [submitted_text || '', submitted_image || null, existRes.rows[0].id]
+             SET submitted_text = $1, submitted_image = $2, points_awarded = $3, created_at = CURRENT_TIMESTAMP 
+             WHERE id = $4`,
+            [submitted_text || '', submitted_image || null, pointsAwarded, existRes.rows[0].id]
           );
-          return res.status(200).json({ message: 'Submission updated successfully' });
+
+          if (diff !== 0) {
+            await query(
+              'UPDATE teams SET score = score + $1 WHERE id = $2 AND game_id = $3',
+              [diff, team_id, game_id]
+            );
+          }
+          return res.status(200).json({ message: 'Submission updated successfully', points_awarded: pointsAwarded });
         } else {
           await query(
-            `INSERT INTO submissions (game_id, team_id, question_index, submitted_text, submitted_image) 
-             VALUES ($1, $2, $3, $4, $5)`,
-            [game_id, team_id, question_index, submitted_text || '', submitted_image || null]
+            `INSERT INTO submissions (game_id, team_id, question_index, submitted_text, submitted_image, points_awarded) 
+             VALUES ($1, $2, $3, $4, $5, $6)`,
+            [game_id, team_id, question_index, submitted_text || '', submitted_image || null, pointsAwarded]
           );
-          return res.status(201).json({ message: 'Submission recorded successfully' });
+
+          if (pointsAwarded !== 0) {
+            await query(
+              'UPDATE teams SET score = score + $1 WHERE id = $2 AND game_id = $3',
+              [pointsAwarded, team_id, game_id]
+            );
+          }
+          return res.status(201).json({ message: 'Submission recorded successfully', points_awarded: pointsAwarded });
         }
       }
 

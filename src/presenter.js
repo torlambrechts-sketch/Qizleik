@@ -1,4 +1,4 @@
-import { playIncorrect, playTick, playVictory } from './audio.js';
+import { playCorrect, playIncorrect, playTick, playVictory } from './audio.js';
 import { triggerConfetti } from './confetti.js';
 
 // Get Game ID from URL query parameters
@@ -10,7 +10,8 @@ let localState = {
   status: 'setup',
   currentQuestionIndex: -1,
   timerEndsAt: null,
-  teamsJson: ''
+  teamsJson: '',
+  lastSfxTime: undefined
 };
 
 // UI Selectors
@@ -80,14 +81,50 @@ function renderPresenterState(game) {
   el.gameTitle.textContent = game.quiz_title;
   el.gameIdVal.textContent = game.id;
 
+  // Update QR code dynamically if not set
+  const qrImage = document.getElementById('presenter-qr-image');
+  if (qrImage && !qrImage.src) {
+    const joinUrl = window.location.origin + '/team.html?gameId=' + game.id;
+    qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(joinUrl)}`;
+  }
+
+  // Handle Remote SFX
+  if (localState.lastSfxTime === undefined) {
+    localState.lastSfxTime = game.last_sfx_time || 0;
+  } else if (game.last_sfx_time && game.last_sfx_time > localState.lastSfxTime) {
+    localState.lastSfxTime = game.last_sfx_time;
+    if (game.last_sfx === 'correct') {
+      playCorrect();
+    } else if (game.last_sfx === 'incorrect') {
+      playIncorrect();
+    } else if (game.last_sfx === 'victory') {
+      playVictory();
+    } else if (game.last_sfx === 'confetti') {
+      triggerConfetti();
+      setTimeout(triggerConfetti, 500);
+    }
+  }
+
   // Filter only active teams
   const activeTeams = game.teams.filter(t => t.is_active);
 
   // 1. Manage Timer Sync
-  if (game.timer_ends_at !== localState.timerEndsAt) {
-    localState.timerEndsAt = game.timer_ends_at;
-    timerBuzzerPlayed = false; // Reset buzzer flag for new timer
-    runTimer(game.timer_ends_at);
+  if (game.timer_remaining !== null && game.timer_remaining !== undefined) {
+    if (timerInterval) clearInterval(timerInterval);
+    el.timer.style.opacity = '1';
+    el.timerSec.textContent = game.timer_remaining;
+    if (game.timer_remaining <= 5 && game.timer_remaining > 0) {
+      el.timer.classList.add('pulse');
+    } else {
+      el.timer.classList.remove('pulse');
+    }
+    localState.timerEndsAt = null; // force runTimer reload on resume
+  } else {
+    if (game.timer_ends_at !== localState.timerEndsAt) {
+      localState.timerEndsAt = game.timer_ends_at;
+      timerBuzzerPlayed = false; // Reset buzzer flag for new timer
+      runTimer(game.timer_ends_at);
+    }
   }
 
   // 2. View States Router
@@ -350,7 +387,7 @@ function escapeHtml(text) {
 // Start polling immediately on load
 if (gameId) {
   pollGameStatus();
-  pollInterval = setInterval(pollGameStatus, 1500); // 1.5 second serverless-friendly polling interval
+  pollInterval = setInterval(pollGameStatus, 1000); // 1.0 second polling interval for instant room responsiveness
 } else {
   el.gameTitle.textContent = 'No Game ID specified';
   el.lobby.innerHTML = '<h1>Invalid Game Link</h1><p>Please open the Projector View from the Host Controller Panel.</p>';
