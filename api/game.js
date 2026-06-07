@@ -75,6 +75,17 @@ export default async function handler(req, res) {
     if (method === 'POST') {
       const { action } = req.body;
 
+      // --- AUTHENTICATION SHIELD FOR ADMINISTRATIVE ACTIONS ---
+      const adminActions = ['start', 'teams', 'pause_timer', 'resume_timer', 'update', 'score', 'rate'];
+      if (adminActions.includes(action)) {
+        const clientPin = req.headers['x-admin-pin'];
+        const adminPin = process.env.ADMIN_PIN || '1234';
+
+        if (clientPin !== adminPin) {
+          return res.status(401).json({ error: 'Unauthorized: Invalid Admin PIN' });
+        }
+      }
+
       if (action === 'start') {
         const { quiz_id, team_mode } = req.body;
         if (!quiz_id) {
