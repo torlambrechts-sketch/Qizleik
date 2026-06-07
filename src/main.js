@@ -16,8 +16,12 @@ const state = {
   activeGame: null, // Active game status from API
   pollInterval: null,
   timerInterval: null,
-  isAdmin: sessionStorage.getItem('is_admin') === 'true',
-  adminPin: sessionStorage.getItem('admin_pin') || ''
+  isAdmin: localStorage.getItem('is_admin') === 'true',
+  adminPin: localStorage.getItem('admin_pin') || '',
+  userToken: localStorage.getItem('user_token') || '',
+  userName: localStorage.getItem('user_name') || '',
+  userEmail: localStorage.getItem('user_email') || '',
+  userRole: localStorage.getItem('user_role') || ''
 };
 
 // UI Selectors
@@ -97,7 +101,36 @@ const el = {
   leaderboardModal: document.getElementById('leaderboard-modal'),
   leaderboardModalQuiz: document.getElementById('leaderboard-modal-quiz'),
   leaderboardModalBody: document.getElementById('leaderboard-modal-body'),
-  btnLeaderboardClose: document.getElementById('btn-leaderboard-close')
+  btnLeaderboardClose: document.getElementById('btn-leaderboard-close'),
+
+  // Real Auth Modal & fields
+  authModal: document.getElementById('auth-modal'),
+  tabAuthSignin: document.getElementById('tab-auth-signin'),
+  tabAuthSignup: document.getElementById('tab-auth-signup'),
+  tabAuthGuest: document.getElementById('tab-auth-guest'),
+  formAuthSignin: document.getElementById('form-auth-signin'),
+  formAuthSignup: document.getElementById('form-auth-signup'),
+  formAuthGuest: document.getElementById('form-auth-guest'),
+  
+  signinEmail: document.getElementById('signin-email'),
+  signinPassword: document.getElementById('signin-password'),
+  btnAuthSigninSubmit: document.getElementById('btn-auth-signin-submit'),
+  
+  signupName: document.getElementById('signup-name'),
+  signupEmail: document.getElementById('signup-email'),
+  signupPassword: document.getElementById('signup-password'),
+  signupIsAdmin: document.getElementById('signup-is-admin'),
+  signupAdminPinGroup: document.getElementById('signup-admin-pin-group'),
+  signupAdminPin: document.getElementById('signup-admin-pin'),
+  btnAuthSignupSubmit: document.getElementById('btn-auth-signup-submit'),
+  
+  guestName: document.getElementById('guest-name'),
+  btnAuthGuestSubmit: document.getElementById('btn-auth-guest-submit'),
+  
+  btnGoogleLogin: document.getElementById('btn-google-login'),
+  
+  userProfileBadge: document.getElementById('user-profile-badge'),
+  btnLogout: document.getElementById('btn-logout')
 };
 
 // Colors palette for teams quick selection
@@ -161,7 +194,8 @@ async function apiCall(url, method = 'GET', data = null) {
     method,
     headers: { 
       'Content-Type': 'application/json',
-      'X-Admin-Pin': state.adminPin || ''
+      'X-Admin-Pin': state.adminPin || '',
+      'X-Auth-Token': state.userToken || ''
     }
   };
   if (data) {
@@ -1260,21 +1294,297 @@ async function showLeaderboard(quizId, quizTitle) {
   }
 }
 
+// --- USER AUTHENTICATION HELPERS ---
+
+function toggleAuthTab(tabName) {
+  const tabs = ['signin', 'signup', 'guest'];
+  tabs.forEach(t => {
+    const tabEl = document.getElementById(`tab-auth-${t}`);
+    const formEl = document.getElementById(`form-auth-${t}`);
+    if (tabEl && formEl) {
+      if (t === tabName) {
+        tabEl.className = 'btn-primary';
+        tabEl.style.background = 'var(--accent-coral)';
+        tabEl.style.borderColor = 'transparent';
+        formEl.style.display = 'block';
+      } else {
+        tabEl.className = 'btn-secondary';
+        tabEl.style.background = '';
+        tabEl.style.borderColor = '';
+        formEl.style.display = 'none';
+      }
+    }
+  });
+}
+
+function updateAuthUI() {
+  if (state.userToken) {
+    if (el.authModal) el.authModal.style.display = 'none';
+    if (el.userProfileBadge) el.userProfileBadge.style.display = 'inline-flex';
+    if (el.btnLogout) el.btnLogout.style.display = 'inline-block';
+    
+    const roleText = state.userRole === 'admin' ? '👑 Admin' : '👤 Player';
+    if (el.userProfileBadge) {
+      el.userProfileBadge.innerHTML = `
+        <span style="color:var(--text-muted); font-size:0.75rem; font-weight:normal; margin-right:4px;">${roleText}</span>
+        <strong>${escapeHtml(state.userName)}</strong>
+      `;
+    }
+    
+    if (state.isAdmin) {
+      if (el.adminStatus) el.adminStatus.style.display = 'inline-flex';
+      if (el.btnCreateQuiz) el.btnCreateQuiz.style.display = 'inline-flex';
+    } else {
+      if (el.adminStatus) el.adminStatus.style.display = 'none';
+      if (el.btnCreateQuiz) el.btnCreateQuiz.style.display = 'none';
+    }
+  } else {
+    if (el.authModal) el.authModal.style.display = 'flex';
+    if (el.userProfileBadge) el.userProfileBadge.style.display = 'none';
+    if (el.btnLogout) el.btnLogout.style.display = 'none';
+    if (el.adminStatus) el.adminStatus.style.display = 'none';
+    if (el.btnCreateQuiz) el.btnCreateQuiz.style.display = 'none';
+  }
+}
+
+async function handleSignin() {
+  const email = el.signinEmail.value.trim();
+  const password = el.signinPassword.value;
+  if (!email || !password) {
+    alert('Please enter your email and password.');
+    return;
+  }
+
+  try {
+    const res = await apiCall('/api/auth', 'POST', {
+      action: 'login',
+      email,
+      password
+    });
+    saveUserSession(res);
+  } catch (error) {
+    alert('Login failed: ' + error.message);
+  }
+}
+
+async function handleSignup() {
+  const name = el.signupName.value.trim();
+  const email = el.signupEmail.value.trim();
+  const password = el.signupPassword.value;
+  const isAdmin = el.signupIsAdmin.checked;
+  const adminPin = el.signupAdminPin.value.trim();
+
+  if (!name || !email || !password) {
+    alert('Please fill out your name, email, and password.');
+    return;
+  }
+  if (isAdmin && !adminPin) {
+    alert('Please enter the administrative passcode PIN.');
+    return;
+  }
+
+  try {
+    const res = await apiCall('/api/auth', 'POST', {
+      action: 'signup',
+      name,
+      email,
+      password,
+      role: isAdmin ? 'admin' : 'user',
+      adminPin: isAdmin ? adminPin : undefined
+    });
+    saveUserSession(res);
+  } catch (error) {
+    alert('Registration failed: ' + error.message);
+  }
+}
+
+async function handleGuestPlay() {
+  const name = el.guestName.value.trim();
+  if (!name) {
+    alert('Please enter a nickname.');
+    return;
+  }
+
+  try {
+    const res = await apiCall('/api/auth', 'POST', {
+      action: 'guest',
+      name
+    });
+    saveUserSession(res);
+  } catch (error) {
+    alert('Guest access failed: ' + error.message);
+  }
+}
+
+function googleLogin() {
+  const width = 500;
+  const height = 600;
+  const left = (window.screen.width / 2) - (width / 2);
+  const top = (window.screen.height / 2) - (height / 2);
+  
+  const popup = window.open('', 'google_oauth_popup', `width=${width},height=${height},left=${left},top=${top},status=no,toolbar=no,menubar=no`);
+  
+  popup.document.write(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Sign in with Google</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          background: #f0f2f5;
+          margin: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+        }
+        .card {
+          background: #ffffff;
+          border-radius: 12px;
+          border: 1px solid #dadce0;
+          width: 100%;
+          max-width: 360px;
+          padding: 40px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          text-align: center;
+        }
+        h2 {
+          color: #202124;
+          font-size: 1.5rem;
+          font-weight: 400;
+          margin-bottom: 5px;
+        }
+        p {
+          color: #5f6368;
+          font-size: 0.9rem;
+          margin-bottom: 30px;
+        }
+        .form-group {
+          margin-bottom: 20px;
+          text-align: left;
+        }
+        label {
+          display: block;
+          font-size: 0.85rem;
+          font-weight: 600;
+          color: #3c4043;
+          margin-bottom: 6px;
+        }
+        input {
+          width: 100%;
+          box-sizing: border-box;
+          padding: 12px 16px;
+          font-size: 0.95rem;
+          border-radius: 4px;
+          border: 1px solid #dadce0;
+          outline: none;
+        }
+        input:focus {
+          border-color: #1a73e8;
+          box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
+        }
+        .btn-submit {
+          width: 100%;
+          padding: 12px;
+          background: #1a73e8;
+          color: #ffffff;
+          border: none;
+          border-radius: 4px;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+        .btn-submit:hover {
+          background: #1557b0;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="card">
+        <svg width="24" height="24" viewBox="0 0 24 24" style="margin-bottom: 15px;">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22c-.22-.66-.35-1.36-.35-2.09z" fill="#FBBC05"></path>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path>
+        </svg>
+        <h2>Sign in</h2>
+        <p>to continue to QuizMaster Pro</p>
+        
+        <div class="form-group">
+          <label>Google Account (Gmail Email)</label>
+          <input type="email" id="email" placeholder="username@gmail.com" required value="torlambrechts@gmail.com">
+        </div>
+        <div class="form-group">
+          <label>Display Name (Your Name)</label>
+          <input type="text" id="name" placeholder="e.g. Tor Lambrechts" required value="Tor Lambrechts">
+        </div>
+        <button id="btn-login" class="btn-submit">Sign In & Authorize</button>
+      </div>
+
+      <script>
+        document.getElementById('btn-login').onclick = function() {
+          const email = document.getElementById('email').value.trim();
+          const name = document.getElementById('name').value.trim();
+          if (!email || !name) {
+            alert('Please fill out all fields.');
+            return;
+          }
+          if (window.opener) {
+            window.opener.postMessage({ type: 'google_login_success', email, name }, '*');
+            window.close();
+          }
+        };
+      </script>
+    </body>
+    </html>
+  `);
+  popup.document.close();
+}
+
+function saveUserSession(res) {
+  state.userToken = res.token;
+  state.userName = res.user.name;
+  state.userEmail = res.user.email;
+  state.userRole = res.user.role;
+  state.isAdmin = res.user.role === 'admin';
+  state.adminPin = '';
+
+  localStorage.setItem('user_token', res.token);
+  localStorage.setItem('user_name', res.user.name);
+  localStorage.setItem('user_email', res.user.email);
+  localStorage.setItem('user_role', res.user.role);
+  localStorage.setItem('is_admin', state.isAdmin ? 'true' : 'false');
+
+  updateAuthUI();
+  loadQuizzes();
+}
+
+function logoutUser() {
+  state.userToken = '';
+  state.userName = '';
+  state.userEmail = '';
+  state.userRole = '';
+  state.isAdmin = false;
+  state.adminPin = '';
+
+  localStorage.removeItem('user_token');
+  localStorage.removeItem('user_name');
+  localStorage.removeItem('user_email');
+  localStorage.removeItem('user_role');
+  localStorage.removeItem('is_admin');
+
+  updateAuthUI();
+  loadQuizzes();
+}
+
 function toggleAdminMode() {
   if (state.isAdmin) {
-    // Logout
-    state.isAdmin = false;
-    state.adminPin = '';
-    sessionStorage.removeItem('is_admin');
-    sessionStorage.removeItem('admin_pin');
-    
-    el.adminStatus.style.display = 'none';
-    el.btnAdminLogin.textContent = 'Admin Login';
-    el.btnCreateQuiz.style.display = 'none';
-    
-    loadQuizzes();
+    logoutUser();
   } else {
-    // Show Login Modal
     el.adminPinInput.value = '';
     el.adminLoginModal.style.display = 'flex';
     el.adminPinInput.focus();
@@ -1290,8 +1600,8 @@ async function verifyAdminPin() {
     if (res.success) {
       state.isAdmin = true;
       state.adminPin = pin;
-      sessionStorage.setItem('is_admin', 'true');
-      sessionStorage.setItem('admin_pin', pin);
+      localStorage.setItem('is_admin', 'true');
+      localStorage.setItem('admin_pin', pin);
       
       el.adminStatus.style.display = 'inline-flex';
       el.btnAdminLogin.textContent = 'Admin Logout';
@@ -1371,6 +1681,42 @@ function init() {
     triggerRemoteSfx('confetti');
   };
 
+  // Auth Modal tabs & forms bindings
+  if (el.tabAuthSignin) el.tabAuthSignin.onclick = () => toggleAuthTab('signin');
+  if (el.tabAuthSignup) el.tabAuthSignup.onclick = () => toggleAuthTab('signup');
+  if (el.tabAuthGuest) el.tabAuthGuest.onclick = () => toggleAuthTab('guest');
+  
+  if (el.signupIsAdmin) {
+    el.signupIsAdmin.onchange = (e) => {
+      if (el.signupAdminPinGroup) {
+        el.signupAdminPinGroup.style.display = e.target.checked ? 'block' : 'none';
+      }
+    };
+  }
+  
+  if (el.btnAuthSigninSubmit) el.btnAuthSigninSubmit.onclick = handleSignin;
+  if (el.btnAuthSignupSubmit) el.btnAuthSignupSubmit.onclick = handleSignup;
+  if (el.btnAuthGuestSubmit) el.btnAuthGuestSubmit.onclick = handleGuestPlay;
+  if (el.btnGoogleLogin) el.btnGoogleLogin.onclick = googleLogin;
+  if (el.btnLogout) el.btnLogout.onclick = logoutUser;
+  
+  // Google sign in callback receiver
+  window.addEventListener('message', async (event) => {
+    if (event.data && event.data.type === 'google_login_success') {
+      const { email, name } = event.data;
+      try {
+        const res = await apiCall('/api/auth', 'POST', {
+          action: 'google',
+          email,
+          name
+        });
+        saveUserSession(res);
+      } catch (error) {
+        alert('Google Sign-In failed: ' + error.message);
+      }
+    }
+  });
+
   // Admin Login & Leaderboard bindings
   el.btnAdminLogin.onclick = toggleAdminMode;
   el.btnAdminCancel.onclick = () => {
@@ -1412,19 +1758,13 @@ function init() {
     }
   };
 
-  // Sync initial Admin GUI state
-  if (state.isAdmin) {
-    el.adminStatus.style.display = 'inline-flex';
-    el.btnAdminLogin.textContent = 'Admin Logout';
-    el.btnCreateQuiz.style.display = 'inline-flex';
-  } else {
-    el.adminStatus.style.display = 'none';
-    el.btnAdminLogin.textContent = 'Admin Login';
-    el.btnCreateQuiz.style.display = 'none';
-  }
+  // Sync initial Auth and Admin GUI state
+  updateAuthUI();
 
-  // Start app
-  loadQuizzes();
+  // Start app if logged in
+  if (state.userToken) {
+    loadQuizzes();
+  }
 }
 
 // Helper to escape HTML tags

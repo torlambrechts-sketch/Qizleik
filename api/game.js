@@ -1,4 +1,5 @@
 import { query } from './db.js';
+import { verifyToken } from './auth.js';
 
 export default async function handler(req, res) {
   const { method } = req;
@@ -78,11 +79,27 @@ export default async function handler(req, res) {
       // --- AUTHENTICATION SHIELD FOR ADMINISTRATIVE ACTIONS ---
       const adminActions = ['start', 'teams', 'pause_timer', 'resume_timer', 'update', 'score', 'rate'];
       if (adminActions.includes(action)) {
-        const clientPin = req.headers['x-admin-pin'];
+        const clientPin = req.headers['x-admin-pin'] || '';
+        const clientToken = req.headers['x-auth-token'] || '';
         const adminPin = process.env.ADMIN_PIN || '1234';
 
-        if (clientPin !== adminPin) {
-          return res.status(401).json({ error: 'Unauthorized: Invalid Admin PIN' });
+        let isAuthorized = false;
+
+        // 1. Check legacy PIN
+        if (clientPin === adminPin) {
+          isAuthorized = true;
+        }
+
+        // 2. Check token
+        if (!isAuthorized && clientToken) {
+          const decoded = verifyToken(clientToken);
+          if (decoded && decoded.role === 'admin') {
+            isAuthorized = true;
+          }
+        }
+
+        if (!isAuthorized) {
+          return res.status(401).json({ error: 'Unauthorized: Invalid Admin PIN or Authentication Token' });
         }
       }
 

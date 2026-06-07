@@ -120,6 +120,19 @@ async function initDb() {
       );
     `);
 
+    // Create Users Table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password_hash TEXT,
+        name VARCHAR(255),
+        role VARCHAR(50) DEFAULT 'user',
+        provider VARCHAR(50) DEFAULT 'local',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
     // Alter table schemas for existing databases just in case they were initialized previously
     await client.query(`
       ALTER TABLE questions ADD COLUMN IF NOT EXISTS timer_duration INTEGER DEFAULT 0;

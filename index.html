@@ -18,7 +18,9 @@
     </div>
     <div id="header-actions" style="display: flex; align-items: center; gap: 15px;">
       <span id="admin-status" style="color: #ff8b77; font-size: 0.9rem; font-weight: 700; display: none;">🔒 ADMIN MODE</span>
-      <button id="btn-admin-login">Admin Login</button>
+      <span id="user-profile-badge" style="display: none; align-items: center; gap: 8px; color: var(--text-dark); font-weight: 700; font-size: 0.9rem; background: rgba(0,0,0,0.05); padding: 4px 12px; border-radius: 12px;"></span>
+      <button id="btn-admin-login" style="display: none;">Admin Login</button>
+      <button id="btn-logout" style="display: none;" class="btn-secondary">Logout</button>
     </div>
   </header>
 
@@ -289,6 +291,88 @@
     </section>
 
   </main>
+
+  <!-- Real Authentication Modal Overlay -->
+  <div id="auth-modal" style="display: flex; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px); z-index: 999999; align-items: center; justify-content: center; padding: 20px;">
+    <div class="glass-panel" style="width: 100%; max-width: 440px; padding: 30px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.4); text-align: center;">
+      <div style="margin-bottom: 25px;">
+        <h2 style="font-size: 1.8rem; color: var(--text-dark); margin-bottom: 6px; font-weight: 800; background: linear-gradient(135deg, var(--accent-coral) 0%, #f05638 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">QuizMaster Pro</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in or join as guest to get started</p>
+      </div>
+
+      <!-- Auth Tab Controls -->
+      <div style="display: flex; gap: 5px; margin-bottom: 20px; background: rgba(0,0,0,0.05); padding: 4px; border-radius: 12px; justify-content: center;">
+        <button id="tab-auth-signin" class="btn-primary" style="flex: 1; padding: 8px 12px; font-size: 0.8rem; border-radius: 8px; background: var(--accent-coral); border-color: transparent;">Sign In</button>
+        <button id="tab-auth-signup" class="btn-secondary" style="flex: 1; padding: 8px 12px; font-size: 0.8rem; border-radius: 8px; border-color: transparent;">Sign Up</button>
+        <button id="tab-auth-guest" class="btn-secondary" style="flex: 1; padding: 8px 12px; font-size: 0.8rem; border-radius: 8px; border-color: transparent;">Guest Play</button>
+      </div>
+
+      <!-- Form 1: Sign In -->
+      <div id="form-auth-signin" style="display: block;">
+        <div class="form-group" style="text-align: left; margin-bottom: 12px;">
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-medium); margin-bottom: 4px;">Email Address</label>
+          <input type="email" id="signin-email" placeholder="e.g. player@gmail.com" style="padding: 10px;">
+        </div>
+        <div class="form-group" style="text-align: left; margin-bottom: 20px;">
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-medium); margin-bottom: 4px;">Password</label>
+          <input type="password" id="signin-password" placeholder="••••••••" style="padding: 10px;">
+        </div>
+        <button id="btn-auth-signin-submit" class="btn-primary" style="width: 100%; padding: 12px; font-weight: 700; background: var(--accent-coral); border-color: transparent;">Sign In</button>
+      </div>
+
+      <!-- Form 2: Sign Up -->
+      <div id="form-auth-signup" style="display: none;">
+        <div class="form-group" style="text-align: left; margin-bottom: 12px;">
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-medium); margin-bottom: 4px;">Full Name</label>
+          <input type="text" id="signup-name" placeholder="e.g. Alice Smith" style="padding: 10px;">
+        </div>
+        <div class="form-group" style="text-align: left; margin-bottom: 12px;">
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-medium); margin-bottom: 4px;">Email Address</label>
+          <input type="email" id="signup-email" placeholder="e.g. player@gmail.com" style="padding: 10px;">
+        </div>
+        <div class="form-group" style="text-align: left; margin-bottom: 15px;">
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-medium); margin-bottom: 4px;">Password</label>
+          <input type="password" id="signup-password" placeholder="••••••••" style="padding: 10px;">
+        </div>
+        <div class="form-group" style="text-align: left; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+          <input type="checkbox" id="signup-is-admin" style="width: 18px; height: 18px; cursor: pointer; margin: 0;">
+          <label for="signup-is-admin" style="margin-bottom: 0; cursor: pointer; color: var(--text-dark); font-weight: 600; font-size: 0.85rem;">Register as Admin / Host</label>
+        </div>
+        <div class="form-group" id="signup-admin-pin-group" style="display: none; text-align: left; margin-bottom: 20px;">
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-medium); margin-bottom: 4px;">Admin Passcode (PIN)</label>
+          <input type="password" id="signup-admin-pin" placeholder="Enter PIN (e.g. 1234)" style="padding: 10px;">
+        </div>
+        <button id="btn-auth-signup-submit" class="btn-primary" style="width: 100%; padding: 12px; font-weight: 700; background: var(--accent-coral); border-color: transparent;">Create Account</button>
+      </div>
+
+      <!-- Form 3: Guest Play -->
+      <div id="form-auth-guest" style="display: none;">
+        <div class="form-group" style="text-align: left; margin-bottom: 20px;">
+          <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-medium); margin-bottom: 4px;">Your Nickname</label>
+          <input type="text" id="guest-name" placeholder="e.g. QuickTriviaFan" style="padding: 10px;">
+        </div>
+        <button id="btn-auth-guest-submit" class="btn-cyan" style="width: 100%; padding: 12px; font-weight: 700;">Continue as Guest</button>
+      </div>
+
+      <!-- Divider -->
+      <div style="display: flex; align-items: center; gap: 10px; margin: 25px 0;">
+        <div style="flex: 1; height: 1px; background: var(--border-color-light);"></div>
+        <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">or</span>
+        <div style="flex: 1; height: 1px; background: var(--border-color-light);"></div>
+      </div>
+
+      <!-- Google Sign In Button -->
+      <button id="btn-google-login" type="button" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: #ffffff; border: 1px solid #dadce0; border-radius: 12px; font-weight: 700; color: #3c4043; cursor: pointer; font-size: 0.9rem; transition: all 0.2s ease;">
+        <svg width="18" height="18" viewBox="0 0 18 18">
+          <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"></path>
+          <path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853"></path>
+          <path d="M3.964 10.707a5.416 5.416 0 01-.282-1.707c0-.597.102-1.174.282-1.707V4.96H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.04l3.007-2.333z" fill="#FBBC05"></path>
+          <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.806 11.426 0 9 0 5.044 0 1.636 2.279.357 5.585l3.007 2.332C4.072 5.164 6.056 3.58 9 3.58z" fill="#EA4335"></path>
+        </svg>
+        Sign in with Google
+      </button>
+    </div>
+  </div>
 
   <!-- Admin Login PIN Modal -->
   <div id="admin-login-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); backdrop-filter:blur(8px); z-index:99999; align-items:center; justify-content:center;">

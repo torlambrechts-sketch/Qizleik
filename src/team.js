@@ -867,6 +867,15 @@ function init() {
     el.joinGameId.value = urlGameId;
   }
 
+  // Pre-fill user profile name if authenticated in browser
+  const storedName = localStorage.getItem('user_name');
+  if (storedName) {
+    const signupUser = document.getElementById('signup-username');
+    const joinUser = document.getElementById('join-username');
+    if (signupUser) signupUser.value = storedName;
+    if (joinUser) joinUser.value = storedName;
+  }
+
   // Join tab selectors
   el.tabJoinSignup.onclick = () => toggleJoinTab('signup');
   el.tabJoinExisting.onclick = () => toggleJoinTab('existing');
