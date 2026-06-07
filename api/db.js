@@ -85,6 +85,7 @@ async function initDb() {
         color VARCHAR(50) DEFAULT '#ffffff',
         score INTEGER DEFAULT 0,
         players TEXT,
+        is_active BOOLEAN DEFAULT FALSE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
@@ -129,6 +130,9 @@ async function initDb() {
     `);
     await client.query(`
       ALTER TABLE quizzes ADD COLUMN IF NOT EXISTS passcode VARCHAR(50);
+    `);
+    await client.query(`
+      ALTER TABLE teams ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT FALSE;
     `);
 
     await client.query('COMMIT');

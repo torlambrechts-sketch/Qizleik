@@ -80,6 +80,9 @@ function renderPresenterState(game) {
   el.gameTitle.textContent = game.quiz_title;
   el.gameIdVal.textContent = game.id;
 
+  // Filter only active teams
+  const activeTeams = game.teams.filter(t => t.is_active);
+
   // 1. Manage Timer Sync
   if (game.timer_ends_at !== localState.timerEndsAt) {
     localState.timerEndsAt = game.timer_ends_at;
@@ -92,7 +95,7 @@ function renderPresenterState(game) {
     el.lobby.style.display = 'block';
     el.questionPanel.style.display = 'none';
     el.completed.style.display = 'none';
-    renderLobby(game.teams);
+    renderLobby(activeTeams);
   } 
   else if (game.status === 'active') {
     el.lobby.style.display = 'none';
@@ -122,11 +125,11 @@ function renderPresenterState(game) {
       setTimeout(triggerConfetti, 1000);
     }
     
-    renderPodium(game.teams);
+    renderPodium(activeTeams);
   }
 
   // 3. Render Scoreboard columns at bottom (always visible)
-  renderScoreboard(game);
+  renderScoreboard(game, activeTeams);
 
   // Keep state status cache updated
   localState.status = game.status;
@@ -135,15 +138,18 @@ function renderPresenterState(game) {
 // Lobby Rendering
 function renderLobby(teams) {
   if (teams.length === 0) {
-    el.lobbyTeams.innerHTML = '<span style="color: var(--text-muted);">No teams registered yet. Waiting for host...</span>';
+    el.lobbyTeams.innerHTML = '<span style="color: var(--text-muted); font-size: 1.4rem;">No players registered yet. Waiting to join...</span>';
     return;
   }
   
-  el.lobbyTeams.innerHTML = teams.map(team => `
-    <span class="glass-panel" style="padding: 10px 20px; font-weight:700; border-color:${team.color || '#fff'}; color:#fff; font-size:1.2rem;">
-      🎨 ${escapeHtml(team.name)}
-    </span>
-  `).join('');
+  el.lobbyTeams.innerHTML = teams.map(team => {
+    const displayName = team.players ? `${team.name} (${team.players})` : team.name;
+    return `
+      <span class="glass-panel" style="padding: 10px 20px; font-weight:700; border-color:${team.color || '#fff'}; color:#fff; font-size:1.2rem;">
+        🎨 ${escapeHtml(displayName)}
+      </span>
+    `;
+  }).join('');
 }
 
 // Question Panel Rendering
@@ -159,7 +165,8 @@ function renderQuestion(game) {
   el.questionText.textContent = q.question_text;
 
   const submissionsCount = game.submissions.length;
-  const totalTeams = game.teams.length;
+  const activeTeams = game.teams.filter(t => t.is_active);
+  const totalTeams = activeTeams.length;
   const allSubmitted = submissionsCount === totalTeams;
 
   if (q.question_type === 'multiple-choice') {
@@ -175,14 +182,15 @@ function renderQuestion(game) {
     
     if (game.team_mode && !allSubmitted) {
       // Hide actual text/drawings from audience, display sub status cards
-      el.options.innerHTML = game.teams.map(team => {
+      el.options.innerHTML = activeTeams.map(team => {
         const sub = game.submissions.find(s => String(s.team_id) === String(team.id));
         const hasSubmitted = sub && (sub.submitted_text || sub.submitted_image);
+        const displayName = team.players ? `${team.name} (${team.players})` : team.name;
         
         return `
           <div class="glass-panel submission-card" style="border-left: 4px solid ${team.color || '#fff'}; width: 100%; text-align: left; padding: 15px; opacity: ${hasSubmitted ? '1' : '0.55'};">
             <div style="font-size:1.15rem; font-weight:700; display:flex; justify-content:space-between; align-items:center; color: var(--text-dark);">
-              <span>🎨 ${escapeHtml(team.name)}</span>
+              <span>🎨 ${escapeHtml(displayName)}</span>
               <span style="font-size: 0.95rem; font-weight:800; color: ${hasSubmitted ? '#10b981' : 'var(--text-muted)'};">
                 ${hasSubmitted ? '✓ Answered' : '⏳ Thinking...'}
               </span>
@@ -206,10 +214,13 @@ function renderQuestion(game) {
             `;
           }
           
+          const team = game.teams.find(t => String(t.id) === String(sub.team_id));
+          const displayName = team && team.players ? `${sub.team_name} (${team.players})` : sub.team_name;
+          
           return `
             <div class="glass-panel submission-card" style="border-left: 4px solid ${sub.team_color || '#fff'}; width: 100%; text-align: left; padding: 15px;">
               <div class="submission-meta" style="font-size:0.95rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; font-weight:700; color: var(--text-muted);">
-                <span style="color: ${sub.team_color || '#333'}">${escapeHtml(sub.team_name)}</span>
+                <span style="color: ${sub.team_color || '#333'}">${escapeHtml(displayName)}</span>
                 <span style="color: var(--accent-coral);">${sub.points_awarded} pts</span>
               </div>
               ${subMedia}
@@ -242,20 +253,23 @@ function renderPodium(teams) {
   if (sorted[0]) podiumSpots.push({ team: sorted[0], rank: 1, height: '240px', color: '#fbbf24', label: '1st' }); // Gold
   if (sorted[2]) podiumSpots.push({ team: sorted[2], rank: 3, height: '120px', color: '#b45309', label: '3rd' }); // Bronze
 
-  el.podium.innerHTML = podiumSpots.map(spot => `
-    <div class="podium-place">
-      <div class="podium-name">${escapeHtml(spot.team.name)}</div>
-      <div class="podium-score">${spot.team.score} pts</div>
-      <div class="podium-block" style="height: ${spot.height}; background: linear-gradient(135deg, ${spot.team.color || '#8b5cf6'} 0%, #1e1b4b 100%); border: 2px solid ${spot.color}">
-        ${spot.label}
+  el.podium.innerHTML = podiumSpots.map(spot => {
+    const displayName = spot.team.players ? `${spot.team.name} (${spot.team.players})` : spot.team.name;
+    return `
+      <div class="podium-place">
+        <div class="podium-name">${escapeHtml(displayName)}</div>
+        <div class="podium-score">${spot.team.score} pts</div>
+        <div class="podium-block" style="height: ${spot.height}; background: linear-gradient(135deg, ${spot.team.color || '#8b5cf6'} 0%, #1e1b4b 100%); border: 2px solid ${spot.color}">
+          ${spot.label}
+        </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 // Live Footer Scoreboard Bar Charts
-function renderScoreboard(game) {
-  const teams = game.teams;
+function renderScoreboard(game, activeTeams) {
+  const teams = activeTeams || game.teams.filter(t => t.is_active);
   if (teams.length === 0) {
     el.scoreboard.innerHTML = '';
     return;
@@ -287,13 +301,15 @@ function renderScoreboard(game) {
       pct = (team.score / maxScore) * 85;
     }
     
+    const label = team.players ? `${escapeHtml(team.name)}<br><span style="opacity: 0.75; font-size: 0.75rem; font-weight: normal;">${escapeHtml(team.players)}</span>` : escapeHtml(team.name);
+    
     return `
       <div class="presenter-score-column">
         <span class="presenter-score-val" style="color: ${team.color || '#fff'}">${team.score}</span>
         <div class="presenter-score-bar-wrapper">
           <div class="presenter-score-bar" style="height: ${pct}%; background: linear-gradient(to top, ${team.color || '#8b5cf6'} 30%, #fff 100%);"></div>
         </div>
-        <div class="presenter-team-name" style="color: #fff;">${escapeHtml(team.name)}</div>
+        <div class="presenter-team-name" style="color: #fff; line-height: 1.2;">${label}</div>
       </div>
     `;
   }).join('');

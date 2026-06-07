@@ -130,7 +130,7 @@ export default async function handler(req, res) {
 
         // Insert new team
         const insertRes = await query(
-          'INSERT INTO teams (game_id, name, color, score, players) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+          'INSERT INTO teams (game_id, name, color, score, players, is_active) VALUES ($1, $2, $3, $4, $5, TRUE) RETURNING *',
           [game_id, name.trim(), color || '#ffffff', 0, players || '']
         );
         const newTeam = insertRes.rows[0];
@@ -140,6 +140,32 @@ export default async function handler(req, res) {
           name: newTeam.name,
           color: newTeam.color,
           message: 'Team signed up successfully'
+        });
+      }
+
+      if (action === 'join_team') {
+        const { team_id, name, players } = req.body;
+        if (!team_id || !name) {
+          return res.status(400).json({ error: 'team_id and name are required to join a team' });
+        }
+
+        // Update the pre-created team with username and company and set active
+        await query(
+          'UPDATE teams SET name = $1, players = $2, is_active = TRUE WHERE id = $3',
+          [name.trim(), players || '', team_id]
+        );
+
+        const selectRes = await query('SELECT * FROM teams WHERE id = $1', [team_id]);
+        if (selectRes.rows.length === 0) {
+          return res.status(404).json({ error: 'Team not found' });
+        }
+        const updatedTeam = selectRes.rows[0];
+
+        return res.status(200).json({
+          team_id: updatedTeam.id,
+          name: updatedTeam.name,
+          color: updatedTeam.color,
+          message: 'Connected to team successfully'
         });
       }
 
@@ -163,11 +189,13 @@ export default async function handler(req, res) {
             const gRes = await query('SELECT quiz_id FROM games WHERE id = $1', [game_id]);
             if (gRes.rows.length > 0) {
               const quizId = gRes.rows[0].quiz_id;
-              const teamsRes = await query('SELECT name, score FROM teams WHERE game_id = $1', [game_id]);
+              // Fetch only active teams
+              const teamsRes = await query('SELECT name, players, score FROM teams WHERE game_id = $1 AND is_active = TRUE', [game_id]);
               for (const team of teamsRes.rows) {
+                const finalName = team.players ? `${team.name} (${team.players})` : team.name;
                 await query(
                   'INSERT INTO leaderboard (quiz_id, team_name, score) VALUES ($1, $2, $3)',
-                  [quizId, team.name, team.score]
+                  [quizId, finalName, team.score]
                 );
               }
             }

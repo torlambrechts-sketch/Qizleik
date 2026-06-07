@@ -777,6 +777,8 @@ function renderHostState() {
         const team = game.teams.find(t => String(t.id) === String(sub.team_id));
         const teamName = team ? team.name : sub.team_name || 'Unknown Team';
         const teamColor = team ? team.color : sub.team_color || '#ccc';
+        const companyName = team ? team.players : '';
+        const displayName = companyName ? `${teamName} (${companyName})` : teamName;
         const pointsAwarded = sub.points_awarded || 0;
         
         let subMedia = '';
@@ -827,7 +829,7 @@ function renderHostState() {
             </div>
             <div class="chat-message-bubble" style="max-width: 80%;">
               <div class="chat-message-meta">
-                <span style="font-weight: 700; color: var(--text-dark);">${escapeHtml(teamName)}</span>
+                <span style="font-weight: 700; color: var(--text-dark);">${escapeHtml(displayName)}</span>
                 &bull; ${new Date(sub.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 ${pointsAwarded > 0 ? `&bull; <span style="color: var(--accent-coral); font-weight:700;">+${pointsAwarded} pts</span>` : ''}
               </div>
@@ -867,8 +869,9 @@ function renderHostState() {
     btn.onclick = () => rateSubmission(btn.dataset.teamid, btn.dataset.points);
   });
 
-  // 3. Render manual score adjusting panel
-  el.hostTeamsScoringList.innerHTML = game.teams.map(team => `
+  // 3. Render manual score adjusting panel (filter only active teams)
+  const activeTeams = game.teams.filter(t => t.is_active);
+  el.hostTeamsScoringList.innerHTML = activeTeams.map(team => `
     <div class="host-team-row" style="border-left: 4px solid ${team.color || '#fff'}">
       <div class="host-team-info">
         <div class="team-avatar" style="background: ${team.color || '#fff'}"></div>

@@ -56,7 +56,11 @@ const el = {
   btnSfxCorrect: document.getElementById('btn-sfx-correct'),
   btnSfxIncorrect: document.getElementById('btn-sfx-incorrect'),
   btnSfxVictory: document.getElementById('btn-sfx-victory'),
-  btnSfxTick: document.getElementById('btn-sfx-tick')
+  btnSfxTick: document.getElementById('btn-sfx-tick'),
+
+  // Join Pre-created inputs
+  joinUsername: document.getElementById('join-username'),
+  joinCompany: document.getElementById('join-company')
 };
 
 // -------------------------------------------------------------
@@ -76,8 +80,15 @@ async function fetchTeams() {
       return res.json();
     });
     
+    // Filter out already active teams
+    const inactiveTeams = game.teams.filter(team => !team.is_active);
+    if (inactiveTeams.length === 0) {
+      alert('All pre-created team slots are taken! Please use the "Sign Up Team" tab to create your own.');
+      return;
+    }
+    
     // Populate dropdown
-    el.joinTeamSelect.innerHTML = game.teams.map(team => `
+    el.joinTeamSelect.innerHTML = inactiveTeams.map(team => `
       <option value="${team.id}" data-name="${team.name}" data-color="${team.color}">${escapeHtml(team.name)}</option>
     `).join('');
     
@@ -88,20 +99,48 @@ async function fetchTeams() {
   }
 }
 
-function joinGame() {
+async function joinGame() {
+  const gameId = state.gameId;
+  const username = el.joinUsername.value.trim();
+  const company = el.joinCompany.value.trim();
   const select = el.joinTeamSelect;
   const option = select.options[select.selectedIndex];
   
-  state.teamId = select.value;
-  state.teamName = option.dataset.name;
-  state.teamColor = option.dataset.color;
+  if (!username) {
+    alert('Please enter your Username / Player Name.');
+    return;
+  }
   
-  localStorage.setItem('team_game_id', state.gameId);
-  localStorage.setItem('team_team_id', state.teamId);
-  localStorage.setItem('team_name', state.teamName);
-  localStorage.setItem('team_color', state.teamColor);
+  const teamId = select.value;
   
-  enterArena();
+  try {
+    const res = await fetch('/api/game', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'join_team',
+        team_id: teamId,
+        name: username,
+        players: company
+      })
+    }).then(r => {
+      if (!r.ok) throw new Error();
+      return r.json();
+    });
+    
+    state.teamId = res.team_id;
+    state.teamName = res.name;
+    state.teamColor = res.color;
+    
+    localStorage.setItem('team_game_id', gameId);
+    localStorage.setItem('team_team_id', state.teamId);
+    localStorage.setItem('team_name', state.teamName);
+    localStorage.setItem('team_color', state.teamColor);
+    
+    enterArena();
+  } catch (error) {
+    alert('Failed to connect to team. Please try again.');
+  }
 }
 
 function enterArena() {
@@ -217,7 +256,8 @@ async function pollGameStatus() {
       if (game.team_mode) {
         const mySubmission = game.submissions.find(s => String(s.team_id) === String(state.teamId));
         const totalSubmittedCount = game.submissions.length;
-        const allSubmitted = totalSubmittedCount === game.teams.length;
+        const activeTeamsCount = game.teams.filter(t => t.is_active).length;
+        const allSubmitted = totalSubmittedCount === activeTeamsCount;
         
         if (allSubmitted) {
           el.scoreBadge.textContent = `Score: ${myTeam.score} pts`;
@@ -273,8 +313,8 @@ function renderPortalState() {
       
       // Update submitted status label to wait or show graded feedback
       const totalSubmittedCount = game.submissions.length;
-      const totalTeams = game.teams.length;
-      const allSubmitted = totalSubmittedCount === totalTeams;
+      const activeTeamsCount = game.teams.filter(t => t.is_active).length;
+      const allSubmitted = totalSubmittedCount === activeTeamsCount;
       
       if (game.team_mode) {
         el.teamModeFeed.style.display = 'block';
@@ -295,7 +335,7 @@ function renderPortalState() {
             `;
           }
         } else {
-          el.teamModeStatusText.textContent = `⏳ Waiting for other teams to submit... (${totalSubmittedCount} of ${totalTeams} completed)`;
+          el.teamModeStatusText.textContent = `⏳ Waiting for other teams to submit... (${totalSubmittedCount} of ${activeTeamsCount} completed)`;
           el.submittedStatus.innerHTML = `
             <span style="color: #10b981; font-weight: 800; font-size: 1rem; display: block; margin-bottom: 4px;">✓ Response Submitted!</span>
             <span style="font-size: 0.85rem; color: var(--text-muted);">Waiting for all other teams to submit...</span>
@@ -318,10 +358,13 @@ function renderPortalState() {
             `;
           }
           
+          const team = game.teams.find(t => String(t.id) === String(sub.team_id));
+          const displayName = team && team.players ? `${sub.team_name} (${team.players})` : sub.team_name;
+          
           return `
             <div style="padding: 12px; border: 1px solid var(--border-color-light); border-radius: 12px; background: #fafafb; border-left: 4px solid ${sub.team_color || '#ccc'}; text-align: left;">
               <strong style="color: ${sub.team_color || 'var(--text-dark)'}; font-size: 0.85rem;">
-                ${escapeHtml(sub.team_name)}
+                ${escapeHtml(displayName)}
               </strong>
               ${mediaHtml}
             </div>
