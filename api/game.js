@@ -107,6 +107,42 @@ export default async function handler(req, res) {
         return res.status(200).json({ message: 'Teams initialized successfully' });
       }
 
+      if (action === 'register_team') {
+        const { game_id, name, color, players } = req.body;
+        if (!game_id || !name) {
+          return res.status(400).json({ error: 'game_id and name are required to register a team' });
+        }
+
+        // Check if team name already exists in this game session (reconnect case)
+        const checkRes = await query(
+          'SELECT * FROM teams WHERE game_id = $1 AND name = $2',
+          [game_id, name.trim()]
+        );
+
+        if (checkRes.rows.length > 0) {
+          return res.status(200).json({ 
+            team_id: checkRes.rows[0].id, 
+            name: checkRes.rows[0].name, 
+            color: checkRes.rows[0].color, 
+            message: 'Reconnected to existing team' 
+          });
+        }
+
+        // Insert new team
+        const insertRes = await query(
+          'INSERT INTO teams (game_id, name, color, score, players) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+          [game_id, name.trim(), color || '#ffffff', 0, players || '']
+        );
+        const newTeam = insertRes.rows[0];
+
+        return res.status(201).json({
+          team_id: newTeam.id,
+          name: newTeam.name,
+          color: newTeam.color,
+          message: 'Team signed up successfully'
+        });
+      }
+
       if (action === 'update') {
         const { game_id, status, current_question_index, timer_duration, team_mode } = req.body;
         if (!game_id) {

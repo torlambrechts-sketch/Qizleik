@@ -26,7 +26,8 @@ const el = {
   options: document.getElementById('presenter-options'),
   completed: document.getElementById('presenter-completed'),
   podium: document.getElementById('presenter-podium'),
-  scoreboard: document.getElementById('presenter-scoreboard')
+  scoreboard: document.getElementById('presenter-scoreboard'),
+  gameIdVal: document.getElementById('presenter-game-id-val')
 };
 
 let pollInterval = null;
@@ -77,6 +78,7 @@ function runTimer(endsAtString) {
 
 function renderPresenterState(game) {
   el.gameTitle.textContent = game.quiz_title;
+  el.gameIdVal.textContent = game.id;
 
   // 1. Manage Timer Sync
   if (game.timer_ends_at !== localState.timerEndsAt) {

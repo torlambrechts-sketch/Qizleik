@@ -62,26 +62,61 @@
   <!-- STEP 1: Login / Join game -->
   <div id="portal-join" class="glass-panel portal-card">
     <h2 style="font-size: 1.8rem; color: var(--text-dark); margin-bottom: 8px; text-align: center;">Join Game</h2>
-    <p style="color: var(--text-muted); text-align: center; margin-bottom: 24px;">Enter Game ID and select your team</p>
+    <p style="color: var(--text-muted); text-align: center; margin-bottom: 20px;">Enter Game ID to connect as a user/company</p>
     
+    <!-- Tab Controls -->
+    <div style="display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color-light); padding-bottom: 15px; justify-content: center;">
+      <button id="tab-join-signup" class="btn-primary" style="padding: 6px 16px; font-size: 0.8rem; border-radius: 12px; background: var(--accent-coral); border-color: transparent;">
+        Sign Up Team
+      </button>
+      <button id="tab-join-existing" class="btn-secondary" style="padding: 6px 16px; font-size: 0.8rem; border-radius: 12px;">
+        Join Pre-created
+      </button>
+    </div>
+
+    <!-- Common Game ID Input -->
     <div class="form-group">
       <label for="join-game-id">Game ID</label>
       <input type="number" id="join-game-id" placeholder="e.g. 1">
     </div>
-    
-    <button id="btn-fetch-teams" class="btn-primary" style="width: 100%; margin-bottom: 20px;">
-      Find Game
-    </button>
-    
-    <div id="join-team-select-group" class="form-group" style="display: none;">
-      <label for="join-team-select">Select Your Team</label>
-      <select id="join-team-select">
-        <!-- Filled dynamically -->
-      </select>
-      
-      <button id="btn-join-game" class="btn-cyan" style="width: 100%; margin-top: 20px;">
-        Connect Team
+
+    <!-- Section A: Sign Up New Team -->
+    <div id="join-section-signup" style="display: block;">
+      <div class="form-group">
+        <label for="signup-username">Username / Team Name</label>
+        <input type="text" id="signup-username" placeholder="e.g. AliceS">
+      </div>
+      <div class="form-group">
+        <label for="signup-company">Company Name (Optional)</label>
+        <input type="text" id="signup-company" placeholder="e.g. Sketch Inc">
+      </div>
+      <div class="form-group" style="display: flex; align-items: center; gap: 12px;">
+        <label style="margin-bottom: 0; font-weight: 600; color: var(--text-medium); font-size: 0.9rem;">Avatar Color:</label>
+        <div class="color-picker-wrapper">
+          <input type="color" id="signup-color" value="#f05638">
+        </div>
+      </div>
+      <button id="btn-signup-join" class="btn-primary" style="width: 100%; margin-top: 20px; background: var(--accent-coral); border-color: transparent;">
+        Sign Up & Play
       </button>
+    </div>
+
+    <!-- Section B: Join Pre-created Team -->
+    <div id="join-section-existing" style="display: none;">
+      <button id="btn-fetch-teams" class="btn-primary" style="width: 100%; margin-bottom: 20px;">
+        Find Game Teams
+      </button>
+      
+      <div id="join-team-select-group" class="form-group" style="display: none;">
+        <label for="join-team-select">Select Your Team</label>
+        <select id="join-team-select">
+          <!-- Filled dynamically -->
+        </select>
+        
+        <button id="btn-join-game" class="btn-cyan" style="width: 100%; margin-top: 20px;">
+          Connect Team
+        </button>
+      </div>
     </div>
   </div>
 
@@ -120,6 +155,17 @@
         <h4 id="portal-team-mode-status-text" style="color: var(--text-dark); font-size: 0.95rem; margin-bottom: 15px; font-weight: 700;">Waiting for other teams (0 of 0)...</h4>
         <div id="portal-team-mode-answers-list" style="display: flex; flex-direction: column; gap: 12px;">
           <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Client SFX Soundboard -->
+      <div style="margin-top: 30px; border-top: 1px solid var(--border-color-light); padding-top: 20px;">
+        <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em;">Client SFX Soundboard:</span>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+          <button id="btn-sfx-correct" class="chat-rating-btn" style="border-radius: 12px; padding: 6px 12px; font-size: 0.8rem; border: 1px solid var(--border-color);">🔔 Correct</button>
+          <button id="btn-sfx-incorrect" class="chat-rating-btn" style="border-radius: 12px; padding: 6px 12px; font-size: 0.8rem; border: 1px solid var(--border-color);">🔕 Incorrect</button>
+          <button id="btn-sfx-victory" class="chat-rating-btn" style="border-radius: 12px; padding: 6px 12px; font-size: 0.8rem; border: 1px solid var(--border-color);">🎉 Victory</button>
+          <button id="btn-sfx-tick" class="chat-rating-btn" style="border-radius: 12px; padding: 6px 12px; font-size: 0.8rem; border: 1px solid var(--border-color);">⏱ Tick</button>
         </div>
       </div>
     </div>

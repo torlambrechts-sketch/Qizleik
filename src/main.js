@@ -52,6 +52,17 @@ const el = {
   bannerQuizTitle: document.getElementById('banner-quiz-title'),
   bannerQuestionsCount: document.getElementById('banner-questions-count'),
   bannerActionsContainer: document.getElementById('banner-actions-container'),
+  bannerGameIdBadge: document.getElementById('banner-game-id-badge'),
+  bannerGameIdVal: document.getElementById('banner-game-id-val'),
+
+  // Dashboard Join elements
+  dashboardJoinGameId: document.getElementById('dashboard-join-game-id'),
+  btnDashboardJoin: document.getElementById('btn-dashboard-join'),
+
+  // Creator Privacy settings elements
+  quizPrivateInput: document.getElementById('quiz-private-input'),
+  quizPasscodeGroup: document.getElementById('quiz-passcode-group'),
+  quizPasscodeInput: document.getElementById('quiz-passcode-input'),
 
   // Host Screen elements
   hostTimer: document.getElementById('host-timer'),
@@ -124,6 +135,14 @@ function showScreen(screenName) {
       el.bannerQuestionsCount.textContent = `🧩 Round ${state.activeGame.current_question_index + 1} of ${state.activeGame.total_questions}`;
     }
     el.bannerActionsContainer.style.display = 'flex';
+  }
+
+  // Handle Game ID badge
+  if (screenName === 'host' && state.activeGameId) {
+    el.bannerGameIdBadge.style.display = 'inline-flex';
+    el.bannerGameIdVal.textContent = state.activeGameId;
+  } else {
+    el.bannerGameIdBadge.style.display = 'none';
   }
 
   // Handle screen transition side-effects
@@ -242,6 +261,9 @@ function startCreateScreen() {
   el.creatorTitle.textContent = 'Create Quiz';
   el.quizTitleInput.value = '';
   el.quizDescInput.value = '';
+  el.quizPrivateInput.checked = false;
+  el.quizPasscodeGroup.style.display = 'none';
+  el.quizPasscodeInput.value = '';
   addCreatorQuestion('multiple-choice');
   showScreen('creator');
 }
@@ -253,6 +275,9 @@ async function startEditScreen(id) {
     el.creatorTitle.textContent = 'Edit Quiz';
     el.quizTitleInput.value = quiz.title;
     el.quizDescInput.value = quiz.description || '';
+    el.quizPrivateInput.checked = quiz.is_private || false;
+    el.quizPasscodeGroup.style.display = quiz.is_private ? 'block' : 'none';
+    el.quizPasscodeInput.value = quiz.passcode || '';
     state.creatorQuestions = quiz.questions;
     renderCreatorQuestions();
     showScreen('creator');
@@ -450,9 +475,19 @@ async function saveQuiz() {
     }
   }
 
+  const isPrivate = el.quizPrivateInput.checked;
+  const passcode = el.quizPasscodeInput.value.trim();
+  
+  if (isPrivate && !passcode) {
+    alert('Please enter a passcode for the private quiz.');
+    return;
+  }
+
   const payload = {
     title,
     description,
+    is_private: isPrivate,
+    passcode: passcode,
     questions: state.creatorQuestions
   };
 
@@ -1032,7 +1067,15 @@ function stopPolling() {
 
 async function showLeaderboard(quizId, quizTitle) {
   try {
-    const entries = await apiCall(`/api/quizzes?leaderboard=true&quizId=${quizId}`);
+    const quizObj = state.quizzes.find(q => String(q.id) === String(quizId));
+    let passcode = '';
+    if (quizObj && quizObj.is_private) {
+      passcode = prompt('This leaderboard is private. Enter passcode to unlock:');
+      if (passcode === null) return; // User cancelled
+    }
+
+    const url = `/api/quizzes?leaderboard=true&quizId=${quizId}${passcode ? `&passcode=${encodeURIComponent(passcode)}` : ''}`;
+    const entries = await apiCall(url);
     el.leaderboardModalQuiz.textContent = `Quiz: ${quizTitle}`;
     
     if (entries.length === 0) {
@@ -1045,14 +1088,14 @@ async function showLeaderboard(quizId, quizTitle) {
       `;
     } else {
       el.leaderboardModalBody.innerHTML = entries.map((entry, idx) => `
-        <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.95rem;">
-          <td style="padding: 12px; font-weight: 800; color: ${idx === 0 ? 'var(--color-warning)' : 'var(--text-primary)'};">
+        <tr style="border-bottom: 1px solid var(--border-color-light); font-size: 0.95rem;">
+          <td style="padding: 12px; font-weight: 800; color: var(--text-dark);">
             ${idx + 1}${idx === 0 ? ' 👑' : ''}
           </td>
-          <td style="padding: 12px; font-weight: 600; color: #fff;">
+          <td style="padding: 12px; font-weight: 600; color: var(--text-dark);">
             ${escapeHtml(entry.team_name)}
           </td>
-          <td style="padding: 12px; text-align: right; font-weight: 800; color: var(--accent-secondary);">
+          <td style="padding: 12px; text-align: right; font-weight: 800; color: var(--accent-coral);">
             ${entry.score}
           </td>
           <td style="padding: 12px; text-align: right; color: var(--text-muted); font-size: 0.8rem;">
@@ -1191,6 +1234,32 @@ function init() {
   };
   el.btnLeaderboardClose.onclick = () => {
     el.leaderboardModal.style.display = 'none';
+  };
+
+  // Dashboard Quick Join bindings
+  const handleQuickJoin = () => {
+    const gameId = el.dashboardJoinGameId.value.trim();
+    if (!gameId) {
+      alert('Please enter a Game ID to join.');
+      return;
+    }
+    window.location.href = `team.html?gameId=${gameId}`;
+  };
+  el.btnDashboardJoin.onclick = handleQuickJoin;
+  el.dashboardJoinGameId.onkeypress = (e) => {
+    if (e.key === 'Enter') {
+      handleQuickJoin();
+    }
+  };
+
+  // Creator Privacy inputs bindings
+  el.quizPrivateInput.onchange = (e) => {
+    if (e.target.checked) {
+      el.quizPasscodeGroup.style.display = 'block';
+    } else {
+      el.quizPasscodeGroup.style.display = 'none';
+      el.quizPasscodeInput.value = '';
+    }
   };
 
   // Sync initial Admin GUI state

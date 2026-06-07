@@ -1,3 +1,5 @@
+import { playCorrect, playIncorrect, playTick, playVictory } from './audio.js';
+
 // State Management for Team Portal
 const state = {
   gameId: localStorage.getItem('team_game_id') || null,
@@ -36,7 +38,25 @@ const el = {
   submittedStatus: document.getElementById('portal-submitted-status'),
   teamModeFeed: document.getElementById('portal-team-mode-feed'),
   teamModeStatusText: document.getElementById('portal-team-mode-status-text'),
-  teamModeAnswersList: document.getElementById('portal-team-mode-answers-list')
+  teamModeAnswersList: document.getElementById('portal-team-mode-answers-list'),
+
+  // Join Tab controls
+  tabJoinSignup: document.getElementById('tab-join-signup'),
+  tabJoinExisting: document.getElementById('tab-join-existing'),
+  joinSectionSignup: document.getElementById('join-section-signup'),
+  joinSectionExisting: document.getElementById('join-section-existing'),
+
+  // Signup fields
+  signupUsername: document.getElementById('signup-username'),
+  signupCompany: document.getElementById('signup-company'),
+  signupColor: document.getElementById('signup-color'),
+  btnSignupJoin: document.getElementById('btn-signup-join'),
+
+  // Client SFX buttons
+  btnSfxCorrect: document.getElementById('btn-sfx-correct'),
+  btnSfxIncorrect: document.getElementById('btn-sfx-incorrect'),
+  btnSfxVictory: document.getElementById('btn-sfx-victory'),
+  btnSfxTick: document.getElementById('btn-sfx-tick')
 };
 
 // -------------------------------------------------------------
@@ -92,6 +112,75 @@ function enterArena() {
   
   pollGameStatus();
   state.pollInterval = setInterval(pollGameStatus, 2000); // Poll game status every 2 seconds
+}
+
+async function signupAndJoin() {
+  const gameId = el.joinGameId.value.trim();
+  const username = el.signupUsername.value.trim();
+  const company = el.signupCompany.value.trim();
+  const color = el.signupColor.value;
+
+  if (!gameId) {
+    alert('Please enter a Game ID.');
+    return;
+  }
+  if (!username) {
+    alert('Please enter your Username / Team Name.');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/game', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'register_team',
+        game_id: gameId,
+        name: username,
+        color: color,
+        players: company // Storing company name in players field
+      })
+    }).then(r => {
+      if (!r.ok) throw new Error();
+      return r.json();
+    });
+
+    state.gameId = gameId;
+    state.teamId = res.team_id;
+    state.teamName = res.name;
+    state.teamColor = res.color;
+
+    localStorage.setItem('team_game_id', state.gameId);
+    localStorage.setItem('team_team_id', state.teamId);
+    localStorage.setItem('team_name', state.teamName);
+    localStorage.setItem('team_color', state.teamColor);
+
+    enterArena();
+  } catch (error) {
+    alert('Failed to register team. Check Game ID and try again.');
+  }
+}
+
+function toggleJoinTab(tab) {
+  if (tab === 'signup') {
+    el.tabJoinSignup.className = 'btn-primary';
+    el.tabJoinSignup.style.background = 'var(--accent-coral)';
+    el.tabJoinSignup.style.borderColor = 'transparent';
+    el.tabJoinExisting.className = 'btn-secondary';
+    el.tabJoinExisting.style.background = '';
+    el.tabJoinExisting.style.borderColor = '';
+    el.joinSectionSignup.style.display = 'block';
+    el.joinSectionExisting.style.display = 'none';
+  } else {
+    el.tabJoinSignup.className = 'btn-secondary';
+    el.tabJoinSignup.style.background = '';
+    el.tabJoinSignup.style.borderColor = '';
+    el.tabJoinExisting.className = 'btn-primary';
+    el.tabJoinExisting.style.background = 'var(--accent-coral)';
+    el.tabJoinExisting.style.borderColor = 'transparent';
+    el.joinSectionSignup.style.display = 'none';
+    el.joinSectionExisting.style.display = 'block';
+  }
 }
 
 function logout() {
@@ -493,9 +582,27 @@ function stopPolling() {
 
 // Initialize Portal script
 function init() {
+  // Check URL query parameters for gameId
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlGameId = urlParams.get('gameId');
+  if (urlGameId) {
+    el.joinGameId.value = urlGameId;
+  }
+
+  // Join tab selectors
+  el.tabJoinSignup.onclick = () => toggleJoinTab('signup');
+  el.tabJoinExisting.onclick = () => toggleJoinTab('existing');
+  el.btnSignupJoin.onclick = signupAndJoin;
+
   el.btnFetchTeams.onclick = fetchTeams;
   el.btnJoinGame.onclick = joinGame;
   el.btnLogout.onclick = logout;
+
+  // Sound effects prompt triggers
+  el.btnSfxCorrect.onclick = playCorrect;
+  el.btnSfxIncorrect.onclick = playIncorrect;
+  el.btnSfxVictory.onclick = playVictory;
+  el.btnSfxTick.onclick = playTick;
 
   // Auto-connect if cookies/localstorage has credentials
   if (state.gameId && state.teamId && state.teamName) {

@@ -8,6 +8,18 @@ export default async function handler(req, res) {
     if (method === 'GET') {
       // 1. Resolve leaderboard checks
       if (leaderboard === 'true' && quizId) {
+        // Check if quiz is private and requires passcode validation
+        const quizCheck = await query('SELECT is_private, passcode FROM quizzes WHERE id = $1', [quizId]);
+        if (quizCheck.rows.length > 0) {
+          const qObj = quizCheck.rows[0];
+          if (qObj.is_private) {
+            const clientPasscode = req.query.passcode;
+            if (clientPasscode !== qObj.passcode) {
+              return res.status(401).json({ error: 'Unauthorized: Private quiz passcode required' });
+            }
+          }
+        }
+
         const leaderRes = await query(
           `SELECT * FROM leaderboard 
            WHERE quiz_id = $1 
@@ -69,10 +81,11 @@ export default async function handler(req, res) {
       }
 
       if (id) {
+        const { is_private, passcode } = req.body;
         // Update existing quiz details
         await query(
-          'UPDATE quizzes SET title = $1, description = $2 WHERE id = $3',
-          [title, description, id]
+          'UPDATE quizzes SET title = $1, description = $2, is_private = $3, passcode = $4 WHERE id = $5',
+          [title, description, is_private || false, passcode || null, id]
         );
         
         // Re-sync questions: delete existing questions and re-insert the updated list
@@ -100,10 +113,11 @@ export default async function handler(req, res) {
         }
         return res.status(200).json({ id, message: 'Quiz updated successfully' });
       } else {
+        const { is_private, passcode } = req.body;
         // Create new quiz entry
         const insertQuizRes = await query(
-          'INSERT INTO quizzes (title, description) VALUES ($1, $2) RETURNING id',
-          [title, description]
+          'INSERT INTO quizzes (title, description, is_private, passcode) VALUES ($1, $2, $3, $4) RETURNING id',
+          [title, description, is_private || false, passcode || null]
         );
         const newQuizId = insertQuizRes.rows[0].id;
 

@@ -40,6 +40,8 @@ async function initDb() {
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         description TEXT,
+        is_private BOOLEAN DEFAULT FALSE,
+        passcode VARCHAR(50),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
@@ -121,6 +123,12 @@ async function initDb() {
     `);
     await client.query(`
       ALTER TABLE games ADD COLUMN IF NOT EXISTS team_mode BOOLEAN DEFAULT FALSE;
+    `);
+    await client.query(`
+      ALTER TABLE quizzes ADD COLUMN IF NOT EXISTS is_private BOOLEAN DEFAULT FALSE;
+    `);
+    await client.query(`
+      ALTER TABLE quizzes ADD COLUMN IF NOT EXISTS passcode VARCHAR(50);
     `);
 
     await client.query('COMMIT');

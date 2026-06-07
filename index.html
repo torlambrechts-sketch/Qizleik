@@ -36,10 +36,8 @@
     
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-top: 15px;">
       <div class="course-meta-tags">
-        <span>⏱ 4hr 12 min</span> &bull; 
-        <span id="banner-questions-count">🧩 16 rounds</span> &bull; 
-        <span class="tag-badge">Product Design</span>
-        <span class="tag-badge">Web Development</span>
+        <span id="banner-questions-count">🧩 0 rounds</span> &bull; 
+        <span id="banner-game-id-badge" style="display: none; color: #ff8b77; font-weight: 700;">🆔 Game ID: <span id="banner-game-id-val">-</span></span>
       </div>
       
       <!-- Shared actions matching Skillsphere buttons -->
@@ -63,6 +61,23 @@
 
     <!-- SCREEN 1: Dashboard (Quiz Cards) -->
     <section id="screen-dashboard" class="screen active">
+      
+      <!-- Quick Join Game Section -->
+      <div class="skillsphere-card" style="background: var(--accent-coral-light); border-color: rgba(240, 86, 56, 0.15); margin-bottom: 24px; padding: 25px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+          <div>
+            <h2 style="font-size: 1.4rem; color: var(--accent-coral); font-weight: 700;">Join an Active Quiz Game</h2>
+            <p style="color: var(--text-medium); font-size: 0.88rem; margin-top: 4px;">Enter a Live Game ID to connect as a player or company</p>
+          </div>
+          <div style="display: flex; gap: 12px; align-items: center; width: 100%; max-width: 420px;">
+            <input type="number" id="dashboard-join-game-id" placeholder="Enter Game ID (e.g. 1)" style="flex-grow: 1; padding: 10px 14px; font-size: 0.9rem; border-radius: 10px; border: 1px solid var(--border-color);">
+            <button id="btn-dashboard-join" class="btn-primary" style="background: var(--accent-coral); border-color: transparent; padding: 10px 24px; font-size: 0.9rem;">
+              Join Game
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div class="skillsphere-card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
           <div>
@@ -96,6 +111,19 @@
           <div class="form-group" style="margin-bottom: 0;">
             <label for="quiz-desc-input">Description (Optional)</label>
             <textarea id="quiz-desc-input" rows="2" placeholder="e.g. General knowledge, science, and music rounds..."></textarea>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; border-top: 1px solid var(--border-color-light); padding-top: 20px;">
+            <div class="form-group" style="margin-bottom: 0; display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="quiz-private-input" style="width: auto; height: 18px; width: 18px;">
+              <label for="quiz-private-input" style="margin-bottom: 0; cursor: pointer; color: var(--text-dark); font-weight: 600; font-size: 0.9rem;">
+                Make Quiz Private (Passcode Lock)
+              </label>
+            </div>
+            <div class="form-group" id="quiz-passcode-group" style="display: none; margin-bottom: 0;">
+              <label for="quiz-passcode-input" style="font-size: 0.85rem; font-weight: 600; color: var(--text-medium);">Leaderboard Passcode</label>
+              <input type="text" id="quiz-passcode-input" placeholder="Enter passcode" style="padding: 8px 12px; font-size: 0.9rem;">
+            </div>
           </div>
         </div>
 
