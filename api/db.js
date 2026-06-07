@@ -58,7 +58,9 @@ async function initDb() {
         points INTEGER DEFAULT 10,
         order_index INTEGER NOT NULL,
         timer_duration INTEGER DEFAULT 0,
-        rating_scale INTEGER DEFAULT 10
+        rating_scale INTEGER DEFAULT 10,
+        point_multiplier REAL DEFAULT 1.0,
+        is_wager BOOLEAN DEFAULT FALSE
       );
     `);
 
@@ -72,6 +74,7 @@ async function initDb() {
         timer_ends_at TIMESTAMP,
         timer_remaining INTEGER DEFAULT NULL,
         team_mode BOOLEAN DEFAULT FALSE,
+        reveal_question_index INTEGER DEFAULT -1,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
@@ -86,6 +89,7 @@ async function initDb() {
         score INTEGER DEFAULT 0,
         players TEXT,
         is_active BOOLEAN DEFAULT FALSE,
+        avatar VARCHAR(50) DEFAULT '🦁',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
@@ -100,6 +104,7 @@ async function initDb() {
         submitted_text TEXT,
         submitted_image TEXT, 
         points_awarded INTEGER DEFAULT 0,
+        wager INTEGER DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
@@ -142,6 +147,21 @@ async function initDb() {
     `);
     await client.query(`
       ALTER TABLE games ADD COLUMN IF NOT EXISTS last_sfx_time BIGINT DEFAULT NULL;
+    `);
+    await client.query(`
+      ALTER TABLE questions ADD COLUMN IF NOT EXISTS point_multiplier REAL DEFAULT 1.0;
+    `);
+    await client.query(`
+      ALTER TABLE questions ADD COLUMN IF NOT EXISTS is_wager BOOLEAN DEFAULT FALSE;
+    `);
+    await client.query(`
+      ALTER TABLE teams ADD COLUMN IF NOT EXISTS avatar VARCHAR(50) DEFAULT '🦁';
+    `);
+    await client.query(`
+      ALTER TABLE games ADD COLUMN IF NOT EXISTS reveal_question_index INTEGER DEFAULT -1;
+    `);
+    await client.query(`
+      ALTER TABLE submissions ADD COLUMN IF NOT EXISTS wager INTEGER DEFAULT 0;
     `);
 
     await client.query('COMMIT');

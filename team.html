@@ -55,6 +55,27 @@
       font-size: 1.4rem;
       border-radius: 16px;
     }
+    .avatar-emoji-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      font-size: 1.5rem;
+      padding: 8px 0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .avatar-emoji-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+    .avatar-emoji-btn.selected {
+      background: rgba(240, 86, 56, 0.15);
+      border-color: var(--accent-coral);
+      box-shadow: 0 0 10px rgba(240, 86, 56, 0.3);
+    }
   </style>
 </head>
 <body>
@@ -90,10 +111,27 @@
         <label for="signup-company">Company Name (Optional)</label>
         <input type="text" id="signup-company" placeholder="e.g. Sketch Inc">
       </div>
-      <div class="form-group" style="display: flex; align-items: center; gap: 12px;">
+      <div class="form-group" style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
         <label style="margin-bottom: 0; font-weight: 600; color: var(--text-medium); font-size: 0.9rem;">Avatar Color:</label>
         <div class="color-picker-wrapper">
           <input type="color" id="signup-color" value="#f05638">
+        </div>
+      </div>
+      <div class="form-group" style="margin-top: 15px;">
+        <label style="font-weight: 600; color: var(--text-medium); font-size: 0.9rem; margin-bottom: 8px; display: block;">Select Avatar Emoji:</label>
+        <div class="avatar-grid" id="signup-avatar-grid" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 15px;">
+          <button type="button" class="avatar-emoji-btn selected" data-emoji="🦁">🦁</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="🦊">🦊</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="🐨">🐨</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="🐙">🐙</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="🐸">🐸</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="🦖">🦖</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="🦄">🦄</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="🚀">🚀</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="💎">💎</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="🍕">🍕</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="🎲">🎲</button>
+          <button type="button" class="avatar-emoji-btn" data-emoji="👻">👻</button>
         </div>
       </div>
       <button id="btn-signup-join" class="btn-primary" style="width: 100%; margin-top: 20px; background: var(--accent-coral); border-color: transparent;">
@@ -121,6 +159,24 @@
         <div class="form-group">
           <label for="join-company">Company Name (Optional)</label>
           <input type="text" id="join-company" placeholder="e.g. Sketch Inc">
+        </div>
+        
+        <div class="form-group" style="margin-top: 15px;">
+          <label style="font-weight: 600; color: var(--text-medium); font-size: 0.9rem; margin-bottom: 8px; display: block;">Select Avatar Emoji:</label>
+          <div class="avatar-grid" id="join-avatar-grid" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 15px;">
+            <button type="button" class="avatar-emoji-btn selected" data-emoji="🦁">🦁</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="🦊">🦊</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="🐨">🐨</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="🐙">🐙</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="🐸">🐸</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="🦖">🦖</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="🦄">🦄</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="🚀">🚀</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="💎">💎</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="🍕">🍕</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="🎲">🎲</button>
+            <button type="button" class="avatar-emoji-btn" data-emoji="👻">👻</button>
+          </div>
         </div>
         
         <button id="btn-join-game" class="btn-cyan" style="width: 100%; margin-top: 20px;">
@@ -157,6 +213,34 @@
         </div>
       </div>
       <h3 id="portal-question-prompt" style="color: var(--text-dark); font-size: 1.3rem; margin: 0 0 20px 0; line-height: 1.4;">Active Question Prompt</h3>
+
+      <!-- Potential Points Decay Badge -->
+      <div id="portal-potential-points-badge" style="display: none; align-items: center; justify-content: center; gap: 6px; padding: 8px 12px; background: rgba(240, 86, 56, 0.08); border: 1px solid rgba(240, 86, 56, 0.2); border-radius: 12px; font-weight: 700; color: var(--accent-coral); margin-bottom: 20px;">
+        <span style="font-size: 0.9rem;">⚡ Potential Points:</span>
+        <span id="portal-potential-points-value" style="font-size: 1.1rem; font-weight: 800;">10</span>
+      </div>
+
+      <!-- Wager Round Panel -->
+      <div id="portal-wager-container" style="display: none; background: rgba(168, 85, 247, 0.08); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 16px; padding: 20px; margin-bottom: 20px; text-align: center;">
+        <h4 style="color: #a855f7; margin-bottom: 8px; font-size: 1.1rem; font-weight: 800;">🃏 Place Your Wager</h4>
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 15px;">Bet up to your current score on this question. Correct adds it; incorrect subtracts it.</p>
+        
+        <div style="font-size: 1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 15px;">
+          Max Wager: <span id="wager-max-val">0</span> pts
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 12px; align-items: center; margin-bottom: 20px;">
+          <input type="range" id="wager-range" min="0" max="0" value="0" style="width: 100%; accent-color: #a855f7;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="number" id="wager-number" min="0" max="0" value="0" style="width: 80px; text-align: center; font-size: 1.1rem; font-weight: 700; border: 1px solid var(--border-color); border-radius: 8px; padding: 6px;">
+            <span style="font-weight: 700; color: var(--text-muted);">pts</span>
+          </div>
+        </div>
+        
+        <button id="btn-submit-wager" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); border-color: transparent;">
+          Confirm Wager
+        </button>
+      </div>
 
       <div id="portal-responder-container">
         <!-- Rendered dynamically depending on question type -->

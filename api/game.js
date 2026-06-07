@@ -67,6 +67,7 @@ export default async function handler(req, res) {
         timer_remaining: game.timer_remaining,
         last_sfx: game.last_sfx,
         last_sfx_time: game.last_sfx_time ? parseInt(game.last_sfx_time) : null,
+        reveal_question_index: game.reveal_question_index,
         team_mode: game.team_mode
       });
     }
@@ -111,7 +112,7 @@ export default async function handler(req, res) {
       }
 
       if (action === 'register_team') {
-        const { game_id, name, color, players } = req.body;
+        const { game_id, name, color, players, avatar } = req.body;
         if (!game_id || !name) {
           return res.status(400).json({ error: 'game_id and name are required to register a team' });
         }
@@ -127,14 +128,15 @@ export default async function handler(req, res) {
             team_id: checkRes.rows[0].id, 
             name: checkRes.rows[0].name, 
             color: checkRes.rows[0].color, 
+            avatar: checkRes.rows[0].avatar,
             message: 'Reconnected to existing team' 
           });
         }
 
         // Insert new team
         const insertRes = await query(
-          'INSERT INTO teams (game_id, name, color, score, players, is_active) VALUES ($1, $2, $3, $4, $5, TRUE) RETURNING *',
-          [game_id, name.trim(), color || '#ffffff', 0, players || '']
+          'INSERT INTO teams (game_id, name, color, score, players, avatar, is_active) VALUES ($1, $2, $3, $4, $5, $6, TRUE) RETURNING *',
+          [game_id, name.trim(), color || '#ffffff', 0, players || '', avatar || '🦁']
         );
         const newTeam = insertRes.rows[0];
 
@@ -142,20 +144,21 @@ export default async function handler(req, res) {
           team_id: newTeam.id,
           name: newTeam.name,
           color: newTeam.color,
+          avatar: newTeam.avatar,
           message: 'Team signed up successfully'
         });
       }
 
       if (action === 'join_team') {
-        const { team_id, name, players } = req.body;
+        const { team_id, name, players, avatar } = req.body;
         if (!team_id || !name) {
           return res.status(400).json({ error: 'team_id and name are required to join a team' });
         }
 
         // Update the pre-created team with username and company and set active
         await query(
-          'UPDATE teams SET name = $1, players = $2, is_active = TRUE WHERE id = $3',
-          [name.trim(), players || '', team_id]
+          'UPDATE teams SET name = $1, players = $2, avatar = $3, is_active = TRUE WHERE id = $4',
+          [name.trim(), players || '', avatar || '🦁', team_id]
         );
 
         const selectRes = await query('SELECT * FROM teams WHERE id = $1', [team_id]);
@@ -168,6 +171,7 @@ export default async function handler(req, res) {
           team_id: updatedTeam.id,
           name: updatedTeam.name,
           color: updatedTeam.color,
+          avatar: updatedTeam.avatar,
           message: 'Connected to team successfully'
         });
       }
@@ -231,7 +235,7 @@ export default async function handler(req, res) {
       }
 
       if (action === 'update') {
-        const { game_id, status, current_question_index, timer_duration, team_mode, last_sfx, last_sfx_time } = req.body;
+        const { game_id, status, current_question_index, timer_duration, team_mode, last_sfx, last_sfx_time, reveal_question_index } = req.body;
         if (!game_id) {
           return res.status(400).json({ error: 'Game ID is required' });
         }
@@ -294,6 +298,12 @@ export default async function handler(req, res) {
           index++;
         }
 
+        if (reveal_question_index !== undefined && reveal_question_index !== null) {
+          updateQuery += `reveal_question_index = $${index}, `;
+          params.push(parseInt(reveal_question_index));
+          index++;
+        }
+
         // Trim trailing comma
         updateQuery = updateQuery.slice(0, -2);
         updateQuery += ` WHERE id = $${index}`;
@@ -327,13 +337,41 @@ export default async function handler(req, res) {
 
       // --- SUBMISSIONS WORKFLOW ACTIONS ---
 
+      if (action === 'wager') {
+        const { game_id, team_id, question_index, wager } = req.body;
+        if (!game_id || !team_id || question_index === undefined || wager === undefined) {
+          return res.status(400).json({ error: 'game_id, team_id, question_index, and wager are required' });
+        }
+
+        // Check if submission already exists
+        const existRes = await query(
+          `SELECT id FROM submissions 
+           WHERE game_id = $1 AND team_id = $2 AND question_index = $3`,
+          [game_id, team_id, question_index]
+        );
+
+        if (existRes.rows.length > 0) {
+          await query(
+            `UPDATE submissions SET wager = $1 WHERE id = $2`,
+            [parseInt(wager), existRes.rows[0].id]
+          );
+        } else {
+          await query(
+            `INSERT INTO submissions (game_id, team_id, question_index, wager, submitted_text) 
+             VALUES ($1, $2, $3, $4, 'Wager Placed')`,
+            [game_id, team_id, question_index, parseInt(wager)]
+          );
+        }
+        return res.status(200).json({ message: 'Wager recorded successfully' });
+      }
+
       if (action === 'submit') {
-        const { game_id, team_id, question_index, submitted_text, submitted_image } = req.body;
+        const { game_id, team_id, question_index, submitted_text, submitted_image, wager } = req.body;
         if (!game_id || !team_id || question_index === undefined) {
           return res.status(400).json({ error: 'game_id, team_id, and question_index are required' });
         }
 
-        // Fetch the question to get the correct answer and points
+        // Fetch the question to get the correct answer, points, and multipliers
         const gameRes = await query('SELECT quiz_id FROM games WHERE id = $1', [game_id]);
         if (gameRes.rows.length === 0) {
           return res.status(404).json({ error: 'Game session not found' });
@@ -346,18 +384,69 @@ export default async function handler(req, res) {
         );
         const question = questionsRes.rows[question_index];
         let pointsAwarded = 0;
+        let wagerPoints = 0;
 
         if (question) {
-          const maxPoints = question.points !== undefined && question.points !== null ? question.points : 10;
+          let maxPoints = question.points !== undefined && question.points !== null ? question.points : 10;
+          
+          // Apply multiplier (Comeback mechanics)
+          const multiplier = question.point_multiplier !== undefined ? question.point_multiplier : 1.0;
+          maxPoints = Math.round(maxPoints * multiplier);
+
+          // Check if wager round
+          const isWager = question.is_wager || false;
+          if (isWager) {
+            const existSub = await query(
+              'SELECT wager FROM submissions WHERE game_id = $1 AND team_id = $2 AND question_index = $3',
+              [game_id, team_id, question_index]
+            );
+            if (existSub.rows.length > 0 && existSub.rows[0].wager > 0) {
+              wagerPoints = existSub.rows[0].wager;
+            } else if (wager !== undefined) {
+              wagerPoints = parseInt(wager);
+            }
+          }
+
+          let finalPoints = maxPoints;
+          if (isWager) {
+            finalPoints = wagerPoints;
+          } else {
+            // Speed-based point decay (linear decay down to 30%)
+            const totalDuration = question.timer_duration || 0;
+            if (totalDuration > 0) {
+              const activeGameRes = await query('SELECT timer_ends_at, timer_remaining FROM games WHERE id = $1', [game_id]);
+              if (activeGameRes.rows.length > 0) {
+                const gameObj = activeGameRes.rows[0];
+                let remaining = 0;
+                if (gameObj.timer_remaining !== null) {
+                  remaining = gameObj.timer_remaining;
+                } else if (gameObj.timer_ends_at) {
+                  const endsAt = new Date(gameObj.timer_ends_at).getTime();
+                  remaining = Math.max(0, (endsAt - Date.now()) / 1000);
+                } else {
+                  remaining = totalDuration;
+                }
+
+                const fraction = Math.min(1.0, Math.max(0.0, remaining / totalDuration));
+                const minPoints = Math.round(maxPoints * 0.3);
+                finalPoints = Math.round(minPoints + (maxPoints - minPoints) * fraction);
+              }
+            }
+          }
+
+          // Evaluate correctness
+          let isCorrect = false;
           if (question.question_type === 'multiple-choice') {
-            if (submitted_text === question.correct_answer) {
-              pointsAwarded = maxPoints;
-            }
+            isCorrect = (submitted_text === question.correct_answer);
           } else if (question.question_type === 'text') {
-            if (question.correct_answer && submitted_text &&
-                submitted_text.trim().toLowerCase() === question.correct_answer.trim().toLowerCase()) {
-              pointsAwarded = maxPoints;
-            }
+            isCorrect = (question.correct_answer && submitted_text &&
+                        submitted_text.trim().toLowerCase() === question.correct_answer.trim().toLowerCase());
+          }
+
+          if (isCorrect) {
+            pointsAwarded = finalPoints;
+          } else {
+            pointsAwarded = isWager ? -finalPoints : 0;
           }
         }
 
@@ -388,9 +477,9 @@ export default async function handler(req, res) {
           return res.status(200).json({ message: 'Submission updated successfully', points_awarded: pointsAwarded });
         } else {
           await query(
-            `INSERT INTO submissions (game_id, team_id, question_index, submitted_text, submitted_image, points_awarded) 
-             VALUES ($1, $2, $3, $4, $5, $6)`,
-            [game_id, team_id, question_index, submitted_text || '', submitted_image || null, pointsAwarded]
+            `INSERT INTO submissions (game_id, team_id, question_index, submitted_text, submitted_image, points_awarded, wager) 
+             VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+            [game_id, team_id, question_index, submitted_text || '', submitted_image || null, pointsAwarded, wagerPoints]
           );
 
           if (pointsAwarded !== 0) {

@@ -11,8 +11,51 @@ let localState = {
   currentQuestionIndex: -1,
   timerEndsAt: null,
   teamsJson: '',
-  lastSfxTime: undefined
+  lastSfxTime: undefined,
+  displayedScores: {},
+  lastRevealedIndex: -1
 };
+
+function playDrumroll() {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    const ctx = new AudioContext();
+    const now = ctx.currentTime;
+    
+    // Snare roll
+    for (let i = 0; i < 15; i++) {
+      const time = now + i * 0.08;
+      const freq = 120 + Math.random() * 20;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, time);
+      gain.gain.setValueAtTime(0.12, time);
+      gain.gain.exponentialRampToValueAtTime(0.001, time + 0.1);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(time);
+      osc.stop(time + 0.1);
+    }
+    
+    // Crash cymbal
+    const crashTime = now + 1.2;
+    const oscCrash = ctx.createOscillator();
+    const gainCrash = ctx.createGain();
+    oscCrash.type = 'sawtooth';
+    oscCrash.frequency.setValueAtTime(450, crashTime);
+    oscCrash.frequency.linearRampToValueAtTime(900, crashTime + 0.4);
+    gainCrash.gain.setValueAtTime(0.14, crashTime);
+    gainCrash.gain.exponentialRampToValueAtTime(0.001, crashTime + 0.4);
+    oscCrash.connect(gainCrash);
+    gainCrash.connect(ctx.destination);
+    oscCrash.start(crashTime);
+    oscCrash.stop(crashTime + 0.4);
+  } catch (e) {
+    console.warn("Could not play drumroll:", e);
+  }
+}
 
 // UI Selectors
 const el = {
@@ -181,9 +224,10 @@ function renderLobby(teams) {
   
   el.lobbyTeams.innerHTML = teams.map(team => {
     const displayName = team.players ? `${team.name} (${team.players})` : team.name;
+    const avatar = team.avatar || '🦁';
     return `
       <span class="glass-panel" style="padding: 10px 20px; font-weight:700; border-color:${team.color || '#fff'}; color:#fff; font-size:1.2rem;">
-        🎨 ${escapeHtml(displayName)}
+        ${avatar} ${escapeHtml(displayName)}
       </span>
     `;
   }).join('');
@@ -198,7 +242,12 @@ function renderQuestion(game) {
     return;
   }
 
-  el.progress.textContent = `Question ${game.current_question_index + 1} of ${game.total_questions}`;
+  const multiplier = q.point_multiplier || 1.0;
+  const multiplierHtml = multiplier > 1.0 ? `<span style="background: linear-gradient(135deg, #facc15 0%, #f05638 100%); color: #000; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; margin-left: 10px; box-shadow: 0 4px 10px rgba(240, 86, 56, 0.4); display: inline-flex; align-items: center; gap: 4px;">🔥 ${multiplier}x DOUBLE POINTS!</span>` : '';
+  const isWager = q.is_wager || false;
+  const wagerHtml = isWager ? `<span style="background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%); color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 800; margin-left: 10px; box-shadow: 0 4px 10px rgba(236, 72, 153, 0.4); display: inline-flex; align-items: center; gap: 4px;">🃏 WAGER ROUND!</span>` : '';
+
+  el.progress.innerHTML = `Question ${game.current_question_index + 1} of ${game.total_questions} ${multiplierHtml} ${wagerHtml}`;
   el.questionText.textContent = q.question_text;
 
   const submissionsCount = game.submissions.length;
@@ -252,12 +301,13 @@ function renderQuestion(game) {
           }
           
           const team = game.teams.find(t => String(t.id) === String(sub.team_id));
+          const avatar = team && team.avatar ? team.avatar : '🦁';
           const displayName = team && team.players ? `${sub.team_name} (${team.players})` : sub.team_name;
           
           return `
             <div class="glass-panel submission-card" style="border-left: 4px solid ${sub.team_color || '#fff'}; width: 100%; text-align: left; padding: 15px;">
               <div class="submission-meta" style="font-size:0.95rem; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; font-weight:700; color: var(--text-muted);">
-                <span style="color: ${sub.team_color || '#333'}">${escapeHtml(displayName)}</span>
+                <span style="color: ${sub.team_color || '#333'}">${avatar} ${escapeHtml(displayName)}</span>
                 <span style="color: var(--accent-coral);">${sub.points_awarded} pts</span>
               </div>
               ${subMedia}
@@ -291,10 +341,11 @@ function renderPodium(teams) {
   if (sorted[2]) podiumSpots.push({ team: sorted[2], rank: 3, height: '120px', color: '#b45309', label: '3rd' }); // Bronze
 
   el.podium.innerHTML = podiumSpots.map(spot => {
+    const avatar = spot.team.avatar || '🦁';
     const displayName = spot.team.players ? `${spot.team.name} (${spot.team.players})` : spot.team.name;
     return `
       <div class="podium-place">
-        <div class="podium-name">${escapeHtml(displayName)}</div>
+        <div class="podium-name">${avatar} ${escapeHtml(displayName)}</div>
         <div class="podium-score">${spot.team.score} pts</div>
         <div class="podium-block" style="height: ${spot.height}; background: linear-gradient(135deg, ${spot.team.color || '#8b5cf6'} 0%, #1e1b4b 100%); border: 2px solid ${spot.color}">
           ${spot.label}
@@ -312,36 +363,84 @@ function renderScoreboard(game, activeTeams) {
     return;
   }
 
-  // If in team mode, subtract current round's points until everyone has submitted
-  const submissionsCount = game.submissions.length;
-  const allSubmitted = submissionsCount === teams.length;
+  // Ensure displayedScores cache is initialized
+  if (!localState.displayedScores) {
+    localState.displayedScores = {};
+  }
 
-  const displayTeams = teams.map(team => {
-    if (game.team_mode && !allSubmitted) {
-      const sub = game.submissions.find(s => String(s.team_id) === String(team.id));
-      const pointsThisRound = sub ? (sub.points_awarded || 0) : 0;
-      return {
-        ...team,
-        score: team.score - pointsThisRound
-      };
+  const currentRoundIndex = game.current_question_index;
+  const revealIndex = game.reveal_question_index !== undefined ? game.reveal_question_index : -1;
+
+  // Check if we need to trigger the reveal animation
+  const isRevealTriggered = (revealIndex === currentRoundIndex) && (localState.lastRevealedIndex < revealIndex);
+
+  if (isRevealTriggered) {
+    localState.lastRevealedIndex = revealIndex;
+    
+    // Play showman drumroll audio effect
+    playDrumroll();
+
+    // Sort teams by new score to stagger from lowest to highest
+    const sortedActiveTeams = [...teams].sort((a, b) => a.score - b.score);
+
+    sortedActiveTeams.forEach((team, idx) => {
+      setTimeout(() => {
+        localState.displayedScores[team.id] = team.score;
+        renderScoreboardColumns(game, teams);
+      }, idx * 600); // 600ms stagger delay
+    });
+  } else {
+    const showNewScores = (revealIndex === currentRoundIndex) || (game.status === 'completed') || (game.status === 'setup');
+
+    teams.forEach(team => {
+      if (showNewScores) {
+        localState.displayedScores[team.id] = team.score;
+      } else {
+        // Subtract current question points to show previous score
+        const sub = game.submissions.find(s => String(s.team_id) === String(team.id));
+        const pointsThisRound = sub ? (sub.points_awarded || 0) : 0;
+        localState.displayedScores[team.id] = team.score - pointsThisRound;
+      }
+    });
+
+    if (revealIndex < currentRoundIndex) {
+      localState.lastRevealedIndex = revealIndex;
     }
-    return team;
+
+    renderScoreboardColumns(game, teams);
+  }
+}
+
+function renderScoreboardColumns(game, teams) {
+  const displayTeams = teams.map(team => {
+    const dispScore = localState.displayedScores[team.id] !== undefined
+      ? localState.displayedScores[team.id]
+      : team.score;
+    return {
+      ...team,
+      score: dispScore
+    };
   });
 
+  // Sort displayTeams DESC by score so they slide to their correct ranks
+  const sortedDisplayTeams = [...displayTeams].sort((a, b) => b.score - a.score);
+
   // Find max score to normalize bar heights
-  const maxScore = Math.max(...displayTeams.map(t => t.score));
-  
-  el.scoreboard.innerHTML = displayTeams.map(team => {
-    // Normalise height percentage (between 5% and 85%)
+  const maxScore = Math.max(...sortedDisplayTeams.map(t => t.score));
+
+  el.scoreboard.innerHTML = sortedDisplayTeams.map((team, idx) => {
     let pct = 5;
     if (maxScore > 0 && team.score > 0) {
       pct = (team.score / maxScore) * 85;
     }
     
-    const label = team.players ? `${escapeHtml(team.name)}<br><span style="opacity: 0.75; font-size: 0.75rem; font-weight: normal;">${escapeHtml(team.players)}</span>` : escapeHtml(team.name);
+    const avatar = team.avatar || '🦁';
+    const label = team.players 
+      ? `${avatar} ${escapeHtml(team.name)}<br><span style="opacity: 0.75; font-size: 0.75rem; font-weight: normal;">${escapeHtml(team.players)}</span>` 
+      : `${avatar} ${escapeHtml(team.name)}`;
     
     return `
-      <div class="presenter-score-column">
+      <div class="presenter-score-column" style="order: ${idx}; transition: order 0.6s ease-in-out;">
         <span class="presenter-score-val" style="color: ${team.color || '#fff'}">${team.score}</span>
         <div class="presenter-score-bar-wrapper">
           <div class="presenter-score-bar" style="height: ${pct}%; background: linear-gradient(to top, ${team.color || '#8b5cf6'} 30%, #fff 100%);"></div>

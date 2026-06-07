@@ -85,6 +85,7 @@ const el = {
   hostChatFeed: document.getElementById('host-chat-feed'),
   hostTeamLink: document.getElementById('host-team-link'),
   btnAddRate: document.getElementById('btn-add-rate'),
+  btnRevealScores: document.getElementById('btn-reveal-scores'),
   
   // Admin & Leaderboard elements
   adminStatus: document.getElementById('admin-status'),
@@ -294,7 +295,9 @@ function addCreatorQuestion(type) {
     correct_answer: '',
     points: 10,
     timer_duration: 0,
-    rating_scale: 10
+    rating_scale: 10,
+    point_multiplier: 1.0,
+    is_wager: false
   });
   renderCreatorQuestions();
 }
@@ -325,15 +328,27 @@ function renderCreatorQuestions() {
       </div>
       
       <!-- Advanced Settings foldout -->
-      <div style="display: flex; gap: 15px; background: rgba(0,0,0,0.15); padding: 12px; border-radius: 8px; margin-bottom: 20px;">
-        <div style="flex: 1;">
+      <div style="display: flex; gap: 15px; background: rgba(0,0,0,0.15); padding: 12px; border-radius: 8px; margin-bottom: 20px; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 120px;">
           <label style="font-size: 0.8rem; color: var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Time Limit (0 = manual)</label>
-          <input type="number" class="q-timer-limit" data-index="${qIndex}" value="${q.timer_duration || 0}" min="0" max="300" style="padding: 6px; font-size: 0.85rem;">
+          <input type="number" class="q-timer-limit" data-index="${qIndex}" value="${q.timer_duration || 0}" min="0" max="300" style="padding: 6px; font-size: 0.85rem; width: 100%;">
+        </div>
+        <div style="flex: 1; min-width: 120px;">
+          <label style="font-size: 0.8rem; color: var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Point Multiplier</label>
+          <select class="q-multiplier" data-index="${qIndex}" style="padding: 6px; font-size: 0.85rem; width: 100%; height: 33px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-light-body); color: var(--text-dark);">
+            <option value="1.0" ${(q.point_multiplier || 1.0) === 1.0 ? 'selected' : ''}>1x (Standard)</option>
+            <option value="1.5" ${(q.point_multiplier || 1.0) === 1.5 ? 'selected' : ''}>1.5x</option>
+            <option value="2.0" ${(q.point_multiplier || 1.0) === 2.0 ? 'selected' : ''}>2x (Double Points)</option>
+          </select>
+        </div>
+        <div style="flex: 1; min-width: 120px; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px;">
+          <input type="checkbox" class="q-is-wager" data-index="${qIndex}" ${q.is_wager ? 'checked' : ''} style="width: 18px; height: 18px; cursor: pointer; margin: 0;">
+          <label style="font-size: 0.8rem; color: var(--text-secondary); font-weight:600; cursor: pointer; margin: 0; white-space: nowrap;">Wager Round</label>
         </div>
         ${q.question_type === 'rate-submission' ? `
-          <div style="flex: 1;">
+          <div style="flex: 1; min-width: 120px;">
             <label style="font-size: 0.8rem; color: var(--text-secondary); display:block; margin-bottom:4px; font-weight:600;">Rating Scale Max</label>
-            <input type="number" class="q-rating-scale" data-index="${qIndex}" value="${q.rating_scale || 10}" min="2" max="100" style="padding: 6px; font-size: 0.85rem;">
+            <input type="number" class="q-rating-scale" data-index="${qIndex}" value="${q.rating_scale || 10}" min="2" max="100" style="padding: 6px; font-size: 0.85rem; width: 100%;">
           </div>
         ` : ''}
       </div>
@@ -400,6 +415,18 @@ function renderCreatorQuestions() {
   el.questionsBuilderList.querySelectorAll('.q-rating-scale').forEach(input => {
     input.onchange = (e) => {
       state.creatorQuestions[e.target.dataset.index].rating_scale = parseInt(e.target.value) || 10;
+    };
+  });
+
+  el.questionsBuilderList.querySelectorAll('.q-multiplier').forEach(select => {
+    select.onchange = (e) => {
+      state.creatorQuestions[e.target.dataset.index].point_multiplier = parseFloat(e.target.value) || 1.0;
+    };
+  });
+
+  el.questionsBuilderList.querySelectorAll('.q-is-wager').forEach(input => {
+    input.onchange = (e) => {
+      state.creatorQuestions[e.target.dataset.index].is_wager = e.target.checked;
     };
   });
 
@@ -678,6 +705,17 @@ function renderHostState() {
   el.bannerQuizTitle.textContent = game.quiz_title;
   el.bannerQuestionsCount.textContent = `🧩 Question ${game.current_question_index + 1} of ${game.total_questions}`;
 
+  // Show / Hide Reveal Scores button
+  if (game.status === 'active') {
+    if (game.reveal_question_index < game.current_question_index) {
+      el.btnRevealScores.style.display = 'block';
+    } else {
+      el.btnRevealScores.style.display = 'none';
+    }
+  } else {
+    el.btnRevealScores.style.display = 'none';
+  }
+
   // Handle timer countdown
   updateTimerDisplay();
 
@@ -775,10 +813,11 @@ function renderHostState() {
     if (game.submissions && game.submissions.length > 0) {
       game.submissions.forEach(sub => {
         const team = game.teams.find(t => String(t.id) === String(sub.team_id));
+        const avatar = team && team.avatar ? team.avatar : '🦁';
         const teamName = team ? team.name : sub.team_name || 'Unknown Team';
         const teamColor = team ? team.color : sub.team_color || '#ccc';
         const companyName = team ? team.players : '';
-        const displayName = companyName ? `${teamName} (${companyName})` : teamName;
+        const displayName = `${avatar} ${teamName}${companyName ? ` (${companyName})` : ''}`;
         const pointsAwarded = sub.points_awarded || 0;
         
         let subMedia = '';
@@ -910,7 +949,9 @@ function renderHostState() {
   el.hostTeamsScoringList.innerHTML = activeTeams.map(team => `
     <div class="host-team-row" style="border-left: 4px solid ${team.color || '#fff'}">
       <div class="host-team-info">
-        <div class="team-avatar" style="background: ${team.color || '#fff'}"></div>
+        <div class="team-avatar" style="background: ${team.color || '#fff'}; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+          ${team.avatar || '🦁'}
+        </div>
         <div>
           <div style="font-weight:700; color:var(--text-dark);">${escapeHtml(team.name)}</div>
           <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(team.players)}</div>
@@ -1123,6 +1164,23 @@ async function triggerRemoteSfx(sfxType) {
   }
 }
 
+async function revealScores() {
+  if (!state.activeGameId || !state.activeGame) return;
+  
+  try {
+    await apiCall('/api/game', 'POST', {
+      action: 'update',
+      game_id: state.activeGameId,
+      reveal_question_index: state.activeGame.current_question_index
+    });
+    // Trigger remote fanfare correct sound for a showy announcement!
+    triggerRemoteSfx('correct');
+    refreshGameState();
+  } catch (error) {
+    console.error('Failed to reveal scores:', error);
+  }
+}
+
 // End Quiz Session
 async function endGameSession() {
   playVictory();
@@ -1281,6 +1339,7 @@ function init() {
   // Screen-Host Bindings
   el.btnPrevQuestion.onclick = () => navigateQuestion(-1);
   el.btnNextQuestion.onclick = () => navigateQuestion(1);
+  el.btnRevealScores.onclick = revealScores;
   el.btnEndGame.onclick = () => {
     if (confirm('End the game immediately?')) {
       endGameSession();

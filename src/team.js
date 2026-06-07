@@ -13,7 +13,9 @@ const state = {
   canvasCtx: null,
   canvasElement: null,
   timerEndsAt: null,
-  lastSfxTime: undefined
+  lastSfxTime: undefined,
+  signupAvatar: '🦁',
+  joinAvatar: '🦁'
 };
 
 // UI Selectors
@@ -66,7 +68,22 @@ const el = {
   
   // Timer Elements
   timer: document.getElementById('portal-timer'),
-  timerSec: document.getElementById('portal-timer-sec')
+  timerSec: document.getElementById('portal-timer-sec'),
+
+  // Avatar emoji selectors
+  signupAvatarGrid: document.getElementById('signup-avatar-grid'),
+  joinAvatarGrid: document.getElementById('join-avatar-grid'),
+
+  // Wager elements
+  wagerContainer: document.getElementById('portal-wager-container'),
+  wagerMaxVal: document.getElementById('wager-max-val'),
+  wagerRange: document.getElementById('wager-range'),
+  wagerNumber: document.getElementById('wager-number'),
+  btnSubmitWager: document.getElementById('btn-submit-wager'),
+
+  // Potential points decay elements
+  potentialPointsBadge: document.getElementById('portal-potential-points-badge'),
+  potentialPointsValue: document.getElementById('portal-potential-points-value')
 };
 
 // -------------------------------------------------------------
@@ -127,7 +144,8 @@ async function joinGame() {
         action: 'join_team',
         team_id: teamId,
         name: username,
-        players: company
+        players: company,
+        avatar: state.joinAvatar || '🦁'
       })
     }).then(r => {
       if (!r.ok) throw new Error();
@@ -183,7 +201,8 @@ async function signupAndJoin() {
         game_id: gameId,
         name: username,
         color: color,
-        players: company // Storing company name in players field
+        players: company, // Storing company name in players field
+        avatar: state.signupAvatar || '🦁'
       })
     }).then(r => {
       if (!r.ok) throw new Error();
@@ -347,7 +366,7 @@ function runTimer(endsAtString) {
 }
 
 function subHasContent(sub) {
-  return (sub.submitted_text && sub.submitted_text !== 'Host manual scoring') || sub.submitted_image;
+  return (sub.submitted_text && sub.submitted_text !== 'Host manual scoring' && sub.submitted_text !== 'Wager Placed') || sub.submitted_image;
 }
 
 function renderPortalState() {
@@ -355,6 +374,9 @@ function renderPortalState() {
   if (!game) return;
 
   if (game.status === 'setup') {
+    stopPotentialPointsTicker();
+    if (el.potentialPointsBadge) el.potentialPointsBadge.style.display = 'none';
+    if (el.wagerContainer) el.wagerContainer.style.display = 'none';
     el.stateLobby.style.display = 'block';
     el.stateActive.style.display = 'none';
     el.stateCompleted.style.display = 'none';
@@ -374,11 +396,19 @@ function renderPortalState() {
       el.submittedStatus.style.display = 'none';
       el.responderContainer.style.display = 'block';
       el.teamModeFeed.style.display = 'none';
+      
+      // Reset wager elements
+      if (el.wagerRange) el.wagerRange.value = 0;
+      if (el.wagerNumber) el.wagerNumber.value = 0;
+      
       renderResponder();
     } else if (hasSubmitted) {
       // Hide input panel and display success badge
       el.responderContainer.style.display = 'none';
+      el.wagerContainer.style.display = 'none';
       el.submittedStatus.style.display = 'block';
+      stopPotentialPointsTicker();
+      el.potentialPointsBadge.style.display = 'none';
       
       // Update submitted status label to wait or show graded feedback
       const totalSubmittedCount = game.submissions.length;
@@ -447,12 +477,52 @@ function renderPortalState() {
         `;
       }
     } else {
-      el.responderContainer.style.display = 'block';
       el.submittedStatus.style.display = 'none';
       el.teamModeFeed.style.display = 'none';
+
+      const q = game.question;
+      if (q) {
+        const isWagerRound = q.is_wager || false;
+        if (isWagerRound) {
+          stopPotentialPointsTicker();
+          const myTeam = game.teams.find(t => String(t.id) === String(state.teamId));
+          const currentScore = myTeam ? myTeam.score : 0;
+          const maxWager = Math.max(0, currentScore);
+
+          if (mySubmission && mySubmission.wager !== undefined && mySubmission.wager !== null) {
+            el.wagerContainer.style.display = 'none';
+            el.responderContainer.style.display = 'block';
+            el.potentialPointsBadge.style.display = 'flex';
+            el.potentialPointsBadge.style.background = 'rgba(168, 85, 247, 0.08)';
+            el.potentialPointsBadge.style.borderColor = 'rgba(168, 85, 247, 0.2)';
+            el.potentialPointsBadge.style.color = '#a855f7';
+            el.potentialPointsValue.textContent = `${mySubmission.wager} pts (Wager)`;
+          } else {
+            el.wagerContainer.style.display = 'block';
+            el.responderContainer.style.display = 'none';
+            el.potentialPointsBadge.style.display = 'none';
+
+            el.wagerMaxVal.textContent = maxWager;
+            el.wagerRange.max = maxWager;
+            el.wagerNumber.max = maxWager;
+          }
+        } else {
+          el.wagerContainer.style.display = 'none';
+          el.responderContainer.style.display = 'block';
+          startPotentialPointsTicker();
+        }
+      } else {
+        el.wagerContainer.style.display = 'none';
+        el.responderContainer.style.display = 'block';
+        stopPotentialPointsTicker();
+        el.potentialPointsBadge.style.display = 'none';
+      }
     }
   }
   else if (game.status === 'completed') {
+    stopPotentialPointsTicker();
+    if (el.potentialPointsBadge) el.potentialPointsBadge.style.display = 'none';
+    if (el.wagerContainer) el.wagerContainer.style.display = 'none';
     el.stateLobby.style.display = 'none';
     el.stateActive.style.display = 'none';
     el.stateCompleted.style.display = 'block';
@@ -688,9 +758,104 @@ async function submitAnswer(textVal, imageVal) {
 // POLLING UTILS
 // -------------------------------------------------------------
 
+// -------------------------------------------------------------
+// WAGER & POTENTIAL POINTS UTILS
+// -------------------------------------------------------------
+
+async function submitWager() {
+  const wagerVal = parseInt(el.wagerNumber.value) || 0;
+  try {
+    await fetch('/api/game', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'wager',
+        game_id: state.gameId,
+        team_id: state.teamId,
+        question_index: state.currentQuestionIndex,
+        wager: wagerVal
+      })
+    }).then(res => {
+      if (!res.ok) throw new Error();
+      return res.json();
+    });
+
+    el.wagerContainer.style.display = 'none';
+    el.responderContainer.style.display = 'block';
+
+    pollGameStatus();
+  } catch (error) {
+    alert('Failed to place wager. Please try again.');
+  }
+}
+
+let potentialPointsRaf = null;
+
+function startPotentialPointsTicker() {
+  if (potentialPointsRaf) cancelAnimationFrame(potentialPointsRaf);
+
+  const tick = () => {
+    const game = state.game;
+    if (!game || game.status !== 'active' || !game.question) {
+      el.potentialPointsBadge.style.display = 'none';
+      return;
+    }
+
+    const q = game.question;
+    if (q.is_wager) {
+      return;
+    }
+
+    const totalDuration = q.timer_duration || 0;
+    if (totalDuration <= 0) {
+      el.potentialPointsBadge.style.display = 'none';
+      return;
+    }
+
+    let remaining = 0;
+    if (game.timer_remaining !== null && game.timer_remaining !== undefined) {
+      remaining = game.timer_remaining;
+    } else if (game.timer_ends_at) {
+      const endsTime = new Date(game.timer_ends_at).getTime();
+      remaining = Math.max(0, (endsTime - Date.now()) / 1000);
+    } else {
+      remaining = totalDuration;
+    }
+
+    const maxPoints = Math.round((q.points !== undefined && q.points !== null ? q.points : 10) * (q.point_multiplier || 1.0));
+    const minPoints = Math.round(maxPoints * 0.3);
+    const fraction = Math.min(1.0, Math.max(0.0, remaining / totalDuration));
+    const currentPotential = Math.round(minPoints + (maxPoints - minPoints) * fraction);
+
+    el.potentialPointsBadge.style.display = 'flex';
+    el.potentialPointsBadge.style.background = 'rgba(240, 86, 56, 0.08)';
+    el.potentialPointsBadge.style.borderColor = 'rgba(240, 86, 56, 0.2)';
+    el.potentialPointsBadge.style.color = 'var(--accent-coral)';
+    el.potentialPointsValue.textContent = `${currentPotential} pts`;
+
+    if (remaining > 0) {
+      potentialPointsRaf = requestAnimationFrame(tick);
+    }
+  };
+
+  tick();
+}
+
+function stopPotentialPointsTicker() {
+  if (potentialPointsRaf) {
+    cancelAnimationFrame(potentialPointsRaf);
+    potentialPointsRaf = null;
+  }
+}
+
+// -------------------------------------------------------------
+// POLLING UTILS
+// -------------------------------------------------------------
+
 function stopPolling() {
   if (state.pollInterval) clearInterval(state.pollInterval);
   if (timerInterval) clearInterval(timerInterval);
+  stopPotentialPointsTicker();
 }
 
 // Initialize Portal script
@@ -710,6 +875,46 @@ function init() {
   el.btnFetchTeams.onclick = fetchTeams;
   el.btnJoinGame.onclick = joinGame;
   el.btnLogout.onclick = logout;
+
+  // Avatar grids binding
+  if (el.signupAvatarGrid) {
+    el.signupAvatarGrid.querySelectorAll('.avatar-emoji-btn').forEach(btn => {
+      btn.onclick = () => {
+        el.signupAvatarGrid.querySelectorAll('.avatar-emoji-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        state.signupAvatar = btn.dataset.emoji;
+      };
+    });
+  }
+
+  if (el.joinAvatarGrid) {
+    el.joinAvatarGrid.querySelectorAll('.avatar-emoji-btn').forEach(btn => {
+      btn.onclick = () => {
+        el.joinAvatarGrid.querySelectorAll('.avatar-emoji-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        state.joinAvatar = btn.dataset.emoji;
+      };
+    });
+  }
+
+  // Wager inputs binding
+  if (el.wagerRange && el.wagerNumber) {
+    el.wagerRange.oninput = (e) => {
+      el.wagerNumber.value = e.target.value;
+    };
+    el.wagerNumber.oninput = (e) => {
+      let maxW = parseInt(el.wagerRange.max) || 0;
+      let val = parseInt(e.target.value) || 0;
+      if (val < 0) val = 0;
+      if (val > maxW) val = maxW;
+      el.wagerRange.value = val;
+      e.target.value = val;
+    };
+  }
+
+  if (el.btnSubmitWager) {
+    el.btnSubmitWager.onclick = submitWager;
+  }
 
   // Sound effects prompt triggers
   el.btnSfxCorrect.onclick = playCorrect;
