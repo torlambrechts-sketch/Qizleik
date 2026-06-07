@@ -53,13 +53,12 @@ async function initDb() {
         quiz_id INTEGER REFERENCES quizzes(id) ON DELETE CASCADE,
         question_text TEXT NOT NULL,
         question_type VARCHAR(50) DEFAULT 'multiple-choice',
-        options TEXT, 
+        options JSON,
         correct_answer TEXT,
         points INTEGER DEFAULT 10,
         order_index INTEGER NOT NULL,
-        timer_duration INTEGER DEFAULT 0, -- 0 means no time limit, >0 sets auto-timer
-        rating_scale INTEGER DEFAULT 10,  -- Custom rating range for rate-submission
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        timer_duration INTEGER DEFAULT 0,
+        rating_scale INTEGER DEFAULT 10
       );
     `);
 
@@ -159,138 +158,47 @@ async function seedData() {
   try {
     await client.query('BEGIN');
 
-    // Quiz 1: General Trivia
-    const q1 = await client.query(
-      `INSERT INTO quizzes (title, description) 
-       VALUES ('Mind Blazer Trivia', 'A fast-paced general knowledge quiz covering science, pop culture, and geography.') 
-       RETURNING id`
-    );
-    const q1Id = q1.rows[0].id;
-
-    const quiz1Questions = [
-      {
-        text: 'Approximately how long does it take for light from the Sun to reach Earth?',
-        type: 'multiple-choice',
-        options: JSON.stringify(['8 seconds', '8 minutes', '8 hours', '8 days']),
-        ans: '8 minutes',
-        pts: 10,
-        idx: 0,
-        timer: 30, // 30 seconds auto-timer
-        scale: 10
-      },
-      {
-        text: 'Which planet is known as the "Red Planet"?',
-        type: 'text',
-        options: null,
-        ans: 'Mars',
-        pts: 10,
-        idx: 1,
-        timer: 20, // 20 seconds auto-timer
-        scale: 10
-      },
-      {
-        text: 'What is the tallest active volcano in Europe?',
-        type: 'multiple-choice',
-        options: JSON.stringify(['Mount Vesuvius', 'Mount Etna', 'Mount Stromboli', 'Mount Olympus']),
-        ans: 'Mount Etna',
-        pts: 15,
-        idx: 2,
-        timer: 30, // 30 seconds auto-timer
-        scale: 10
-      }
-    ];
-
-    for (const q of quiz1Questions) {
-      await client.query(
-        `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index, timer_duration, rating_scale)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-        [q1Id, q.text, q.type, q.options, q.ans, q.pts, q.idx, q.timer, q.scale]
-      );
+    const seedPath = path.join(__dirname, 'questions_seed.json');
+    if (!fs.existsSync(seedPath)) {
+      console.warn(`WARNING: Seed file not found at ${seedPath}. Skipping seed.`);
+      await client.query('COMMIT');
+      return;
     }
 
-    // Quiz 2: Caption Carnival (Text rating submission)
-    const q2 = await client.query(
-      `INSERT INTO quizzes (title, description) 
-       VALUES ('Caption Carnival', 'Funny Caption Showdown! Teams submit text captions to prompts, and the Host rates them.') 
-       RETURNING id`
-    );
-    const q2Id = q2.rows[0].id;
+    const quizzes = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
+    console.log(`Found ${quizzes.length} quizzes in seed file. Seeding questions...`);
 
-    const quiz2Questions = [
-      {
-        text: 'PROMPT: Write the best headline for a news report about a cat that has accidentally been elected Mayor of a small town.',
-        type: 'rate-submission',
-        options: null,
-        ans: 'Text submission to be rated by host.',
-        pts: 20,
-        idx: 0,
-        timer: 60, // 60 seconds to write
-        scale: 10 // Rated 0 - 10
-      },
-      {
-        text: 'PROMPT: What would be the worst slogan for a brand new anti-gravity theme park ride?',
-        type: 'rate-submission',
-        options: null,
-        ans: 'Text submission to be rated by host.',
-        pts: 20,
-        idx: 1,
-        timer: 60,
-        scale: 10
-      }
-    ];
-
-    for (const q of quiz2Questions) {
-      await client.query(
-        `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index, timer_duration, rating_scale)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-        [q2Id, q.text, q.type, q.options, q.ans, q.pts, q.idx, q.timer, q.scale]
+    for (const quiz of quizzes) {
+      const qRes = await client.query(
+        'INSERT INTO quizzes (title, description) VALUES ($1, $2) RETURNING id',
+        [quiz.title, quiz.description]
       );
-    }
+      const quizId = qRes.rows[0].id;
 
-    // Quiz 3: Doodle Duel (Drawing/Image rating submission)
-    const q3 = await client.query(
-      `INSERT INTO quizzes (title, description) 
-       VALUES ('Doodle Duel', 'Visual arts face-off! Teams sketch and upload images to match the design prompt.') 
-       RETURNING id`
-    );
-    const q3Id = q3.rows[0].id;
-
-    const quiz3Questions = [
-      {
-        text: 'PROMPT: Draw a logo for a futuristic startup named "Antigravity Inc" that makes floating furniture.',
-        type: 'rate-submission',
-        options: null,
-        ans: 'Image upload or sketch submission to be rated by host.',
-        pts: 30,
-        idx: 0,
-        timer: 90, // 90 seconds to draw
-        scale: 5 // Rated 0 - 5 stars/points
-      },
-      {
-        text: 'PROMPT: Design a brand new official flag for human colonies on Mars.',
-        type: 'rate-submission',
-        options: null,
-        ans: 'Image upload or sketch submission to be rated by host.',
-        pts: 30,
-        idx: 1,
-        timer: 90,
-        scale: 5
+      for (const q of quiz.questions) {
+        await client.query(
+          `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index, timer_duration, rating_scale)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+          [
+            quizId,
+            q.text,
+            q.type,
+            q.options ? JSON.stringify(q.options) : null,
+            q.ans,
+            q.pts,
+            q.idx,
+            q.timer,
+            q.scale
+          ]
+        );
       }
-    ];
-
-    for (const q of quiz3Questions) {
-      await client.query(
-        `INSERT INTO questions (quiz_id, question_text, question_type, options, correct_answer, points, order_index, timer_duration, rating_scale)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
-        [q3Id, q.text, q.type, q.options, q.ans, q.pts, q.idx, q.timer, q.scale]
-      );
     }
 
     await client.query('COMMIT');
-    console.log('Sample quizzes successfully seeded.');
+    console.log('500+ questions successfully seeded into the database!');
   } catch (err) {
     await client.query('ROLLBACK');
-    console.error('Seeding sample data failed:', err);
+    console.error('Seeding question bank failed:', err);
   } finally {
     client.release();
   }

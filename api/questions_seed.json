@@ -1,0 +1,7562 @@
+[
+  {
+    "title": "[NO] Geografi & Landegrenser (Lett)",
+    "description": "En lett geografiquiz om hovedsteder i 50 forskjellige land rundt om i verden.",
+    "questions": [
+      {
+        "text": "Hva er hovedstaden i Norge?",
+        "type": "multiple-choice",
+        "options": [
+          "Dublin",
+          "København",
+          "Oslo",
+          "Roma"
+        ],
+        "ans": "Oslo",
+        "pts": 10,
+        "idx": 0,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Sverige?",
+        "type": "multiple-choice",
+        "options": [
+          "Madrid",
+          "London",
+          "Havanna",
+          "Stockholm"
+        ],
+        "ans": "Stockholm",
+        "pts": 10,
+        "idx": 1,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Danmark?",
+        "type": "multiple-choice",
+        "options": [
+          "Paris",
+          "Stockholm",
+          "København",
+          "Helsinki"
+        ],
+        "ans": "København",
+        "pts": 10,
+        "idx": 2,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Finland?",
+        "type": "multiple-choice",
+        "options": [
+          "Wien",
+          "Hanoi",
+          "Helsinki",
+          "Santiago"
+        ],
+        "ans": "Helsinki",
+        "pts": 10,
+        "idx": 3,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Island?",
+        "type": "multiple-choice",
+        "options": [
+          "Reykjavik",
+          "Oslo",
+          "Moskva",
+          "Jakarta"
+        ],
+        "ans": "Reykjavik",
+        "pts": 10,
+        "idx": 4,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Tyskland?",
+        "type": "multiple-choice",
+        "options": [
+          "Moskva",
+          "Berlin",
+          "Amsterdam",
+          "Brasilia"
+        ],
+        "ans": "Berlin",
+        "pts": 10,
+        "idx": 5,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Frankrike?",
+        "type": "multiple-choice",
+        "options": [
+          "Paris",
+          "Madrid",
+          "Berlin",
+          "Beijing"
+        ],
+        "ans": "Paris",
+        "pts": 10,
+        "idx": 6,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Spania?",
+        "type": "multiple-choice",
+        "options": [
+          "Lima",
+          "Kairo",
+          "København",
+          "Madrid"
+        ],
+        "ans": "Madrid",
+        "pts": 10,
+        "idx": 7,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Italia?",
+        "type": "multiple-choice",
+        "options": [
+          "Hanoi",
+          "Roma",
+          "Dublin",
+          "Washington D.C."
+        ],
+        "ans": "Roma",
+        "pts": 10,
+        "idx": 8,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Storbritannia?",
+        "type": "multiple-choice",
+        "options": [
+          "Reykjavik",
+          "London",
+          "København",
+          "Santiago"
+        ],
+        "ans": "London",
+        "pts": 10,
+        "idx": 9,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Nederland?",
+        "type": "multiple-choice",
+        "options": [
+          "Amsterdam",
+          "Beijing",
+          "Athen",
+          "Paris"
+        ],
+        "ans": "Amsterdam",
+        "pts": 10,
+        "idx": 10,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Belgia?",
+        "type": "multiple-choice",
+        "options": [
+          "Brussel",
+          "Buenos Aires",
+          "Tokyo",
+          "Amsterdam"
+        ],
+        "ans": "Brussel",
+        "pts": 10,
+        "idx": 11,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Sveits?",
+        "type": "multiple-choice",
+        "options": [
+          "Bogota",
+          "Budapest",
+          "Zagreb",
+          "Bern"
+        ],
+        "ans": "Bern",
+        "pts": 10,
+        "idx": 12,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Østerrike?",
+        "type": "multiple-choice",
+        "options": [
+          "Wien",
+          "Lima",
+          "Lisboa",
+          "Bangkok"
+        ],
+        "ans": "Wien",
+        "pts": 10,
+        "idx": 13,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Polen?",
+        "type": "multiple-choice",
+        "options": [
+          "Warszawa",
+          "Bogota",
+          "Dublin",
+          "Moskva"
+        ],
+        "ans": "Warszawa",
+        "pts": 10,
+        "idx": 14,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Hellas?",
+        "type": "multiple-choice",
+        "options": [
+          "Athen",
+          "København",
+          "Helsinki",
+          "Warszawa"
+        ],
+        "ans": "Athen",
+        "pts": 10,
+        "idx": 15,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Portugal?",
+        "type": "multiple-choice",
+        "options": [
+          "Singapore",
+          "Reykjavik",
+          "Lisboa",
+          "Wien"
+        ],
+        "ans": "Lisboa",
+        "pts": 10,
+        "idx": 16,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Tyrkia?",
+        "type": "multiple-choice",
+        "options": [
+          "Budapest",
+          "Ankara",
+          "Kairo",
+          "Seoul"
+        ],
+        "ans": "Ankara",
+        "pts": 10,
+        "idx": 17,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Russland?",
+        "type": "multiple-choice",
+        "options": [
+          "Moskva",
+          "Athen",
+          "Hanoi",
+          "Havanna"
+        ],
+        "ans": "Moskva",
+        "pts": 10,
+        "idx": 18,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i USA?",
+        "type": "multiple-choice",
+        "options": [
+          "Seoul",
+          "Tokyo",
+          "Washington D.C.",
+          "Jakarta"
+        ],
+        "ans": "Washington D.C.",
+        "pts": 10,
+        "idx": 19,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Canada?",
+        "type": "multiple-choice",
+        "options": [
+          "Berlin",
+          "Kingston",
+          "Helsinki",
+          "Ottawa"
+        ],
+        "ans": "Ottawa",
+        "pts": 10,
+        "idx": 20,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Mexico?",
+        "type": "multiple-choice",
+        "options": [
+          "Manila",
+          "Canberra",
+          "Zagreb",
+          "Mexico City"
+        ],
+        "ans": "Mexico City",
+        "pts": 10,
+        "idx": 21,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Brasil?",
+        "type": "multiple-choice",
+        "options": [
+          "Manila",
+          "Brasilia",
+          "Riyadh",
+          "Kairo"
+        ],
+        "ans": "Brasilia",
+        "pts": 10,
+        "idx": 22,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Argentina?",
+        "type": "multiple-choice",
+        "options": [
+          "Buenos Aires",
+          "Zagreb",
+          "Madrid",
+          "Lima"
+        ],
+        "ans": "Buenos Aires",
+        "pts": 10,
+        "idx": 23,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Japan?",
+        "type": "multiple-choice",
+        "options": [
+          "Moskva",
+          "Tokyo",
+          "Canberra",
+          "Madrid"
+        ],
+        "ans": "Tokyo",
+        "pts": 10,
+        "idx": 24,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Kina?",
+        "type": "multiple-choice",
+        "options": [
+          "Rabat",
+          "Beijing",
+          "Lisboa",
+          "Lima"
+        ],
+        "ans": "Beijing",
+        "pts": 10,
+        "idx": 25,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Sør-Korea?",
+        "type": "multiple-choice",
+        "options": [
+          "Washington D.C.",
+          "Rabat",
+          "Seoul",
+          "Dublin"
+        ],
+        "ans": "Seoul",
+        "pts": 10,
+        "idx": 26,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i India?",
+        "type": "multiple-choice",
+        "options": [
+          "Bangkok",
+          "Kingston",
+          "Amsterdam",
+          "New Delhi"
+        ],
+        "ans": "New Delhi",
+        "pts": 10,
+        "idx": 27,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Australia?",
+        "type": "multiple-choice",
+        "options": [
+          "Madrid",
+          "Canberra",
+          "Nairobi",
+          "Stockholm"
+        ],
+        "ans": "Canberra",
+        "pts": 10,
+        "idx": 28,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i New Zealand?",
+        "type": "multiple-choice",
+        "options": [
+          "Athen",
+          "Helsinki",
+          "Singapore",
+          "Wellington"
+        ],
+        "ans": "Wellington",
+        "pts": 10,
+        "idx": 29,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Egypt?",
+        "type": "multiple-choice",
+        "options": [
+          "Kingston",
+          "Bangkok",
+          "Kairo",
+          "Reykjavik"
+        ],
+        "ans": "Kairo",
+        "pts": 10,
+        "idx": 30,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Sør-Afrika?",
+        "type": "multiple-choice",
+        "options": [
+          "Hanoi",
+          "Amsterdam",
+          "Pretoria",
+          "Lisboa"
+        ],
+        "ans": "Pretoria",
+        "pts": 10,
+        "idx": 31,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Kenya?",
+        "type": "multiple-choice",
+        "options": [
+          "Nairobi",
+          "Beijing",
+          "Santiago",
+          "Washington D.C."
+        ],
+        "ans": "Nairobi",
+        "pts": 10,
+        "idx": 32,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Marokko?",
+        "type": "multiple-choice",
+        "options": [
+          "Athen",
+          "Warszawa",
+          "Madrid",
+          "Rabat"
+        ],
+        "ans": "Rabat",
+        "pts": 10,
+        "idx": 33,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Saudi-Arabia?",
+        "type": "multiple-choice",
+        "options": [
+          "Warszawa",
+          "Hanoi",
+          "Riyadh",
+          "Jakarta"
+        ],
+        "ans": "Riyadh",
+        "pts": 10,
+        "idx": 34,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Thailand?",
+        "type": "multiple-choice",
+        "options": [
+          "Helsinki",
+          "Dublin",
+          "Bangkok",
+          "Santiago"
+        ],
+        "ans": "Bangkok",
+        "pts": 10,
+        "idx": 35,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Vietnam?",
+        "type": "multiple-choice",
+        "options": [
+          "Hanoi",
+          "Reykjavik",
+          "Nairobi",
+          "Mexico City"
+        ],
+        "ans": "Hanoi",
+        "pts": 10,
+        "idx": 36,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Singapore?",
+        "type": "multiple-choice",
+        "options": [
+          "Riyadh",
+          "Wien",
+          "Singapore",
+          "Roma"
+        ],
+        "ans": "Singapore",
+        "pts": 10,
+        "idx": 37,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Indonesia?",
+        "type": "multiple-choice",
+        "options": [
+          "Paris",
+          "Seoul",
+          "Bern",
+          "Jakarta"
+        ],
+        "ans": "Jakarta",
+        "pts": 10,
+        "idx": 38,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Filippinene?",
+        "type": "multiple-choice",
+        "options": [
+          "Brasilia",
+          "Manila",
+          "New Delhi",
+          "Seoul"
+        ],
+        "ans": "Manila",
+        "pts": 10,
+        "idx": 39,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Ukraina?",
+        "type": "multiple-choice",
+        "options": [
+          "Paris",
+          "Budapest",
+          "Zagreb",
+          "Kyiv"
+        ],
+        "ans": "Kyiv",
+        "pts": 10,
+        "idx": 40,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Irland?",
+        "type": "multiple-choice",
+        "options": [
+          "Dublin",
+          "Bern",
+          "Athen",
+          "Paris"
+        ],
+        "ans": "Dublin",
+        "pts": 10,
+        "idx": 41,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Ungarn?",
+        "type": "multiple-choice",
+        "options": [
+          "Brussel",
+          "Budapest",
+          "Roma",
+          "New Delhi"
+        ],
+        "ans": "Budapest",
+        "pts": 10,
+        "idx": 42,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Tsjekkia?",
+        "type": "multiple-choice",
+        "options": [
+          "Reykjavik",
+          "Canberra",
+          "Bangkok",
+          "Praha"
+        ],
+        "ans": "Praha",
+        "pts": 10,
+        "idx": 43,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Kroatia?",
+        "type": "multiple-choice",
+        "options": [
+          "Zagreb",
+          "Kingston",
+          "Athen",
+          "Berlin"
+        ],
+        "ans": "Zagreb",
+        "pts": 10,
+        "idx": 44,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Colombia?",
+        "type": "multiple-choice",
+        "options": [
+          "Wien",
+          "Kairo",
+          "Beijing",
+          "Bogota"
+        ],
+        "ans": "Bogota",
+        "pts": 10,
+        "idx": 45,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Chile?",
+        "type": "multiple-choice",
+        "options": [
+          "Santiago",
+          "Tokyo",
+          "Oslo",
+          "Lisboa"
+        ],
+        "ans": "Santiago",
+        "pts": 10,
+        "idx": 46,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Peru?",
+        "type": "multiple-choice",
+        "options": [
+          "Zagreb",
+          "Santiago",
+          "Lima",
+          "Bangkok"
+        ],
+        "ans": "Lima",
+        "pts": 10,
+        "idx": 47,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Cuba?",
+        "type": "multiple-choice",
+        "options": [
+          "Helsinki",
+          "Moskva",
+          "Wien",
+          "Havanna"
+        ],
+        "ans": "Havanna",
+        "pts": 10,
+        "idx": 48,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er hovedstaden i Jamaica?",
+        "type": "multiple-choice",
+        "options": [
+          "Kairo",
+          "Singapore",
+          "Kingston",
+          "Helsinki"
+        ],
+        "ans": "Kingston",
+        "pts": 10,
+        "idx": 49,
+        "timer": 20,
+        "scale": 10
+      }
+    ]
+  },
+  {
+    "title": "[NO] Historiske Begivenheter (Medium)",
+    "description": "Test din historiske kunnskap om viktige nasjonale og internasjonale milepæler gjennom tidene.",
+    "questions": [
+      {
+        "text": "I hvilket år ble den norske grunnloven undertegnet på Eidsvoll?",
+        "type": "multiple-choice",
+        "options": [
+          "1834",
+          "1819",
+          "1814",
+          "1804"
+        ],
+        "ans": "1814",
+        "pts": 15,
+        "idx": 0,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble unionen mellom Norge og Sverige oppløst?",
+        "type": "multiple-choice",
+        "options": [
+          "1910",
+          "1905",
+          "1925",
+          "1895"
+        ],
+        "ans": "1905",
+        "pts": 15,
+        "idx": 1,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble Norge invadert under andre verdenskrig?",
+        "type": "multiple-choice",
+        "options": [
+          "1960",
+          "1940",
+          "1945",
+          "1930"
+        ],
+        "ans": "1940",
+        "pts": 15,
+        "idx": 2,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år sluttet andre verdenskrig i Europa?",
+        "type": "multiple-choice",
+        "options": [
+          "1965",
+          "1950",
+          "1935",
+          "1945"
+        ],
+        "ans": "1945",
+        "pts": 15,
+        "idx": 3,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år startet første verdenskrig?",
+        "type": "multiple-choice",
+        "options": [
+          "1934",
+          "1904",
+          "1914",
+          "1919"
+        ],
+        "ans": "1914",
+        "pts": 15,
+        "idx": 4,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år sluttet første verdenskrig?",
+        "type": "multiple-choice",
+        "options": [
+          "1918",
+          "1923",
+          "1938",
+          "1908"
+        ],
+        "ans": "1918",
+        "pts": 15,
+        "idx": 5,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år startet andre verdenskrig med invasjonen av Polen?",
+        "type": "multiple-choice",
+        "options": [
+          "1939",
+          "1959",
+          "1944",
+          "1929"
+        ],
+        "ans": "1939",
+        "pts": 15,
+        "idx": 6,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år startet den franske revolusjonen med stormingen av Bastillen?",
+        "type": "multiple-choice",
+        "options": [
+          "1794",
+          "1789",
+          "1779",
+          "1809"
+        ],
+        "ans": "1789",
+        "pts": 15,
+        "idx": 7,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år falt Berlinmuren?",
+        "type": "multiple-choice",
+        "options": [
+          "1994",
+          "2009",
+          "1979",
+          "1989"
+        ],
+        "ans": "1989",
+        "pts": 15,
+        "idx": 8,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble Sovjetunionen offisielt oppløst?",
+        "type": "multiple-choice",
+        "options": [
+          "1981",
+          "2011",
+          "1996",
+          "1991"
+        ],
+        "ans": "1991",
+        "pts": 15,
+        "idx": 9,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år landet Apollo 11 på månen for første gang?",
+        "type": "multiple-choice",
+        "options": [
+          "1989",
+          "1959",
+          "1969",
+          "1974"
+        ],
+        "ans": "1969",
+        "pts": 15,
+        "idx": 10,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år sank passasjerskipet Titanic etter å ha truffet et isfjell?",
+        "type": "multiple-choice",
+        "options": [
+          "1917",
+          "1902",
+          "1932",
+          "1912"
+        ],
+        "ans": "1912",
+        "pts": 15,
+        "idx": 11,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år fant slaget ved Hastings sted i England?",
+        "type": "multiple-choice",
+        "options": [
+          "1086",
+          "1056",
+          "1066",
+          "1071"
+        ],
+        "ans": "1066",
+        "pts": 15,
+        "idx": 12,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ankom Kristoffer Columbus Amerika for første gang?",
+        "type": "multiple-choice",
+        "options": [
+          "1482",
+          "1492",
+          "1512",
+          "1497"
+        ],
+        "ans": "1492",
+        "pts": 15,
+        "idx": 13,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år undertegnet kong Johan av England Magna Carta?",
+        "type": "multiple-choice",
+        "options": [
+          "1205",
+          "1215",
+          "1235",
+          "1220"
+        ],
+        "ans": "1215",
+        "pts": 15,
+        "idx": 14,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble president John F. Kennedy myrdet i Dallas?",
+        "type": "multiple-choice",
+        "options": [
+          "1968",
+          "1963",
+          "1983",
+          "1953"
+        ],
+        "ans": "1963",
+        "pts": 15,
+        "idx": 15,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år skjedde det store krakket på Wall Street som utløste depresjonen?",
+        "type": "multiple-choice",
+        "options": [
+          "1919",
+          "1949",
+          "1934",
+          "1929"
+        ],
+        "ans": "1929",
+        "pts": 15,
+        "idx": 16,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år besteg Edmund Hillary og Tenzing Norgay Mount Everest?",
+        "type": "multiple-choice",
+        "options": [
+          "1973",
+          "1953",
+          "1943",
+          "1958"
+        ],
+        "ans": "1953",
+        "pts": 15,
+        "idx": 17,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble Nelson Mandela valgt som president i Sør-Afrika?",
+        "type": "multiple-choice",
+        "options": [
+          "2014",
+          "1984",
+          "1994",
+          "1999"
+        ],
+        "ans": "1994",
+        "pts": 15,
+        "idx": 18,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble kruttsammensvergelsen ledet av Guy Fawkes oppdaget i London?",
+        "type": "multiple-choice",
+        "options": [
+          "1610",
+          "1605",
+          "1595",
+          "1625"
+        ],
+        "ans": "1605",
+        "pts": 15,
+        "idx": 19,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble staten Israel offisielt opprettet?",
+        "type": "multiple-choice",
+        "options": [
+          "1968",
+          "1938",
+          "1953",
+          "1948"
+        ],
+        "ans": "1948",
+        "pts": 15,
+        "idx": 20,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble Abraham Lincoln skutt og drept i Washington D.C.?",
+        "type": "multiple-choice",
+        "options": [
+          "1855",
+          "1885",
+          "1865",
+          "1870"
+        ],
+        "ans": "1865",
+        "pts": 15,
+        "idx": 21,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble Napoleon Bonaparte endelig beseiret i slaget ved Waterloo?",
+        "type": "multiple-choice",
+        "options": [
+          "1835",
+          "1805",
+          "1815",
+          "1820"
+        ],
+        "ans": "1815",
+        "pts": 15,
+        "idx": 22,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år skjøt Sovjetunionen opp Sputnik 1, jordens første kunstige satellitt?",
+        "type": "multiple-choice",
+        "options": [
+          "1957",
+          "1977",
+          "1962",
+          "1947"
+        ],
+        "ans": "1957",
+        "pts": 15,
+        "idx": 23,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år fant terrorangrepene 11. september sted i USA?",
+        "type": "multiple-choice",
+        "options": [
+          "1991",
+          "2001",
+          "2006",
+          "2021"
+        ],
+        "ans": "2001",
+        "pts": 15,
+        "idx": 24,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år kronet Napoleon Bonaparte seg selv til keiser av Frankrike?",
+        "type": "multiple-choice",
+        "options": [
+          "1794",
+          "1809",
+          "1824",
+          "1804"
+        ],
+        "ans": "1804",
+        "pts": 15,
+        "idx": 25,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år sluttet Vietnamkrigen med Saigons fall?",
+        "type": "multiple-choice",
+        "options": [
+          "1980",
+          "1995",
+          "1965",
+          "1975"
+        ],
+        "ans": "1975",
+        "pts": 15,
+        "idx": 26,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år skjedde atomulykken i Tsjernobyl i Ukraina?",
+        "type": "multiple-choice",
+        "options": [
+          "1976",
+          "1991",
+          "1986",
+          "2006"
+        ],
+        "ans": "1986",
+        "pts": 15,
+        "idx": 27,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år kom svartedauden til Europa?",
+        "type": "multiple-choice",
+        "options": [
+          "1367",
+          "1347",
+          "1337",
+          "1352"
+        ],
+        "ans": "1347",
+        "pts": 15,
+        "idx": 28,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år publiserte Charles Darwin boken 'Artenes opprinnelse'?",
+        "type": "multiple-choice",
+        "options": [
+          "1849",
+          "1879",
+          "1859",
+          "1864"
+        ],
+        "ans": "1859",
+        "pts": 15,
+        "idx": 29,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år fant den russiske revolusjonen sted?",
+        "type": "multiple-choice",
+        "options": [
+          "1937",
+          "1922",
+          "1907",
+          "1917"
+        ],
+        "ans": "1917",
+        "pts": 15,
+        "idx": 30,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år omkom prinsesse Diana i en bilulykke i Paris?",
+        "type": "multiple-choice",
+        "options": [
+          "2017",
+          "2002",
+          "1997",
+          "1987"
+        ],
+        "ans": "1997",
+        "pts": 15,
+        "idx": 31,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år fant den store bybrannen i London sted?",
+        "type": "multiple-choice",
+        "options": [
+          "1671",
+          "1666",
+          "1686",
+          "1656"
+        ],
+        "ans": "1666",
+        "pts": 15,
+        "idx": 32,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble den amerikanske uavhengighetserklæringen undertegnet?",
+        "type": "multiple-choice",
+        "options": [
+          "1776",
+          "1796",
+          "1781",
+          "1766"
+        ],
+        "ans": "1776",
+        "pts": 15,
+        "idx": 33,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble euroen offisielt introdusert som regnskapsvaluta?",
+        "type": "multiple-choice",
+        "options": [
+          "1989",
+          "1999",
+          "2004",
+          "2019"
+        ],
+        "ans": "1999",
+        "pts": 15,
+        "idx": 34,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år sto Eiffeltårnet i Paris ferdigbygget?",
+        "type": "multiple-choice",
+        "options": [
+          "1879",
+          "1909",
+          "1889",
+          "1894"
+        ],
+        "ans": "1889",
+        "pts": 15,
+        "idx": 35,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble India og Pakistan uavhengige fra Storbritannia?",
+        "type": "multiple-choice",
+        "options": [
+          "1952",
+          "1937",
+          "1947",
+          "1967"
+        ],
+        "ans": "1947",
+        "pts": 15,
+        "idx": 36,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble Adolf Hitler utnevnt til rikskansler i Tyskland?",
+        "type": "multiple-choice",
+        "options": [
+          "1938",
+          "1953",
+          "1933",
+          "1923"
+        ],
+        "ans": "1933",
+        "pts": 15,
+        "idx": 37,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år fant slaget ved Trafalgar sted?",
+        "type": "multiple-choice",
+        "options": [
+          "1825",
+          "1805",
+          "1795",
+          "1810"
+        ],
+        "ans": "1805",
+        "pts": 15,
+        "idx": 38,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble DNA-molekylets dobbelhelix-struktur beskrevet av Watson og Crick?",
+        "type": "multiple-choice",
+        "options": [
+          "1974",
+          "1959",
+          "1954",
+          "1944"
+        ],
+        "ans": "1954",
+        "pts": 15,
+        "idx": 39,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år startet Martin Luther reformasjonen ved å henge opp sine 95 teser?",
+        "type": "multiple-choice",
+        "options": [
+          "1517",
+          "1522",
+          "1507",
+          "1537"
+        ],
+        "ans": "1517",
+        "pts": 15,
+        "idx": 40,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble Maastricht-traktaten virksom, noe som etablerte EU?",
+        "type": "multiple-choice",
+        "options": [
+          "2013",
+          "1998",
+          "1983",
+          "1993"
+        ],
+        "ans": "1993",
+        "pts": 15,
+        "idx": 41,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år brøt det ut en rekke revolusjoner i Europa (Februarrevolusjonen m.fl.)?",
+        "type": "multiple-choice",
+        "options": [
+          "1848",
+          "1838",
+          "1853",
+          "1868"
+        ],
+        "ans": "1848",
+        "pts": 15,
+        "idx": 42,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år fant Cubakrisen sted, den kaldeste perioden under den kalde krigen?",
+        "type": "multiple-choice",
+        "options": [
+          "1967",
+          "1952",
+          "1982",
+          "1962"
+        ],
+        "ans": "1962",
+        "pts": 15,
+        "idx": 43,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år fløy brødrene Wright historiens første motoriserte fly?",
+        "type": "multiple-choice",
+        "options": [
+          "1903",
+          "1923",
+          "1908",
+          "1893"
+        ],
+        "ans": "1903",
+        "pts": 15,
+        "idx": 44,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble graven til Tutankhamon oppdaget av Howard Carter?",
+        "type": "multiple-choice",
+        "options": [
+          "1927",
+          "1912",
+          "1942",
+          "1922"
+        ],
+        "ans": "1922",
+        "pts": 15,
+        "idx": 45,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år startet den amerikanske borgerkrigen?",
+        "type": "multiple-choice",
+        "options": [
+          "1861",
+          "1851",
+          "1881",
+          "1866"
+        ],
+        "ans": "1861",
+        "pts": 15,
+        "idx": 46,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble Verdens handelsorganisasjon (WTO) offisielt opprettet?",
+        "type": "multiple-choice",
+        "options": [
+          "1985",
+          "1995",
+          "2000",
+          "2015"
+        ],
+        "ans": "1995",
+        "pts": 15,
+        "idx": 47,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble de aller første Nobelprisene delt ut?",
+        "type": "multiple-choice",
+        "options": [
+          "1891",
+          "1901",
+          "1906",
+          "1921"
+        ],
+        "ans": "1901",
+        "pts": 15,
+        "idx": 48,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "I hvilket år ble Rosettasteinen funnet i Egypt av franske soldater?",
+        "type": "multiple-choice",
+        "options": [
+          "1819",
+          "1789",
+          "1799",
+          "1804"
+        ],
+        "ans": "1799",
+        "pts": 15,
+        "idx": 49,
+        "timer": 30,
+        "scale": 10
+      }
+    ]
+  },
+  {
+    "title": "[NO] Naturvitenskap & Kjemi (Vanskelig)",
+    "description": "En utfordrende vitenskapsquiz som dekker kjemiske symboler, fysikk og menneskekroppens anatomi.",
+    "questions": [
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Hydrogen?",
+        "type": "multiple-choice",
+        "options": [
+          "H",
+          "Au",
+          "Hg",
+          "He"
+        ],
+        "ans": "H",
+        "pts": 20,
+        "idx": 0,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Helium?",
+        "type": "multiple-choice",
+        "options": [
+          "C",
+          "He",
+          "Ni",
+          "Mn"
+        ],
+        "ans": "He",
+        "pts": 20,
+        "idx": 1,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Litium?",
+        "type": "multiple-choice",
+        "options": [
+          "Li",
+          "Cs",
+          "Pt",
+          "Fe"
+        ],
+        "ans": "Li",
+        "pts": 20,
+        "idx": 2,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Beryllium?",
+        "type": "multiple-choice",
+        "options": [
+          "Co",
+          "Be",
+          "Pd",
+          "Kr"
+        ],
+        "ans": "Be",
+        "pts": 20,
+        "idx": 3,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Bor?",
+        "type": "multiple-choice",
+        "options": [
+          "Si",
+          "B",
+          "Ag",
+          "Mn"
+        ],
+        "ans": "B",
+        "pts": 20,
+        "idx": 4,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Karbon?",
+        "type": "multiple-choice",
+        "options": [
+          "Pu",
+          "C",
+          "Bi",
+          "Fe"
+        ],
+        "ans": "C",
+        "pts": 20,
+        "idx": 5,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Nitrogen?",
+        "type": "multiple-choice",
+        "options": [
+          "N",
+          "Fe",
+          "Ca",
+          "P"
+        ],
+        "ans": "N",
+        "pts": 20,
+        "idx": 6,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Oksygen?",
+        "type": "multiple-choice",
+        "options": [
+          "O",
+          "Sr",
+          "I",
+          "Xe"
+        ],
+        "ans": "O",
+        "pts": 20,
+        "idx": 7,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Fluor?",
+        "type": "multiple-choice",
+        "options": [
+          "Mn",
+          "Mg",
+          "Ra",
+          "F"
+        ],
+        "ans": "F",
+        "pts": 20,
+        "idx": 8,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Neon?",
+        "type": "multiple-choice",
+        "options": [
+          "C",
+          "Cl",
+          "Ne",
+          "Lr"
+        ],
+        "ans": "Ne",
+        "pts": 20,
+        "idx": 9,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Natrium?",
+        "type": "multiple-choice",
+        "options": [
+          "He",
+          "Na",
+          "Li",
+          "Ne"
+        ],
+        "ans": "Na",
+        "pts": 20,
+        "idx": 10,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Magnesium?",
+        "type": "multiple-choice",
+        "options": [
+          "Mg",
+          "Ti",
+          "Ag",
+          "Xe"
+        ],
+        "ans": "Mg",
+        "pts": 20,
+        "idx": 11,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Aluminium?",
+        "type": "multiple-choice",
+        "options": [
+          "Cl",
+          "Al",
+          "Kr",
+          "W"
+        ],
+        "ans": "Al",
+        "pts": 20,
+        "idx": 12,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Silisium?",
+        "type": "multiple-choice",
+        "options": [
+          "N",
+          "Sn",
+          "Si",
+          "Lr"
+        ],
+        "ans": "Si",
+        "pts": 20,
+        "idx": 13,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Fosfor?",
+        "type": "multiple-choice",
+        "options": [
+          "Pb",
+          "Cl",
+          "Be",
+          "P"
+        ],
+        "ans": "P",
+        "pts": 20,
+        "idx": 14,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Svovel?",
+        "type": "multiple-choice",
+        "options": [
+          "S",
+          "Au",
+          "Xe",
+          "Mn"
+        ],
+        "ans": "S",
+        "pts": 20,
+        "idx": 15,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Klor?",
+        "type": "multiple-choice",
+        "options": [
+          "Cl",
+          "I",
+          "Pb",
+          "Na"
+        ],
+        "ans": "Cl",
+        "pts": 20,
+        "idx": 16,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Argon?",
+        "type": "multiple-choice",
+        "options": [
+          "Ar",
+          "Lr",
+          "Ti",
+          "S"
+        ],
+        "ans": "Ar",
+        "pts": 20,
+        "idx": 17,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Kalium?",
+        "type": "multiple-choice",
+        "options": [
+          "S",
+          "Ti",
+          "K",
+          "Ar"
+        ],
+        "ans": "K",
+        "pts": 20,
+        "idx": 18,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Kalsium?",
+        "type": "multiple-choice",
+        "options": [
+          "S",
+          "Ca",
+          "Ni",
+          "Ar"
+        ],
+        "ans": "Ca",
+        "pts": 20,
+        "idx": 19,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Jern?",
+        "type": "multiple-choice",
+        "options": [
+          "F",
+          "Fe",
+          "Ne",
+          "P"
+        ],
+        "ans": "Fe",
+        "pts": 20,
+        "idx": 20,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Kobolt?",
+        "type": "multiple-choice",
+        "options": [
+          "Co",
+          "Si",
+          "Sb",
+          "B"
+        ],
+        "ans": "Co",
+        "pts": 20,
+        "idx": 21,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Nikkel?",
+        "type": "multiple-choice",
+        "options": [
+          "Xe",
+          "Hg",
+          "Ag",
+          "Ni"
+        ],
+        "ans": "Ni",
+        "pts": 20,
+        "idx": 22,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Kobber?",
+        "type": "multiple-choice",
+        "options": [
+          "Pd",
+          "As",
+          "Rn",
+          "Cu"
+        ],
+        "ans": "Cu",
+        "pts": 20,
+        "idx": 23,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det kjemiske symbolet for grunnstoffet Sink?",
+        "type": "multiple-choice",
+        "options": [
+          "Zn",
+          "Ni",
+          "Ba",
+          "H"
+        ],
+        "ans": "Zn",
+        "pts": 20,
+        "idx": 24,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken planet er den største i solsystemet vårt?",
+        "type": "multiple-choice",
+        "options": [
+          "Neptun",
+          "Jupiter",
+          "Jorden",
+          "Saturn"
+        ],
+        "ans": "Jupiter",
+        "pts": 20,
+        "idx": 25,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det hardeste naturlige mineralet på jorden?",
+        "type": "multiple-choice",
+        "options": [
+          "Diamant",
+          "Rubin",
+          "Gull",
+          "Kvarts"
+        ],
+        "ans": "Diamant",
+        "pts": 20,
+        "idx": 26,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken gass utgjør omtrent 78% av luften vi puster inn på jorden?",
+        "type": "multiple-choice",
+        "options": [
+          "Argon",
+          "Karbondioksid",
+          "Oksygen",
+          "Nitrogen"
+        ],
+        "ans": "Nitrogen",
+        "pts": 20,
+        "idx": 27,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva er kvadratroten av 144?",
+        "type": "multiple-choice",
+        "options": [
+          "10",
+          "12",
+          "14",
+          "16"
+        ],
+        "ans": "12",
+        "pts": 20,
+        "idx": 28,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva er den kjemiske formelen for vanlig bordsalt?",
+        "type": "multiple-choice",
+        "options": [
+          "H2O",
+          "CO2",
+          "NaCl",
+          "KCl"
+        ],
+        "ans": "NaCl",
+        "pts": 20,
+        "idx": 29,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvor mange tenner har et voksent menneske normalt (inkludert visdomstenner)?",
+        "type": "multiple-choice",
+        "options": [
+          "28",
+          "32",
+          "30",
+          "36"
+        ],
+        "ans": "32",
+        "pts": 20,
+        "idx": 30,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva kalles prosessen der planter lager sukker og oksygen ved hjelp av sollys?",
+        "type": "multiple-choice",
+        "options": [
+          "Transpirasjon",
+          "Respirasjon",
+          "Osmose",
+          "Fotosyntese"
+        ],
+        "ans": "Fotosyntese",
+        "pts": 20,
+        "idx": 31,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det raskeste landpattedyret i verden?",
+        "type": "multiple-choice",
+        "options": [
+          "Gaffelantilope",
+          "Gepard",
+          "Hest",
+          "Løve"
+        ],
+        "ans": "Gepard",
+        "pts": 20,
+        "idx": 32,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken kraft trekker gjenstander ned mot bakken på jorden?",
+        "type": "multiple-choice",
+        "options": [
+          "Friksjon",
+          "Sentrifugalkraft",
+          "Elektromagnetisme",
+          "Tyngdekraft"
+        ],
+        "ans": "Tyngdekraft",
+        "pts": 20,
+        "idx": 33,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvor mange minutter bruker sollyset på å nå jorden?",
+        "type": "multiple-choice",
+        "options": [
+          "Øyeblikkelig",
+          "Ca. 8 sekunder",
+          "Ca. 8 minutter",
+          "Ca. 8 timer"
+        ],
+        "ans": "Ca. 8 minutter",
+        "pts": 20,
+        "idx": 34,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket organ i menneskekroppen renser blodet og produserer urin?",
+        "type": "multiple-choice",
+        "options": [
+          "Nyrene",
+          "Hjertet",
+          "Leveren",
+          "Milten"
+        ],
+        "ans": "Nyrene",
+        "pts": 20,
+        "idx": 35,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva er det største pattedyret på jorden?",
+        "type": "multiple-choice",
+        "options": [
+          "Blåhval",
+          "Hvalhai",
+          "Afrikansk elefant",
+          "Finnhval"
+        ],
+        "ans": "Blåhval",
+        "pts": 20,
+        "idx": 36,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken planet er nærmest solen?",
+        "type": "multiple-choice",
+        "options": [
+          "Mars",
+          "Jorden",
+          "Venus",
+          "Merkur"
+        ],
+        "ans": "Merkur",
+        "pts": 20,
+        "idx": 37,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva er vannets kokepunkt i grader Celsius ved normalt atmosfærisk trykk?",
+        "type": "multiple-choice",
+        "options": [
+          "120",
+          "80",
+          "90",
+          "100"
+        ],
+        "ans": "100",
+        "pts": 20,
+        "idx": 38,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvor mange bein har en voksen edderkopp normalt?",
+        "type": "multiple-choice",
+        "options": [
+          "6",
+          "12",
+          "10",
+          "8"
+        ],
+        "ans": "8",
+        "pts": 20,
+        "idx": 39,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken type blodceller hjelper kroppen med å bekjempe infeksjoner?",
+        "type": "multiple-choice",
+        "options": [
+          "Røde blodceller",
+          "Blodplater",
+          "Plasma",
+          "Hvite blodceller"
+        ],
+        "ans": "Hvite blodceller",
+        "pts": 20,
+        "idx": 40,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket kjemisk element har atomnummer 1?",
+        "type": "multiple-choice",
+        "options": [
+          "Helium",
+          "Karbon",
+          "Oksygen",
+          "Hydrogen"
+        ],
+        "ans": "Hydrogen",
+        "pts": 20,
+        "idx": 41,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva kalles vitenskapen som studerer stjerner, planeter og verdensrommet?",
+        "type": "multiple-choice",
+        "options": [
+          "Geologi",
+          "Meteorologi",
+          "Astronomi",
+          "Astrologi"
+        ],
+        "ans": "Astronomi",
+        "pts": 20,
+        "idx": 42,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket vitamin produserer kroppen vår når huden utsettes for sollys?",
+        "type": "multiple-choice",
+        "options": [
+          "Vitamin C",
+          "Vitamin B12",
+          "Vitamin A",
+          "Vitamin D"
+        ],
+        "ans": "Vitamin D",
+        "pts": 20,
+        "idx": 43,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket organ kontrollerer tanker, følelser og nervesystemet i menneskekroppen?",
+        "type": "multiple-choice",
+        "options": [
+          "Hjernen",
+          "Hjertet",
+          "Leveren",
+          "Ryggmargen"
+        ],
+        "ans": "Hjernen",
+        "pts": 20,
+        "idx": 44,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken gass puster vi ut som et avfallsprodukt fra celleåndingen?",
+        "type": "multiple-choice",
+        "options": [
+          "Oksygen",
+          "Metan",
+          "Karbondioksid",
+          "Nitrogen"
+        ],
+        "ans": "Karbondioksid",
+        "pts": 20,
+        "idx": 45,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvor mange farger finnes i en standard regnbue?",
+        "type": "multiple-choice",
+        "options": [
+          "8",
+          "7",
+          "5",
+          "6"
+        ],
+        "ans": "7",
+        "pts": 20,
+        "idx": 46,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken temperatur representerer absolutt nullpunkt på Celsiusskalaen?",
+        "type": "multiple-choice",
+        "options": [
+          "-459,67 °C",
+          "-100 °C",
+          "0 °C",
+          "-273,15 °C"
+        ],
+        "ans": "-273,15 °C",
+        "pts": 20,
+        "idx": 47,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva er den viktigste energikilden for livet på jorden?",
+        "type": "multiple-choice",
+        "options": [
+          "Månen",
+          "Solen",
+          "Jordvarme",
+          "Fossilt brensel"
+        ],
+        "ans": "Solen",
+        "pts": 20,
+        "idx": 48,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken planet kalles ofte jordens 'søsterplanet' på grunn av lik størrelse og masse?",
+        "type": "multiple-choice",
+        "options": [
+          "Mars",
+          "Saturn",
+          "Merkur",
+          "Venus"
+        ],
+        "ans": "Venus",
+        "pts": 20,
+        "idx": 49,
+        "timer": 30,
+        "scale": 10
+      }
+    ]
+  },
+  {
+    "title": "[NO] Sport & Underholdning (Medium)",
+    "description": "Morsomme trivia-spørsmål om populær musikk, filmer, OL, fotballregler og klassiske spill.",
+    "questions": [
+      {
+        "text": "Hvor mange spillere har et fotballag på banen samtidig under en kamp?",
+        "type": "multiple-choice",
+        "options": [
+          "9",
+          "10",
+          "12",
+          "11"
+        ],
+        "ans": "11",
+        "pts": 15,
+        "idx": 0,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvor ofte arrangeres de olympiske leker normalt (sommer eller vinter)?",
+        "type": "multiple-choice",
+        "options": [
+          "Hvert 2. år",
+          "Hvert 5. år",
+          "Hvert år",
+          "Hvert 4. år"
+        ],
+        "ans": "Hvert 4. år",
+        "pts": 15,
+        "idx": 1,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken farge har ledertrøyen i sykkelrittet Tour de France?",
+        "type": "multiple-choice",
+        "options": [
+          "Gul",
+          "Grønn",
+          "Hvit",
+          "Rød"
+        ],
+        "ans": "Gul",
+        "pts": 15,
+        "idx": 2,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva er den offisielle distansen for et maratonløp i kilometer?",
+        "type": "multiple-choice",
+        "options": [
+          "38,250 km",
+          "40,000 km",
+          "42,195 km",
+          "45,500 km"
+        ],
+        "ans": "42,195 km",
+        "pts": 15,
+        "idx": 3,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket land har vunnet flest fotball-VM for menn totalt?",
+        "type": "multiple-choice",
+        "options": [
+          "Argentina",
+          "Italia",
+          "Tyskland",
+          "Brasil"
+        ],
+        "ans": "Brasil",
+        "pts": 15,
+        "idx": 4,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva er maksimal poengsum i en enkelt serie med bowling (en perfekt serie)?",
+        "type": "multiple-choice",
+        "options": [
+          "400",
+          "250",
+          "200",
+          "300"
+        ],
+        "ans": "300",
+        "pts": 15,
+        "idx": 5,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "I hvilken sport kan man score en 'home run'?",
+        "type": "multiple-choice",
+        "options": [
+          "Cricket",
+          "Baseball",
+          "Amerikansk fotball",
+          "Basketball"
+        ],
+        "ans": "Baseball",
+        "pts": 15,
+        "idx": 6,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvor mange brikker starter en sjakkspiller med ved starten av et spill?",
+        "type": "multiple-choice",
+        "options": [
+          "12",
+          "8",
+          "16",
+          "20"
+        ],
+        "ans": "16",
+        "pts": 15,
+        "idx": 7,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvor mange hull har en standard golfbane?",
+        "type": "multiple-choice",
+        "options": [
+          "18",
+          "12",
+          "9",
+          "24"
+        ],
+        "ans": "18",
+        "pts": 15,
+        "idx": 8,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken legendarisk idrettsutøver har vunnet flest OL-gullmedaljer i historien?",
+        "type": "multiple-choice",
+        "options": [
+          "Carl Lewis",
+          "Michael Phelps",
+          "Usain Bolt",
+          "Larisa Latynina"
+        ],
+        "ans": "Michael Phelps",
+        "pts": 15,
+        "idx": 9,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken karakter spilte Harrison Ford i Star Wars-filmene?",
+        "type": "multiple-choice",
+        "options": [
+          "Obi-Wan Kenobi",
+          "Darth Vader",
+          "Luke Skywalker",
+          "Han Solo"
+        ],
+        "ans": "Han Solo",
+        "pts": 15,
+        "idx": 10,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva er navnet på det fiktive landet der historien i Black Panther utspiller seg?",
+        "type": "multiple-choice",
+        "options": [
+          "Wakanda",
+          "El Dorado",
+          "Genovia",
+          "Zamunda"
+        ],
+        "ans": "Wakanda",
+        "pts": 15,
+        "idx": 11,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken film fra 1997 om en skipsulykke vant 11 Oscar-priser?",
+        "type": "multiple-choice",
+        "options": [
+          "Gladiatoren",
+          "Avatar",
+          "Titanic",
+          "Ringenes Herre"
+        ],
+        "ans": "Titanic",
+        "pts": 15,
+        "idx": 12,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken kjent artist spilte rollen som Ally Campana i filmen 'A Star Is Born' (2018)?",
+        "type": "multiple-choice",
+        "options": [
+          "Rihanna",
+          "Taylor Swift",
+          "Lady Gaga",
+          "Beyoncé"
+        ],
+        "ans": "Lady Gaga",
+        "pts": 15,
+        "idx": 13,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva heter det berømte musikkarrangementet som arrangeres årlig i Storbritannia (verdens største grønne festival)?",
+        "type": "multiple-choice",
+        "options": [
+          "Glastonbury",
+          "Tomorrowland",
+          "Roskilde",
+          "Coachella"
+        ],
+        "ans": "Glastonbury",
+        "pts": 15,
+        "idx": 14,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvem regnes som kongen av Popmusikk?",
+        "type": "multiple-choice",
+        "options": [
+          "Michael Jackson",
+          "Freddie Mercury",
+          "Elvis Presley",
+          "Prince"
+        ],
+        "ans": "Michael Jackson",
+        "pts": 15,
+        "idx": 15,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "I hvilken animert filmserie møter vi lekene Woody og Buzz Lightyear?",
+        "type": "multiple-choice",
+        "options": [
+          "Shrek",
+          "Biler",
+          "Istid",
+          "Toy Story"
+        ],
+        "ans": "Toy Story",
+        "pts": 15,
+        "idx": 16,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva heter strømmetjenesten til Apple som blant annet har produsert serien Ted Lasso?",
+        "type": "multiple-choice",
+        "options": [
+          "Apple Arcade",
+          "Apple Movies",
+          "Apple Streaming",
+          "Apple TV+"
+        ],
+        "ans": "Apple TV+",
+        "pts": 15,
+        "idx": 17,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken popgruppe fra Sverige vant Eurovision Song Contest i 1974 med sangen Waterloo?",
+        "type": "multiple-choice",
+        "options": [
+          "Roxette",
+          "ABBA",
+          "Ace of Base",
+          "The Cardigans"
+        ],
+        "ans": "ABBA",
+        "pts": 15,
+        "idx": 18,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken film vant den aller første Oscar for beste film i 1929?",
+        "type": "multiple-choice",
+        "options": [
+          "Wings",
+          "Sunrise",
+          "The Jazz Singer",
+          "Metropolis"
+        ],
+        "ans": "Wings",
+        "pts": 15,
+        "idx": 19,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvor lang er en tennisbane i meter?",
+        "type": "multiple-choice",
+        "options": [
+          "20,50 m",
+          "25,00 m",
+          "23,77 m",
+          "22,00 m"
+        ],
+        "ans": "23,77 m",
+        "pts": 15,
+        "idx": 20,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken basketballspiller er allment kjent som 'Air Jordan'?",
+        "type": "multiple-choice",
+        "options": [
+          "Shaquille O'Neal",
+          "LeBron James",
+          "Michael Jordan",
+          "Kobe Bryant"
+        ],
+        "ans": "Michael Jordan",
+        "pts": 15,
+        "idx": 21,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken fotballklubb spiller sine hjemmekamper på Old Trafford?",
+        "type": "multiple-choice",
+        "options": [
+          "Manchester United",
+          "Manchester City",
+          "Arsenal FC",
+          "Liverpool FC"
+        ],
+        "ans": "Manchester United",
+        "pts": 15,
+        "idx": 22,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvor mange røde kuler starter man med i et Snooker-spill?",
+        "type": "multiple-choice",
+        "options": [
+          "15",
+          "10",
+          "21",
+          "12"
+        ],
+        "ans": "15",
+        "pts": 15,
+        "idx": 23,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken brettsport ble lagt til i de olympiske leker i Tokyo i 2020?",
+        "type": "multiple-choice",
+        "options": [
+          "Skateboard",
+          "Snøbrett",
+          "Wakeboard",
+          "Kitesurfing"
+        ],
+        "ans": "Skateboard",
+        "pts": 15,
+        "idx": 24,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvem regnes som den mest suksessfulle Formel 1-føreren (flest seire)?",
+        "type": "multiple-choice",
+        "options": [
+          "Lewis Hamilton",
+          "Michael Schumacher",
+          "Sebastian Vettel",
+          "Ayrton Senna"
+        ],
+        "ans": "Lewis Hamilton",
+        "pts": 15,
+        "idx": 25,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken tysk bilprodusent sponser fotballstadionet til FC Bayern München?",
+        "type": "multiple-choice",
+        "options": [
+          "Audi",
+          "Porsche",
+          "BMW",
+          "Mercedes-Benz"
+        ],
+        "ans": "Audi",
+        "pts": 15,
+        "idx": 26,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken artist ga ut det banebrytende albumet 'Thriller' i 1982?",
+        "type": "multiple-choice",
+        "options": [
+          "David Bowie",
+          "Madonna",
+          "Michael Jackson",
+          "Prince"
+        ],
+        "ans": "Michael Jackson",
+        "pts": 15,
+        "idx": 27,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva er navnet på det berømte operahuset i Australia?",
+        "type": "multiple-choice",
+        "options": [
+          "Melbourne Opera",
+          "Adelaide Theatre",
+          "Sydney Opera House",
+          "Brisbane House"
+        ],
+        "ans": "Sydney Opera House",
+        "pts": 15,
+        "idx": 28,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvem regnes som 'The Queen of Soul'?",
+        "type": "multiple-choice",
+        "options": [
+          "Whitney Houston",
+          "Tina Turner",
+          "Aretha Franklin",
+          "Diana Ross"
+        ],
+        "ans": "Aretha Franklin",
+        "pts": 15,
+        "idx": 29,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva er den eldste tennisturneringen i verden?",
+        "type": "multiple-choice",
+        "options": [
+          "Wimbledon",
+          "US Open",
+          "Australian Open",
+          "French Open"
+        ],
+        "ans": "Wimbledon",
+        "pts": 15,
+        "idx": 30,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvor mange poeng får man for et 'field goal' i amerikansk fotball?",
+        "type": "multiple-choice",
+        "options": [
+          "1",
+          "6",
+          "2",
+          "3"
+        ],
+        "ans": "3",
+        "pts": 15,
+        "idx": 31,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken sykkelrytter har vunnet Tour de France 5 ganger på rad (1991-1995)?",
+        "type": "multiple-choice",
+        "options": [
+          "Bernard Hinault",
+          "Miguel Indurain",
+          "Lance Armstrong",
+          "Eddy Merckx"
+        ],
+        "ans": "Miguel Indurain",
+        "pts": 15,
+        "idx": 32,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken sport spilles på en isflate med koster og en tung stein?",
+        "type": "multiple-choice",
+        "options": [
+          "Ishockey",
+          "Skøyter",
+          "Curling",
+          "Bandy"
+        ],
+        "ans": "Curling",
+        "pts": 15,
+        "idx": 33,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvem regnes som tidenes mestvinnende kvinnelige skiløper i vinter-OL?",
+        "type": "multiple-choice",
+        "options": [
+          "Therese Johaug",
+          "Justyna Kowalczyk",
+          "Marit Bjørgen",
+          "Charlotte Kalla"
+        ],
+        "ans": "Marit Bjørgen",
+        "pts": 15,
+        "idx": 34,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva er tittelen på den mest innbringende filmen i historien (justert for inflasjon)?",
+        "type": "multiple-choice",
+        "options": [
+          "Avatar",
+          "Tatt av vinden",
+          "Titanic",
+          "Star Wars: A New Hope"
+        ],
+        "ans": "Tatt av vinden",
+        "pts": 15,
+        "idx": 35,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket år ble strømmetjenesten Netflix grunnlagt?",
+        "type": "multiple-choice",
+        "options": [
+          "2005",
+          "2010",
+          "1997",
+          "1995"
+        ],
+        "ans": "1997",
+        "pts": 15,
+        "idx": 36,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken sang spilt av Luis Fonsi og Daddy Yankee ble en global farsott i 2017?",
+        "type": "multiple-choice",
+        "options": [
+          "Despacito",
+          "Gasolina",
+          "Mi Gente",
+          "Bailando"
+        ],
+        "ans": "Despacito",
+        "pts": 15,
+        "idx": 37,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva heter det kjente spillutviklerstudioet som skapte spillene Grand Theft Auto og Red Dead Redemption?",
+        "type": "multiple-choice",
+        "options": [
+          "Ubisoft",
+          "Rockstar Games",
+          "Electronic Arts",
+          "Activision Blizzard"
+        ],
+        "ans": "Rockstar Games",
+        "pts": 15,
+        "idx": 38,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken film regissert av Bong Joon Ho ble den første fremmedspråklige filmen til å vinne Oscar for beste film i 2020?",
+        "type": "multiple-choice",
+        "options": [
+          "The Artist",
+          "Minari",
+          "Roma",
+          "Parasitt"
+        ],
+        "ans": "Parasitt",
+        "pts": 15,
+        "idx": 39,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken rase er hunden Scooby-Doo?",
+        "type": "multiple-choice",
+        "options": [
+          "Sankt bernhardshund",
+          "Schæfer",
+          "Mastiff",
+          "Grand danois"
+        ],
+        "ans": "Grand danois",
+        "pts": 15,
+        "idx": 40,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken skuespiller ga stemme til Genie i Disneys originale Robin Williams-animerte Aladdin (1992)?",
+        "type": "multiple-choice",
+        "options": [
+          "Tom Hanks",
+          "Will Smith",
+          "Robin Williams",
+          "Jim Carrey"
+        ],
+        "ans": "Robin Williams",
+        "pts": 15,
+        "idx": 41,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket instrument spilte Louis Armstrong?",
+        "type": "multiple-choice",
+        "options": [
+          "Trombone",
+          "Klarinett",
+          "Trompet",
+          "Saksofon"
+        ],
+        "ans": "Trompet",
+        "pts": 15,
+        "idx": 42,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvem er skaperen av tegneserien 'Knøttene' (Peanuts) med Snoopy og Charlie Brown?",
+        "type": "multiple-choice",
+        "options": [
+          "Walt Disney",
+          "Matt Groening",
+          "Stan Lee",
+          "Charles M. Schulz"
+        ],
+        "ans": "Charles M. Schulz",
+        "pts": 15,
+        "idx": 43,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken popstjerne har en lojal tilhengerskare kjent som 'Swifties'?",
+        "type": "multiple-choice",
+        "options": [
+          "Katy Perry",
+          "Taylor Swift",
+          "Ariana Grande",
+          "Billie Eilish"
+        ],
+        "ans": "Taylor Swift",
+        "pts": 15,
+        "idx": 44,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "I hvilken by ble OL i 2012 arrangert?",
+        "type": "multiple-choice",
+        "options": [
+          "London",
+          "Rio de Janeiro",
+          "Beijing",
+          "Athen"
+        ],
+        "ans": "London",
+        "pts": 15,
+        "idx": 45,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva heter den berømte spillkonsollen utgitt av Nintendo i 2017 som kan brukes både håndholdt og stasjonært?",
+        "type": "multiple-choice",
+        "options": [
+          "Nintendo Switch",
+          "Nintendo Wii U",
+          "Nintendo DS",
+          "Nintendo 3DS"
+        ],
+        "ans": "Nintendo Switch",
+        "pts": 15,
+        "idx": 46,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvem skrev den episke fantasyromanserien 'En sang om is og ild' (A Song of Ice and Fire) som TV-serien Game of Thrones er basert på?",
+        "type": "multiple-choice",
+        "options": [
+          "J.R.R. Tolkien",
+          "George R.R. Martin",
+          "Brandon Sanderson",
+          "C.S. Lewis"
+        ],
+        "ans": "George R.R. Martin",
+        "pts": 15,
+        "idx": 47,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken superheltgruppe fra Marvel inkluderer Iron Man, Thor og Captain America?",
+        "type": "multiple-choice",
+        "options": [
+          "Justice League",
+          "X-Men",
+          "Fantastic Four",
+          "The Avengers"
+        ],
+        "ans": "The Avengers",
+        "pts": 15,
+        "idx": 48,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Hva heter karakteren Keanu Reeves spiller i John Wick-filmene?",
+        "type": "multiple-choice",
+        "options": [
+          "Neo",
+          "John Wick",
+          "Ted Logan",
+          "Jack Traven"
+        ],
+        "ans": "John Wick",
+        "pts": 15,
+        "idx": 49,
+        "timer": 25,
+        "scale": 10
+      }
+    ]
+  },
+  {
+    "title": "[NO] Kunst, Litteratur & Mytologi (Vanskelig)",
+    "description": "Test dine kunnskaper om kjente malerier, forfattere og guder i gresk, romersk og norrøn mytologi.",
+    "questions": [
+      {
+        "text": "Hvilken norsk kunstner malte det berømte uttrykksfulle verket 'Skrik' i 1893?",
+        "type": "multiple-choice",
+        "options": [
+          "Harald Sohlberg",
+          "Odd Nerdrum",
+          "Edvard Munch",
+          "Christian Krohg"
+        ],
+        "ans": "Edvard Munch",
+        "pts": 20,
+        "idx": 0,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken forfatter skrev det verdenskjente kjærlighetsdramaet 'Romeo og Julie'?",
+        "type": "multiple-choice",
+        "options": [
+          "Charles Dickens",
+          "Jane Austen",
+          "Mark Twain",
+          "William Shakespeare"
+        ],
+        "ans": "William Shakespeare",
+        "pts": 20,
+        "idx": 1,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem er den mektigste guden i gresk mytologi, assosiert med torden og himmel?",
+        "type": "multiple-choice",
+        "options": [
+          "Zeus",
+          "Hades",
+          "Poseidon",
+          "Ares"
+        ],
+        "ans": "Zeus",
+        "pts": 20,
+        "idx": 2,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket renessansemaleri av Leonardo da Vinci som henger i Louvre, viser en kvinne med et mystisk smil?",
+        "type": "multiple-choice",
+        "options": [
+          "Nattverden",
+          "Johannes Døperen",
+          "Mona Lisa",
+          "Damen med hermelinen"
+        ],
+        "ans": "Mona Lisa",
+        "pts": 20,
+        "idx": 3,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem er den norrøne tordenguden som rir over himmelen i en vogn trukket av bukker og svinger hammeren Mjølner?",
+        "type": "multiple-choice",
+        "options": [
+          "Tor",
+          "Odin",
+          "Balder",
+          "Loke"
+        ],
+        "ans": "Tor",
+        "pts": 20,
+        "idx": 4,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken britisk forfatter skrev fantasysuksessen om trollmannsgutten Harry Potter?",
+        "type": "multiple-choice",
+        "options": [
+          "J.R.R. Tolkien",
+          "C.S. Lewis",
+          "J.K. Rowling",
+          "Roald Dahl"
+        ],
+        "ans": "J.K. Rowling",
+        "pts": 20,
+        "idx": 5,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem er herskeren over underverdenen i gresk mytologi?",
+        "type": "multiple-choice",
+        "options": [
+          "Zeus",
+          "Hades",
+          "Hermes",
+          "Poseidon"
+        ],
+        "ans": "Hades",
+        "pts": 20,
+        "idx": 6,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva er navnet på skipet til den mystiske kaptein Nemo i Jules Vernes klassiker 'En verdensomseiling under havet'?",
+        "type": "multiple-choice",
+        "options": [
+          "Pequod",
+          "Hispaniola",
+          "Nautilus",
+          "Bounty"
+        ],
+        "ans": "Nautilus",
+        "pts": 20,
+        "idx": 7,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken kjent norsk dramatiker skrev det samfunnskritiske skuespillet 'Et dukkehjem' i 1879?",
+        "type": "multiple-choice",
+        "options": [
+          "Alexander Kielland",
+          "Henrik Ibsen",
+          "Knut Hamsun",
+          "Bjørnstjerne Bjørnson"
+        ],
+        "ans": "Henrik Ibsen",
+        "pts": 20,
+        "idx": 8,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken renessansekunstner malte det storslåtte taket i Det sixtinske kapell i Vatikanet?",
+        "type": "multiple-choice",
+        "options": [
+          "Leonardo da Vinci",
+          "Rafael",
+          "Donatello",
+          "Michelangelo"
+        ],
+        "ans": "Michelangelo",
+        "pts": 20,
+        "idx": 9,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket land stammer mytene om gudene Odin, Tor og Loke fra?",
+        "type": "multiple-choice",
+        "options": [
+          "Skandinavia",
+          "Hellas",
+          "Romerriket",
+          "Egypt"
+        ],
+        "ans": "Skandinavia",
+        "pts": 20,
+        "idx": 10,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken nederlandsk post-impresjonistisk kunstner malte 'Stjernenatt' (The Starry Night) og kuttet av deler av sitt eget øre?",
+        "type": "multiple-choice",
+        "options": [
+          "Rembrandt",
+          "Claude Monet",
+          "Vincent van Gogh",
+          "Johannes Vermeer"
+        ],
+        "ans": "Vincent van Gogh",
+        "pts": 20,
+        "idx": 11,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken forfatter skrev den episke fantasyserien 'Ringenes Herre' (The Lord of the Rings)?",
+        "type": "multiple-choice",
+        "options": [
+          "J.R.R. Tolkien",
+          "C.S. Lewis",
+          "Terry Pratchett",
+          "George R.R. Martin"
+        ],
+        "ans": "J.R.R. Tolkien",
+        "pts": 20,
+        "idx": 12,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem er skjønnhets- og kjærlighetsgudinnen i romersk mytologi (tilsvarende greske Afrodite)?",
+        "type": "multiple-choice",
+        "options": [
+          "Venus",
+          "Juno",
+          "Minerva",
+          "Diana"
+        ],
+        "ans": "Venus",
+        "pts": 20,
+        "idx": 13,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken roman av Herman Melville handler om jakten på den hvite hvalen?",
+        "type": "multiple-choice",
+        "options": [
+          "Billy Budd",
+          "Typee",
+          "Moby Dick",
+          "Omoo"
+        ],
+        "ans": "Moby Dick",
+        "pts": 20,
+        "idx": 14,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva heter hovedstaden i Dante Alighieris verk 'Den guddommelige komedie' der fortaperen møter Lucifer?",
+        "type": "multiple-choice",
+        "options": [
+          "Helvete",
+          "Skjærsilden",
+          "Paradiset",
+          "Underverdenen"
+        ],
+        "ans": "Helvete",
+        "pts": 20,
+        "idx": 15,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken spansk surrealistisk kunstner malte 'Minnets utholdenhet' (med de smeltende klokkene)?",
+        "type": "multiple-choice",
+        "options": [
+          "Pablo Picasso",
+          "Francisco Goya",
+          "Salvador Dalí",
+          "Joan Miró"
+        ],
+        "ans": "Salvador Dalí",
+        "pts": 20,
+        "idx": 16,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken forfatter skrev romanen 'Don Quijote', regnet som den første moderne romanen?",
+        "type": "multiple-choice",
+        "options": [
+          "Gabriel García Márquez",
+          "Miguel de Cervantes",
+          "Federico García Lorca",
+          "Lope de Vega"
+        ],
+        "ans": "Miguel de Cervantes",
+        "pts": 20,
+        "idx": 17,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem er den egyptiske guden for sol og skaperverk, ofte avbildet med et falkehode?",
+        "type": "multiple-choice",
+        "options": [
+          "Osiris",
+          "Ra",
+          "Horus",
+          "Anubis"
+        ],
+        "ans": "Ra",
+        "pts": 20,
+        "idx": 18,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken fransk forfatter skrev historiske klassikere som 'De tre musketerer' og 'Greven av Monte Cristo'?",
+        "type": "multiple-choice",
+        "options": [
+          "Alexandre Dumas",
+          "Gustave Flaubert",
+          "Émile Zola",
+          "Victor Hugo"
+        ],
+        "ans": "Alexandre Dumas",
+        "pts": 20,
+        "idx": 19,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket berømt monument i Agra i India ble reist av keiser Shah Jahan som et mausoleum for hans kone?",
+        "type": "multiple-choice",
+        "options": [
+          "Qutub Minar",
+          "Gulltempelet",
+          "Taj Mahal",
+          "Hawa Mahal"
+        ],
+        "ans": "Taj Mahal",
+        "pts": 20,
+        "idx": 20,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken epoke i europeisk kunsthistorie betyr bokstavelig talt 'gjenfødelse'?",
+        "type": "multiple-choice",
+        "options": [
+          "Gotikken",
+          "Barokken",
+          "Renessansen",
+          "Romantikken"
+        ],
+        "ans": "Renessansen",
+        "pts": 20,
+        "idx": 21,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva heter den berømte bronseskulpturen av Auguste Rodin som viser en mann i dype tanker?",
+        "type": "multiple-choice",
+        "options": [
+          "Tenkeren",
+          "Borgerne fra Calais",
+          "Kysset",
+          "Helvetesporten"
+        ],
+        "ans": "Tenkeren",
+        "pts": 20,
+        "idx": 22,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem er visdoms- og krigsgudinnen i gresk mytologi, som ga navn til en stor gresk by?",
+        "type": "multiple-choice",
+        "options": [
+          "Artemis",
+          "Athene",
+          "Afrodite",
+          "Hera"
+        ],
+        "ans": "Athene",
+        "pts": 20,
+        "idx": 23,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken berømt roman av Mary Shelley regnes som et av de tidligste verkene innen science fiction?",
+        "type": "multiple-choice",
+        "options": [
+          "Frankenstein",
+          "Jekyll og Hyde",
+          "Den usynlige mann",
+          "Dracula"
+        ],
+        "ans": "Frankenstein",
+        "pts": 20,
+        "idx": 24,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva het den trojanske prinsen som utløste trojakrigen ved å bortføre Helena?",
+        "type": "multiple-choice",
+        "options": [
+          "Paris",
+          "Akilles",
+          "Hektor",
+          "Agamemnon"
+        ],
+        "ans": "Paris",
+        "pts": 20,
+        "idx": 25,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken forfatter skrev 'Sagaen om isfolket'?",
+        "type": "multiple-choice",
+        "options": [
+          "Jo Nesbø",
+          "Anne-Cath. Vestly",
+          "Knut Hamsun",
+          "Margit Sandemo"
+        ],
+        "ans": "Margit Sandemo",
+        "pts": 20,
+        "idx": 26,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilket instrument var Wolfgang Amadeus Mozart spesielt kjent for å mestre allerede som barn?",
+        "type": "multiple-choice",
+        "options": [
+          "Klaver/Klavér",
+          "Cello",
+          "Fiolin",
+          "Fløyte"
+        ],
+        "ans": "Klaver/Klavér",
+        "pts": 20,
+        "idx": 27,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva er navnet på Odins åttebente hest i norrøn mytologi?",
+        "type": "multiple-choice",
+        "options": [
+          "Gullfakse",
+          "Alsvinn",
+          "Skinfakse",
+          "Sleipner"
+        ],
+        "ans": "Sleipner",
+        "pts": 20,
+        "idx": 28,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken tysk komponist fortsatte å skape storslått musikk selv etter at han ble helt døv?",
+        "type": "multiple-choice",
+        "options": [
+          "Richard Wagner",
+          "Ludwig van Beethoven",
+          "Johann Sebastian Bach",
+          "Johannes Brahms"
+        ],
+        "ans": "Ludwig van Beethoven",
+        "pts": 20,
+        "idx": 29,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva heter Arthur-legendens berømte sverd, som han trakk ut av en stein?",
+        "type": "multiple-choice",
+        "options": [
+          "Excalibur",
+          "Gram",
+          "Durandal",
+          "Mjolnir"
+        ],
+        "ans": "Excalibur",
+        "pts": 20,
+        "idx": 30,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken russisk forfatter skrev gigantverkene 'Krig og fred' og 'Anna Karenina'?",
+        "type": "multiple-choice",
+        "options": [
+          "Leo Tolstoj",
+          "Fjodor Dostojevskij",
+          "Anton Tsjekhov",
+          "Aleksandr Pusjkin"
+        ],
+        "ans": "Leo Tolstoj",
+        "pts": 20,
+        "idx": 31,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem er den romerske guden for krig (tilsvarende greske Ares)?",
+        "type": "multiple-choice",
+        "options": [
+          "Mercur",
+          "Jupiter",
+          "Vulkan",
+          "Mars"
+        ],
+        "ans": "Mars",
+        "pts": 20,
+        "idx": 32,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken fransk impresjonistisk maler er kjent for sine mange bilder av vannliljer i hans egen hage i Giverny?",
+        "type": "multiple-choice",
+        "options": [
+          "Claude Monet",
+          "Edgar Degas",
+          "Paul Cézanne",
+          "Pierre-Auguste Renoir"
+        ],
+        "ans": "Claude Monet",
+        "pts": 20,
+        "idx": 33,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken forfatter skrev romanen '1984' som advarte mot totalitær overvåking?",
+        "type": "multiple-choice",
+        "options": [
+          "Aldous Huxley",
+          "Ray Bradbury",
+          "George Orwell",
+          "H.G. Wells"
+        ],
+        "ans": "George Orwell",
+        "pts": 20,
+        "idx": 34,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva var navnet på Odins raver som fløy over verden for å samle informasjon?",
+        "type": "multiple-choice",
+        "options": [
+          "Munin og Torin",
+          "Hugin og Munin",
+          "Hugin og Lodin",
+          "Gere og Freke"
+        ],
+        "ans": "Hugin og Munin",
+        "pts": 20,
+        "idx": 35,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken spansk kubistisk maler skapte det monumentale antikrigs-maleriet 'Guernica' i 1937?",
+        "type": "multiple-choice",
+        "options": [
+          "Salvador Dalí",
+          "Pablo Picasso",
+          "Juan Gris",
+          "Joan Miró"
+        ],
+        "ans": "Pablo Picasso",
+        "pts": 20,
+        "idx": 36,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken amerikansk forfatter regnes som mesteren av detektiv- og skrekklitteratur og skrev 'Ravnen' (The Raven)?",
+        "type": "multiple-choice",
+        "options": [
+          "Nathaniel Hawthorne",
+          "Herman Melville",
+          "Edgar Allan Poe",
+          "Washington Irving"
+        ],
+        "ans": "Edgar Allan Poe",
+        "pts": 20,
+        "idx": 37,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva er navnet på kjempenes rike i norrøn mytologi?",
+        "type": "multiple-choice",
+        "options": [
+          "Åsgard",
+          "Utgard",
+          "Midgard",
+          "Jotunheimen"
+        ],
+        "ans": "Jotunheimen",
+        "pts": 20,
+        "idx": 38,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken tysk dikter og vitenskapsmann skrev det verdenskjente dramaet 'Faust'?",
+        "type": "multiple-choice",
+        "options": [
+          "Johann Wolfgang von Goethe",
+          "Heinrich Heine",
+          "Thomas Mann",
+          "Friedrich Schiller"
+        ],
+        "ans": "Johann Wolfgang von Goethe",
+        "pts": 20,
+        "idx": 39,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem skrev romanen 'Jorden rundt på 80 dager'?",
+        "type": "multiple-choice",
+        "options": [
+          "Jules Verne",
+          "Mark Twain",
+          "H.G. Wells",
+          "Charles Dickens"
+        ],
+        "ans": "Jules Verne",
+        "pts": 20,
+        "idx": 40,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken forfatter skrev grøsseren 'Dracula' fra 1897?",
+        "type": "multiple-choice",
+        "options": [
+          "Edgar Allan Poe",
+          "Mary Shelley",
+          "Bram Stoker",
+          "H.P. Lovecraft"
+        ],
+        "ans": "Bram Stoker",
+        "pts": 20,
+        "idx": 41,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem er den greske gudinnen for kjærlighet og skjønnhet?",
+        "type": "multiple-choice",
+        "options": [
+          "Athene",
+          "Afrodite",
+          "Artemis",
+          "Hera"
+        ],
+        "ans": "Afrodite",
+        "pts": 20,
+        "idx": 42,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem skrev boken 'Den lille prinsen'?",
+        "type": "multiple-choice",
+        "options": [
+          "Victor Hugo",
+          "Jules Verne",
+          "Antoine de Saint-Exupéry",
+          "Albert Camus"
+        ],
+        "ans": "Antoine de Saint-Exupéry",
+        "pts": 20,
+        "idx": 43,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken tysk dikter skrev diktet 'Ode til gleden' (Ode an die Freude), brukt i Beethovens 9. symfoni?",
+        "type": "multiple-choice",
+        "options": [
+          "Friedrich Schiller",
+          "Heinrich Heine",
+          "Johann Wolfgang von Goethe",
+          "Thomas Mann"
+        ],
+        "ans": "Friedrich Schiller",
+        "pts": 20,
+        "idx": 44,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem malte det kjente kunstverket 'Pike med perleøredobb'?",
+        "type": "multiple-choice",
+        "options": [
+          "Claude Monet",
+          "Vincent van Gogh",
+          "Rembrandt",
+          "Johannes Vermeer"
+        ],
+        "ans": "Johannes Vermeer",
+        "pts": 20,
+        "idx": 45,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hva heter den norrøne guden for fruktbarhet, fred og solskinn, som er bror til Frøya?",
+        "type": "multiple-choice",
+        "options": [
+          "Heimdall",
+          "Balder",
+          "Frøy",
+          "Njord"
+        ],
+        "ans": "Frøy",
+        "pts": 20,
+        "idx": 46,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem skrev de klassiske eposene 'Odysseen' og 'Iliaden'?",
+        "type": "multiple-choice",
+        "options": [
+          "Homer",
+          "Sofokles",
+          "Virgil",
+          "Platon"
+        ],
+        "ans": "Homer",
+        "pts": 20,
+        "idx": 47,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvilken fransk skulptør laget den berømte skulpturen 'Frihetsgudinnen' (gitt til USA)?",
+        "type": "multiple-choice",
+        "options": [
+          "Frédéric-Auguste Bartholdi",
+          "Edgar Degas",
+          "Auguste Rodin",
+          "Gustav Vigeland"
+        ],
+        "ans": "Frédéric-Auguste Bartholdi",
+        "pts": 20,
+        "idx": 48,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Hvem er visdomsgudinnen i romersk mytologi (tilsvarende gresk Athena)?",
+        "type": "multiple-choice",
+        "options": [
+          "Vesta",
+          "Minerva",
+          "Juno",
+          "Diana"
+        ],
+        "ans": "Minerva",
+        "pts": 20,
+        "idx": 49,
+        "timer": 30,
+        "scale": 10
+      }
+    ]
+  },
+  {
+    "title": "[EN] World Geography (Easy)",
+    "description": "An easy-level geography quiz exploring capital cities of 50 different countries worldwide.",
+    "questions": [
+      {
+        "text": "What is the capital city of Norway?",
+        "type": "multiple-choice",
+        "options": [
+          "Beijing",
+          "Singapore",
+          "Oslo",
+          "Athens"
+        ],
+        "ans": "Oslo",
+        "pts": 10,
+        "idx": 0,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Sweden?",
+        "type": "multiple-choice",
+        "options": [
+          "Pretoria",
+          "Stockholm",
+          "Havana",
+          "Santiago"
+        ],
+        "ans": "Stockholm",
+        "pts": 10,
+        "idx": 1,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Denmark?",
+        "type": "multiple-choice",
+        "options": [
+          "London",
+          "Nairobi",
+          "Copenhagen",
+          "Helsinki"
+        ],
+        "ans": "Copenhagen",
+        "pts": 10,
+        "idx": 2,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Finland?",
+        "type": "multiple-choice",
+        "options": [
+          "Madrid",
+          "Cairo",
+          "Riyadh",
+          "Helsinki"
+        ],
+        "ans": "Helsinki",
+        "pts": 10,
+        "idx": 3,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Iceland?",
+        "type": "multiple-choice",
+        "options": [
+          "Amsterdam",
+          "Budapest",
+          "New Delhi",
+          "Reykjavik"
+        ],
+        "ans": "Reykjavik",
+        "pts": 10,
+        "idx": 4,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Germany?",
+        "type": "multiple-choice",
+        "options": [
+          "Brasilia",
+          "Berlin",
+          "Kyiv",
+          "Bogota"
+        ],
+        "ans": "Berlin",
+        "pts": 10,
+        "idx": 5,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of France?",
+        "type": "multiple-choice",
+        "options": [
+          "Paris",
+          "Zagreb",
+          "Brasilia",
+          "Bangkok"
+        ],
+        "ans": "Paris",
+        "pts": 10,
+        "idx": 6,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Spain?",
+        "type": "multiple-choice",
+        "options": [
+          "Copenhagen",
+          "Bangkok",
+          "Kyiv",
+          "Madrid"
+        ],
+        "ans": "Madrid",
+        "pts": 10,
+        "idx": 7,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Italy?",
+        "type": "multiple-choice",
+        "options": [
+          "Athens",
+          "Havana",
+          "Rome",
+          "Berlin"
+        ],
+        "ans": "Rome",
+        "pts": 10,
+        "idx": 8,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of United Kingdom?",
+        "type": "multiple-choice",
+        "options": [
+          "Wellington",
+          "Bogota",
+          "London",
+          "Brussels"
+        ],
+        "ans": "London",
+        "pts": 10,
+        "idx": 9,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Netherlands?",
+        "type": "multiple-choice",
+        "options": [
+          "Amsterdam",
+          "Washington D.C.",
+          "Mexico City",
+          "Helsinki"
+        ],
+        "ans": "Amsterdam",
+        "pts": 10,
+        "idx": 10,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Belgium?",
+        "type": "multiple-choice",
+        "options": [
+          "London",
+          "Brussels",
+          "Lisbon",
+          "Riyadh"
+        ],
+        "ans": "Brussels",
+        "pts": 10,
+        "idx": 11,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Switzerland?",
+        "type": "multiple-choice",
+        "options": [
+          "Amsterdam",
+          "Bern",
+          "Brussels",
+          "Berlin"
+        ],
+        "ans": "Bern",
+        "pts": 10,
+        "idx": 12,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Austria?",
+        "type": "multiple-choice",
+        "options": [
+          "Vienna",
+          "Jakarta",
+          "London",
+          "Nairobi"
+        ],
+        "ans": "Vienna",
+        "pts": 10,
+        "idx": 13,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Poland?",
+        "type": "multiple-choice",
+        "options": [
+          "Prague",
+          "Ankara",
+          "Cairo",
+          "Warsaw"
+        ],
+        "ans": "Warsaw",
+        "pts": 10,
+        "idx": 14,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Greece?",
+        "type": "multiple-choice",
+        "options": [
+          "Amsterdam",
+          "Bangkok",
+          "Zagreb",
+          "Athens"
+        ],
+        "ans": "Athens",
+        "pts": 10,
+        "idx": 15,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Portugal?",
+        "type": "multiple-choice",
+        "options": [
+          "Lisbon",
+          "Jakarta",
+          "Ottawa",
+          "Dublin"
+        ],
+        "ans": "Lisbon",
+        "pts": 10,
+        "idx": 16,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Turkey?",
+        "type": "multiple-choice",
+        "options": [
+          "Ottawa",
+          "Ankara",
+          "Cairo",
+          "Bern"
+        ],
+        "ans": "Ankara",
+        "pts": 10,
+        "idx": 17,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Russia?",
+        "type": "multiple-choice",
+        "options": [
+          "Moscow",
+          "Athens",
+          "Singapore",
+          "Beijing"
+        ],
+        "ans": "Moscow",
+        "pts": 10,
+        "idx": 18,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of United States?",
+        "type": "multiple-choice",
+        "options": [
+          "Moscow",
+          "Washington D.C.",
+          "Bogota",
+          "Stockholm"
+        ],
+        "ans": "Washington D.C.",
+        "pts": 10,
+        "idx": 19,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Canada?",
+        "type": "multiple-choice",
+        "options": [
+          "Havana",
+          "Singapore",
+          "Zagreb",
+          "Ottawa"
+        ],
+        "ans": "Ottawa",
+        "pts": 10,
+        "idx": 20,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Mexico?",
+        "type": "multiple-choice",
+        "options": [
+          "Moscow",
+          "Manila",
+          "Mexico City",
+          "Warsaw"
+        ],
+        "ans": "Mexico City",
+        "pts": 10,
+        "idx": 21,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Brazil?",
+        "type": "multiple-choice",
+        "options": [
+          "Zagreb",
+          "Brasilia",
+          "Lisbon",
+          "Kyiv"
+        ],
+        "ans": "Brasilia",
+        "pts": 10,
+        "idx": 22,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Argentina?",
+        "type": "multiple-choice",
+        "options": [
+          "Copenhagen",
+          "Buenos Aires",
+          "Dublin",
+          "Budapest"
+        ],
+        "ans": "Buenos Aires",
+        "pts": 10,
+        "idx": 23,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Japan?",
+        "type": "multiple-choice",
+        "options": [
+          "Buenos Aires",
+          "Lima",
+          "Tokyo",
+          "Jakarta"
+        ],
+        "ans": "Tokyo",
+        "pts": 10,
+        "idx": 24,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of China?",
+        "type": "multiple-choice",
+        "options": [
+          "New Delhi",
+          "Havana",
+          "Beijing",
+          "Ottawa"
+        ],
+        "ans": "Beijing",
+        "pts": 10,
+        "idx": 25,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of South Korea?",
+        "type": "multiple-choice",
+        "options": [
+          "Riyadh",
+          "Bangkok",
+          "Seoul",
+          "Buenos Aires"
+        ],
+        "ans": "Seoul",
+        "pts": 10,
+        "idx": 26,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of India?",
+        "type": "multiple-choice",
+        "options": [
+          "Havana",
+          "Pretoria",
+          "New Delhi",
+          "Moscow"
+        ],
+        "ans": "New Delhi",
+        "pts": 10,
+        "idx": 27,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Australia?",
+        "type": "multiple-choice",
+        "options": [
+          "Canberra",
+          "Kingston",
+          "London",
+          "Reykjavik"
+        ],
+        "ans": "Canberra",
+        "pts": 10,
+        "idx": 28,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of New Zealand?",
+        "type": "multiple-choice",
+        "options": [
+          "Buenos Aires",
+          "Hanoi",
+          "Wellington",
+          "Berlin"
+        ],
+        "ans": "Wellington",
+        "pts": 10,
+        "idx": 29,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Egypt?",
+        "type": "multiple-choice",
+        "options": [
+          "Cairo",
+          "Bangkok",
+          "Wellington",
+          "Madrid"
+        ],
+        "ans": "Cairo",
+        "pts": 10,
+        "idx": 30,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of South Africa?",
+        "type": "multiple-choice",
+        "options": [
+          "Jakarta",
+          "Dublin",
+          "Pretoria",
+          "Tokyo"
+        ],
+        "ans": "Pretoria",
+        "pts": 10,
+        "idx": 31,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Kenya?",
+        "type": "multiple-choice",
+        "options": [
+          "Cairo",
+          "Nairobi",
+          "Kyiv",
+          "Stockholm"
+        ],
+        "ans": "Nairobi",
+        "pts": 10,
+        "idx": 32,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Morocco?",
+        "type": "multiple-choice",
+        "options": [
+          "Rabat",
+          "Budapest",
+          "Reykjavik",
+          "Dublin"
+        ],
+        "ans": "Rabat",
+        "pts": 10,
+        "idx": 33,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Saudi Arabia?",
+        "type": "multiple-choice",
+        "options": [
+          "Madrid",
+          "Seoul",
+          "Riyadh",
+          "Budapest"
+        ],
+        "ans": "Riyadh",
+        "pts": 10,
+        "idx": 34,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Thailand?",
+        "type": "multiple-choice",
+        "options": [
+          "Washington D.C.",
+          "Pretoria",
+          "Madrid",
+          "Bangkok"
+        ],
+        "ans": "Bangkok",
+        "pts": 10,
+        "idx": 35,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Vietnam?",
+        "type": "multiple-choice",
+        "options": [
+          "Tokyo",
+          "Hanoi",
+          "Wellington",
+          "Buenos Aires"
+        ],
+        "ans": "Hanoi",
+        "pts": 10,
+        "idx": 36,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Singapore?",
+        "type": "multiple-choice",
+        "options": [
+          "Singapore",
+          "Seoul",
+          "Budapest",
+          "Paris"
+        ],
+        "ans": "Singapore",
+        "pts": 10,
+        "idx": 37,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Indonesia?",
+        "type": "multiple-choice",
+        "options": [
+          "Bogota",
+          "Ankara",
+          "Jakarta",
+          "Copenhagen"
+        ],
+        "ans": "Jakarta",
+        "pts": 10,
+        "idx": 38,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Philippines?",
+        "type": "multiple-choice",
+        "options": [
+          "Buenos Aires",
+          "Canberra",
+          "Athens",
+          "Manila"
+        ],
+        "ans": "Manila",
+        "pts": 10,
+        "idx": 39,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Ukraine?",
+        "type": "multiple-choice",
+        "options": [
+          "Brasilia",
+          "Budapest",
+          "Riyadh",
+          "Kyiv"
+        ],
+        "ans": "Kyiv",
+        "pts": 10,
+        "idx": 40,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Ireland?",
+        "type": "multiple-choice",
+        "options": [
+          "Bern",
+          "Wellington",
+          "Madrid",
+          "Dublin"
+        ],
+        "ans": "Dublin",
+        "pts": 10,
+        "idx": 41,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Hungary?",
+        "type": "multiple-choice",
+        "options": [
+          "Kyiv",
+          "Dublin",
+          "Jakarta",
+          "Budapest"
+        ],
+        "ans": "Budapest",
+        "pts": 10,
+        "idx": 42,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Czech Republic?",
+        "type": "multiple-choice",
+        "options": [
+          "Hanoi",
+          "Rome",
+          "Prague",
+          "Athens"
+        ],
+        "ans": "Prague",
+        "pts": 10,
+        "idx": 43,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Croatia?",
+        "type": "multiple-choice",
+        "options": [
+          "Singapore",
+          "Warsaw",
+          "Zagreb",
+          "Vienna"
+        ],
+        "ans": "Zagreb",
+        "pts": 10,
+        "idx": 44,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Colombia?",
+        "type": "multiple-choice",
+        "options": [
+          "Ankara",
+          "Rome",
+          "Bogota",
+          "London"
+        ],
+        "ans": "Bogota",
+        "pts": 10,
+        "idx": 45,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Chile?",
+        "type": "multiple-choice",
+        "options": [
+          "Stockholm",
+          "Rome",
+          "Budapest",
+          "Santiago"
+        ],
+        "ans": "Santiago",
+        "pts": 10,
+        "idx": 46,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Peru?",
+        "type": "multiple-choice",
+        "options": [
+          "Ottawa",
+          "Lima",
+          "Stockholm",
+          "Singapore"
+        ],
+        "ans": "Lima",
+        "pts": 10,
+        "idx": 47,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Cuba?",
+        "type": "multiple-choice",
+        "options": [
+          "Rome",
+          "Seoul",
+          "Lima",
+          "Havana"
+        ],
+        "ans": "Havana",
+        "pts": 10,
+        "idx": 48,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the capital city of Jamaica?",
+        "type": "multiple-choice",
+        "options": [
+          "Canberra",
+          "Buenos Aires",
+          "Cairo",
+          "Kingston"
+        ],
+        "ans": "Kingston",
+        "pts": 10,
+        "idx": 49,
+        "timer": 20,
+        "scale": 10
+      }
+    ]
+  },
+  {
+    "title": "[EN] History & Milestones (Medium)",
+    "description": "Test your historical knowledge on critical global events, wars, discoveries, and treaties.",
+    "questions": [
+      {
+        "text": "In which year was the Norwegian Constitution signed at Eidsvoll?",
+        "type": "multiple-choice",
+        "options": [
+          "1834",
+          "1804",
+          "1819",
+          "1814"
+        ],
+        "ans": "1814",
+        "pts": 15,
+        "idx": 0,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the union between Norway and Sweden dissolved?",
+        "type": "multiple-choice",
+        "options": [
+          "1895",
+          "1905",
+          "1910",
+          "1925"
+        ],
+        "ans": "1905",
+        "pts": 15,
+        "idx": 1,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was Norway invaded during World War II?",
+        "type": "multiple-choice",
+        "options": [
+          "1960",
+          "1945",
+          "1930",
+          "1940"
+        ],
+        "ans": "1940",
+        "pts": 15,
+        "idx": 2,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did World War II end in Europe?",
+        "type": "multiple-choice",
+        "options": [
+          "1935",
+          "1945",
+          "1950",
+          "1965"
+        ],
+        "ans": "1945",
+        "pts": 15,
+        "idx": 3,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did World War I begin?",
+        "type": "multiple-choice",
+        "options": [
+          "1914",
+          "1904",
+          "1919",
+          "1934"
+        ],
+        "ans": "1914",
+        "pts": 15,
+        "idx": 4,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did World War I end?",
+        "type": "multiple-choice",
+        "options": [
+          "1923",
+          "1908",
+          "1938",
+          "1918"
+        ],
+        "ans": "1918",
+        "pts": 15,
+        "idx": 5,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did World War II begin with the invasion of Poland?",
+        "type": "multiple-choice",
+        "options": [
+          "1959",
+          "1944",
+          "1939",
+          "1929"
+        ],
+        "ans": "1939",
+        "pts": 15,
+        "idx": 6,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the French Revolution begin with the storming of the Bastille?",
+        "type": "multiple-choice",
+        "options": [
+          "1789",
+          "1779",
+          "1809",
+          "1794"
+        ],
+        "ans": "1789",
+        "pts": 15,
+        "idx": 7,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Berlin Wall fall?",
+        "type": "multiple-choice",
+        "options": [
+          "1989",
+          "1979",
+          "1994",
+          "2009"
+        ],
+        "ans": "1989",
+        "pts": 15,
+        "idx": 8,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the Soviet Union officially dissolved?",
+        "type": "multiple-choice",
+        "options": [
+          "1991",
+          "1981",
+          "1996",
+          "2011"
+        ],
+        "ans": "1991",
+        "pts": 15,
+        "idx": 9,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did Apollo 11 land on the moon for the first time?",
+        "type": "multiple-choice",
+        "options": [
+          "1959",
+          "1989",
+          "1974",
+          "1969"
+        ],
+        "ans": "1969",
+        "pts": 15,
+        "idx": 10,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the passenger liner Titanic sink after striking an iceberg?",
+        "type": "multiple-choice",
+        "options": [
+          "1912",
+          "1917",
+          "1932",
+          "1902"
+        ],
+        "ans": "1912",
+        "pts": 15,
+        "idx": 11,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Battle of Hastings take place in England?",
+        "type": "multiple-choice",
+        "options": [
+          "1066",
+          "1071",
+          "1086",
+          "1056"
+        ],
+        "ans": "1066",
+        "pts": 15,
+        "idx": 12,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did Christopher Columbus first arrive in the Americas?",
+        "type": "multiple-choice",
+        "options": [
+          "1492",
+          "1497",
+          "1482",
+          "1512"
+        ],
+        "ans": "1492",
+        "pts": 15,
+        "idx": 13,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did King John of England sign the Magna Carta?",
+        "type": "multiple-choice",
+        "options": [
+          "1235",
+          "1220",
+          "1205",
+          "1215"
+        ],
+        "ans": "1215",
+        "pts": 15,
+        "idx": 14,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was President John F. Kennedy assassinated in Dallas?",
+        "type": "multiple-choice",
+        "options": [
+          "1963",
+          "1953",
+          "1983",
+          "1968"
+        ],
+        "ans": "1963",
+        "pts": 15,
+        "idx": 15,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Wall Street Crash occur, triggering the Great Depression?",
+        "type": "multiple-choice",
+        "options": [
+          "1949",
+          "1919",
+          "1929",
+          "1934"
+        ],
+        "ans": "1929",
+        "pts": 15,
+        "idx": 16,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did Edmund Hillary and Tenzing Norgay summit Mount Everest?",
+        "type": "multiple-choice",
+        "options": [
+          "1943",
+          "1958",
+          "1973",
+          "1953"
+        ],
+        "ans": "1953",
+        "pts": 15,
+        "idx": 17,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was Nelson Mandela elected President of South Africa?",
+        "type": "multiple-choice",
+        "options": [
+          "1999",
+          "2014",
+          "1984",
+          "1994"
+        ],
+        "ans": "1994",
+        "pts": 15,
+        "idx": 18,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the Gunpowder Plot led by Guy Fawkes discovered in London?",
+        "type": "multiple-choice",
+        "options": [
+          "1595",
+          "1625",
+          "1605",
+          "1610"
+        ],
+        "ans": "1605",
+        "pts": 15,
+        "idx": 19,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the State of Israel officially declared?",
+        "type": "multiple-choice",
+        "options": [
+          "1938",
+          "1948",
+          "1968",
+          "1953"
+        ],
+        "ans": "1948",
+        "pts": 15,
+        "idx": 20,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was Abraham Lincoln shot and killed in Washington D.C.?",
+        "type": "multiple-choice",
+        "options": [
+          "1865",
+          "1870",
+          "1855",
+          "1885"
+        ],
+        "ans": "1865",
+        "pts": 15,
+        "idx": 21,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was Napoleon Bonaparte finally defeated at the Battle of Waterloo?",
+        "type": "multiple-choice",
+        "options": [
+          "1835",
+          "1820",
+          "1805",
+          "1815"
+        ],
+        "ans": "1815",
+        "pts": 15,
+        "idx": 22,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Soviet Union launch Sputnik 1, Earth's first artificial satellite?",
+        "type": "multiple-choice",
+        "options": [
+          "1947",
+          "1977",
+          "1957",
+          "1962"
+        ],
+        "ans": "1957",
+        "pts": 15,
+        "idx": 23,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the September 11 terrorist attacks take place in the United States?",
+        "type": "multiple-choice",
+        "options": [
+          "2001",
+          "2021",
+          "2006",
+          "1991"
+        ],
+        "ans": "2001",
+        "pts": 15,
+        "idx": 24,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did Napoleon Bonaparte crown himself Emperor of France?",
+        "type": "multiple-choice",
+        "options": [
+          "1809",
+          "1824",
+          "1804",
+          "1794"
+        ],
+        "ans": "1804",
+        "pts": 15,
+        "idx": 25,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Vietnam War end with the fall of Saigon?",
+        "type": "multiple-choice",
+        "options": [
+          "1995",
+          "1965",
+          "1975",
+          "1980"
+        ],
+        "ans": "1975",
+        "pts": 15,
+        "idx": 26,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Chernobyl nuclear disaster occur in Ukraine?",
+        "type": "multiple-choice",
+        "options": [
+          "1991",
+          "1986",
+          "2006",
+          "1976"
+        ],
+        "ans": "1986",
+        "pts": 15,
+        "idx": 27,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Black Death arrive in Europe?",
+        "type": "multiple-choice",
+        "options": [
+          "1337",
+          "1367",
+          "1347",
+          "1352"
+        ],
+        "ans": "1347",
+        "pts": 15,
+        "idx": 28,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did Charles Darwin publish 'On the Origin of Species'?",
+        "type": "multiple-choice",
+        "options": [
+          "1859",
+          "1849",
+          "1879",
+          "1864"
+        ],
+        "ans": "1859",
+        "pts": 15,
+        "idx": 29,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Russian Revolution take place?",
+        "type": "multiple-choice",
+        "options": [
+          "1937",
+          "1917",
+          "1907",
+          "1922"
+        ],
+        "ans": "1917",
+        "pts": 15,
+        "idx": 30,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did Princess Diana die in a car crash in Paris?",
+        "type": "multiple-choice",
+        "options": [
+          "2002",
+          "2017",
+          "1997",
+          "1987"
+        ],
+        "ans": "1997",
+        "pts": 15,
+        "idx": 31,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Great Fire of London take place?",
+        "type": "multiple-choice",
+        "options": [
+          "1656",
+          "1671",
+          "1686",
+          "1666"
+        ],
+        "ans": "1666",
+        "pts": 15,
+        "idx": 32,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the United States Declaration of Independence signed?",
+        "type": "multiple-choice",
+        "options": [
+          "1766",
+          "1796",
+          "1781",
+          "1776"
+        ],
+        "ans": "1776",
+        "pts": 15,
+        "idx": 33,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the Euro currency officially introduced for accounting?",
+        "type": "multiple-choice",
+        "options": [
+          "1999",
+          "2004",
+          "1989",
+          "2019"
+        ],
+        "ans": "1999",
+        "pts": 15,
+        "idx": 34,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the Eiffel Tower in Paris completed?",
+        "type": "multiple-choice",
+        "options": [
+          "1909",
+          "1879",
+          "1889",
+          "1894"
+        ],
+        "ans": "1889",
+        "pts": 15,
+        "idx": 35,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did India and Pakistan gain independence from Great Britain?",
+        "type": "multiple-choice",
+        "options": [
+          "1947",
+          "1937",
+          "1967",
+          "1952"
+        ],
+        "ans": "1947",
+        "pts": 15,
+        "idx": 36,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was Adolf Hitler appointed Chancellor of Germany?",
+        "type": "multiple-choice",
+        "options": [
+          "1923",
+          "1938",
+          "1953",
+          "1933"
+        ],
+        "ans": "1933",
+        "pts": 15,
+        "idx": 37,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Battle of Trafalgar take place?",
+        "type": "multiple-choice",
+        "options": [
+          "1825",
+          "1805",
+          "1810",
+          "1795"
+        ],
+        "ans": "1805",
+        "pts": 15,
+        "idx": 38,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the double-helix structure of DNA described by Watson and Crick?",
+        "type": "multiple-choice",
+        "options": [
+          "1974",
+          "1959",
+          "1944",
+          "1954"
+        ],
+        "ans": "1954",
+        "pts": 15,
+        "idx": 39,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did Martin Luther start the Reformation by posting his 95 theses?",
+        "type": "multiple-choice",
+        "options": [
+          "1517",
+          "1522",
+          "1507",
+          "1537"
+        ],
+        "ans": "1517",
+        "pts": 15,
+        "idx": 40,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Maastricht Treaty take effect, officially establishing the EU?",
+        "type": "multiple-choice",
+        "options": [
+          "1998",
+          "1993",
+          "1983",
+          "2013"
+        ],
+        "ans": "1993",
+        "pts": 15,
+        "idx": 41,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did a wave of revolutions sweep across Europe?",
+        "type": "multiple-choice",
+        "options": [
+          "1868",
+          "1853",
+          "1838",
+          "1848"
+        ],
+        "ans": "1848",
+        "pts": 15,
+        "idx": 42,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Cuban Missile Crisis bring the world to the brink of nuclear war?",
+        "type": "multiple-choice",
+        "options": [
+          "1982",
+          "1967",
+          "1952",
+          "1962"
+        ],
+        "ans": "1962",
+        "pts": 15,
+        "idx": 43,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the Wright brothers make the first controlled, powered airplane flight?",
+        "type": "multiple-choice",
+        "options": [
+          "1893",
+          "1923",
+          "1903",
+          "1908"
+        ],
+        "ans": "1903",
+        "pts": 15,
+        "idx": 44,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the tomb of Tutankhamon discovered by Howard Carter?",
+        "type": "multiple-choice",
+        "options": [
+          "1912",
+          "1922",
+          "1927",
+          "1942"
+        ],
+        "ans": "1922",
+        "pts": 15,
+        "idx": 45,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year did the American Civil War begin?",
+        "type": "multiple-choice",
+        "options": [
+          "1866",
+          "1851",
+          "1881",
+          "1861"
+        ],
+        "ans": "1861",
+        "pts": 15,
+        "idx": 46,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the World Trade Organization (WTO) officially established?",
+        "type": "multiple-choice",
+        "options": [
+          "2000",
+          "2015",
+          "1995",
+          "1985"
+        ],
+        "ans": "1995",
+        "pts": 15,
+        "idx": 47,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year were the very first Nobel Prizes awarded?",
+        "type": "multiple-choice",
+        "options": [
+          "1921",
+          "1901",
+          "1891",
+          "1906"
+        ],
+        "ans": "1901",
+        "pts": 15,
+        "idx": 48,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "In which year was the Rosetta Stone discovered in Egypt by French soldiers?",
+        "type": "multiple-choice",
+        "options": [
+          "1819",
+          "1804",
+          "1789",
+          "1799"
+        ],
+        "ans": "1799",
+        "pts": 15,
+        "idx": 49,
+        "timer": 30,
+        "scale": 10
+      }
+    ]
+  },
+  {
+    "title": "[EN] Science & Chemistry (Hard)",
+    "description": "A demanding science quiz exploring chemical element symbols, astronomy, and biology facts.",
+    "questions": [
+      {
+        "text": "What is the chemical symbol for the element Arsenic?",
+        "type": "multiple-choice",
+        "options": [
+          "As",
+          "Zn",
+          "F",
+          "Mg"
+        ],
+        "ans": "As",
+        "pts": 20,
+        "idx": 0,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Krypton?",
+        "type": "multiple-choice",
+        "options": [
+          "As",
+          "Ra",
+          "B",
+          "Kr"
+        ],
+        "ans": "Kr",
+        "pts": 20,
+        "idx": 1,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Silver?",
+        "type": "multiple-choice",
+        "options": [
+          "Ag",
+          "Xe",
+          "B",
+          "Fe"
+        ],
+        "ans": "Ag",
+        "pts": 20,
+        "idx": 2,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Tin?",
+        "type": "multiple-choice",
+        "options": [
+          "Kr",
+          "Sb",
+          "Sn",
+          "Ti"
+        ],
+        "ans": "Sn",
+        "pts": 20,
+        "idx": 3,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Iodine?",
+        "type": "multiple-choice",
+        "options": [
+          "I",
+          "He",
+          "Fe",
+          "Na"
+        ],
+        "ans": "I",
+        "pts": 20,
+        "idx": 4,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Xenon?",
+        "type": "multiple-choice",
+        "options": [
+          "Xe",
+          "Ag",
+          "N",
+          "C"
+        ],
+        "ans": "Xe",
+        "pts": 20,
+        "idx": 5,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Barium?",
+        "type": "multiple-choice",
+        "options": [
+          "Ba",
+          "Au",
+          "As",
+          "C"
+        ],
+        "ans": "Ba",
+        "pts": 20,
+        "idx": 6,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Tungsten?",
+        "type": "multiple-choice",
+        "options": [
+          "P",
+          "Na",
+          "Co",
+          "W"
+        ],
+        "ans": "W",
+        "pts": 20,
+        "idx": 7,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Platinum?",
+        "type": "multiple-choice",
+        "options": [
+          "Al",
+          "Pt",
+          "Au",
+          "W"
+        ],
+        "ans": "Pt",
+        "pts": 20,
+        "idx": 8,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Gold?",
+        "type": "multiple-choice",
+        "options": [
+          "S",
+          "Ne",
+          "Au",
+          "N"
+        ],
+        "ans": "Au",
+        "pts": 20,
+        "idx": 9,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Mercury?",
+        "type": "multiple-choice",
+        "options": [
+          "Ne",
+          "U",
+          "Lr",
+          "Hg"
+        ],
+        "ans": "Hg",
+        "pts": 20,
+        "idx": 10,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Lead?",
+        "type": "multiple-choice",
+        "options": [
+          "Pb",
+          "I",
+          "Lr",
+          "Bi"
+        ],
+        "ans": "Pb",
+        "pts": 20,
+        "idx": 11,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Bismuth?",
+        "type": "multiple-choice",
+        "options": [
+          "Fe",
+          "Ti",
+          "Bi",
+          "Ne"
+        ],
+        "ans": "Bi",
+        "pts": 20,
+        "idx": 12,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Radon?",
+        "type": "multiple-choice",
+        "options": [
+          "Sn",
+          "Rn",
+          "Ca",
+          "Ti"
+        ],
+        "ans": "Rn",
+        "pts": 20,
+        "idx": 13,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Uranium?",
+        "type": "multiple-choice",
+        "options": [
+          "U",
+          "B",
+          "Ni",
+          "W"
+        ],
+        "ans": "U",
+        "pts": 20,
+        "idx": 14,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Plutonium?",
+        "type": "multiple-choice",
+        "options": [
+          "Li",
+          "Cu",
+          "Pu",
+          "Be"
+        ],
+        "ans": "Pu",
+        "pts": 20,
+        "idx": 15,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Titanium?",
+        "type": "multiple-choice",
+        "options": [
+          "Rn",
+          "Ti",
+          "U",
+          "W"
+        ],
+        "ans": "Ti",
+        "pts": 20,
+        "idx": 16,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Chromium?",
+        "type": "multiple-choice",
+        "options": [
+          "Cr",
+          "Pb",
+          "Ti",
+          "Sn"
+        ],
+        "ans": "Cr",
+        "pts": 20,
+        "idx": 17,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Manganese?",
+        "type": "multiple-choice",
+        "options": [
+          "Ne",
+          "W",
+          "Mn",
+          "Be"
+        ],
+        "ans": "Mn",
+        "pts": 20,
+        "idx": 18,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Strontium?",
+        "type": "multiple-choice",
+        "options": [
+          "W",
+          "C",
+          "Sr",
+          "Sb"
+        ],
+        "ans": "Sr",
+        "pts": 20,
+        "idx": 19,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Palladium?",
+        "type": "multiple-choice",
+        "options": [
+          "Pd",
+          "Sn",
+          "Pt",
+          "Sb"
+        ],
+        "ans": "Pd",
+        "pts": 20,
+        "idx": 20,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Antimony?",
+        "type": "multiple-choice",
+        "options": [
+          "K",
+          "Sb",
+          "Kr",
+          "Zn"
+        ],
+        "ans": "Sb",
+        "pts": 20,
+        "idx": 21,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Caesium?",
+        "type": "multiple-choice",
+        "options": [
+          "Ti",
+          "Co",
+          "Pu",
+          "Cs"
+        ],
+        "ans": "Cs",
+        "pts": 20,
+        "idx": 22,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Radium?",
+        "type": "multiple-choice",
+        "options": [
+          "Zn",
+          "Ra",
+          "Hg",
+          "Mn"
+        ],
+        "ans": "Ra",
+        "pts": 20,
+        "idx": 23,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for the element Lawrencium?",
+        "type": "multiple-choice",
+        "options": [
+          "Lr",
+          "C",
+          "Bi",
+          "Co"
+        ],
+        "ans": "Lr",
+        "pts": 20,
+        "idx": 24,
+        "timer": 20,
+        "scale": 10
+      },
+      {
+        "text": "Which metal is liquid at normal room temperature?",
+        "type": "multiple-choice",
+        "options": [
+          "Lead",
+          "Gallium",
+          "Mercury",
+          "Silver"
+        ],
+        "ans": "Mercury",
+        "pts": 20,
+        "idx": 25,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What type of animal is a bat?",
+        "type": "multiple-choice",
+        "options": [
+          "Mammal",
+          "Bird",
+          "Amphibian",
+          "Reptile"
+        ],
+        "ans": "Mammal",
+        "pts": 20,
+        "idx": 26,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which substance makes plant leaves green and absorbs light during photosynthesis?",
+        "type": "multiple-choice",
+        "options": [
+          "Carotene",
+          "Xanthophyll",
+          "Chlorophyll",
+          "Melanin"
+        ],
+        "ans": "Chlorophyll",
+        "pts": 20,
+        "idx": 27,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "How many chambers does a human heart have?",
+        "type": "multiple-choice",
+        "options": [
+          "4",
+          "2",
+          "3",
+          "6"
+        ],
+        "ans": "4",
+        "pts": 20,
+        "idx": 28,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical symbol for gold?",
+        "type": "multiple-choice",
+        "options": [
+          "Gd",
+          "Fe",
+          "Ag",
+          "Au"
+        ],
+        "ans": "Au",
+        "pts": 20,
+        "idx": 29,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which unit of time is defined as the time it takes Earth to rotate once on its axis?",
+        "type": "multiple-choice",
+        "options": [
+          "A year",
+          "A month",
+          "A day",
+          "An hour"
+        ],
+        "ans": "A day",
+        "pts": 20,
+        "idx": 30,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who formulated the theory of relativity?",
+        "type": "multiple-choice",
+        "options": [
+          "Isaac Newton",
+          "Galileo Galilei",
+          "Albert Einstein",
+          "Marie Curie"
+        ],
+        "ans": "Albert Einstein",
+        "pts": 20,
+        "idx": 31,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the most abundant element in the universe?",
+        "type": "multiple-choice",
+        "options": [
+          "Carbon",
+          "Oxygen",
+          "Hydrogen",
+          "Helium"
+        ],
+        "ans": "Hydrogen",
+        "pts": 20,
+        "idx": 32,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which vitamin is particularly abundant in citrus fruits like oranges and lemons?",
+        "type": "multiple-choice",
+        "options": [
+          "Vitamin A",
+          "Vitamin E",
+          "Vitamin C",
+          "Vitamin D"
+        ],
+        "ans": "Vitamin C",
+        "pts": 20,
+        "idx": 33,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "How many planets are in our solar system (after Pluto was reclassified)?",
+        "type": "multiple-choice",
+        "options": [
+          "9",
+          "8",
+          "10",
+          "7"
+        ],
+        "ans": "8",
+        "pts": 20,
+        "idx": 34,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What type of celestial body is our sun?",
+        "type": "multiple-choice",
+        "options": [
+          "A planet",
+          "A comet",
+          "A star",
+          "An asteroid"
+        ],
+        "ans": "A star",
+        "pts": 20,
+        "idx": 35,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of Saturn's largest moon?",
+        "type": "multiple-choice",
+        "options": [
+          "Callisto",
+          "Titan",
+          "Ganymede",
+          "Europa"
+        ],
+        "ans": "Titan",
+        "pts": 20,
+        "idx": 36,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which type of radiation is stopped by normal human skin and paper?",
+        "type": "multiple-choice",
+        "options": [
+          "Gamma radiation",
+          "Beta radiation",
+          "Alpha radiation",
+          "X-rays"
+        ],
+        "ans": "Alpha radiation",
+        "pts": 20,
+        "idx": 37,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the study of the Earth's crust, its rocks, and development over time?",
+        "type": "multiple-choice",
+        "options": [
+          "Geography",
+          "Geology",
+          "Paleontology",
+          "Meteorology"
+        ],
+        "ans": "Geology",
+        "pts": 20,
+        "idx": 38,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical formula for water?",
+        "type": "multiple-choice",
+        "options": [
+          "H2O",
+          "CO2",
+          "HO2",
+          "NaCl"
+        ],
+        "ans": "H2O",
+        "pts": 20,
+        "idx": 39,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which arthropod has the most pairs of legs per body segment?",
+        "type": "multiple-choice",
+        "options": [
+          "Centipede",
+          "Spider",
+          "Millipede",
+          "Crayfish"
+        ],
+        "ans": "Millipede",
+        "pts": 20,
+        "idx": 40,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What color is liquid oxygen?",
+        "type": "multiple-choice",
+        "options": [
+          "Red",
+          "Pale blue",
+          "Colorless",
+          "Pale yellow"
+        ],
+        "ans": "Pale blue",
+        "pts": 20,
+        "idx": 41,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is it called when a substance goes directly from solid to gas without becoming liquid?",
+        "type": "multiple-choice",
+        "options": [
+          "Sublimation",
+          "Evaporation",
+          "Melting",
+          "Condensation"
+        ],
+        "ans": "Sublimation",
+        "pts": 20,
+        "idx": 42,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which organ in the human body produces insulin?",
+        "type": "multiple-choice",
+        "options": [
+          "Pancreas",
+          "Spleen",
+          "Liver",
+          "Gallbladder"
+        ],
+        "ans": "Pancreas",
+        "pts": 20,
+        "idx": 43,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "How many chromosomes does a normal human cell have (in pairs)?",
+        "type": "multiple-choice",
+        "options": [
+          "24 pairs",
+          "22 pairs",
+          "23 pairs",
+          "46 pairs"
+        ],
+        "ans": "23 pairs",
+        "pts": 20,
+        "idx": 44,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which insect can carry up to 50 times its own body weight?",
+        "type": "multiple-choice",
+        "options": [
+          "Grasshopper",
+          "Ant",
+          "Beetle",
+          "Bee"
+        ],
+        "ans": "Ant",
+        "pts": 20,
+        "idx": 45,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which plant is considered the fastest-growing in the world?",
+        "type": "multiple-choice",
+        "options": [
+          "Ivy",
+          "Bamboo",
+          "Kelp",
+          "Sunflower"
+        ],
+        "ans": "Bamboo",
+        "pts": 20,
+        "idx": 46,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the chemical term for rust?",
+        "type": "multiple-choice",
+        "options": [
+          "Calcium carbonate",
+          "Sodium carbonate",
+          "Copper oxide",
+          "Iron oxide"
+        ],
+        "ans": "Iron oxide",
+        "pts": 20,
+        "idx": 47,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the average distance from the Earth to the Sun in kilometers?",
+        "type": "multiple-choice",
+        "options": [
+          "About 150 million km",
+          "About 1.5 billion km",
+          "About 15 million km",
+          "About 150 thousand km"
+        ],
+        "ans": "About 150 million km",
+        "pts": 20,
+        "idx": 48,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What type of rock is formed when liquid magma or lava solidifies and cools?",
+        "type": "multiple-choice",
+        "options": [
+          "Metamorphic rock",
+          "Igneous rock",
+          "Limestone",
+          "Sedimentary rock"
+        ],
+        "ans": "Igneous rock",
+        "pts": 20,
+        "idx": 49,
+        "timer": 30,
+        "scale": 10
+      }
+    ]
+  },
+  {
+    "title": "[EN] Sports & Entertainment (Medium)",
+    "description": "Fun trivia queries regarding sports records, Oscar wins, classic movies, and legendary music.",
+    "questions": [
+      {
+        "text": "How many players does a soccer team have on the field at once during a match?",
+        "type": "multiple-choice",
+        "options": [
+          "11",
+          "12",
+          "9",
+          "10"
+        ],
+        "ans": "11",
+        "pts": 15,
+        "idx": 0,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "How often are the Olympic Games normally held (summer or winter)?",
+        "type": "multiple-choice",
+        "options": [
+          "Every year",
+          "Every 5 years",
+          "Every 2 years",
+          "Every 4 years"
+        ],
+        "ans": "Every 4 years",
+        "pts": 15,
+        "idx": 1,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What color is the leader's jersey in the Tour de France bicycle race?",
+        "type": "multiple-choice",
+        "options": [
+          "Yellow",
+          "Green",
+          "Red",
+          "White"
+        ],
+        "ans": "Yellow",
+        "pts": 15,
+        "idx": 2,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the official distance of a marathon race in kilometers?",
+        "type": "multiple-choice",
+        "options": [
+          "45.500 km",
+          "42.195 km",
+          "38.250 km",
+          "40.000 km"
+        ],
+        "ans": "42.195 km",
+        "pts": 15,
+        "idx": 3,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which country has won the most men's FIFA World Cups in total?",
+        "type": "multiple-choice",
+        "options": [
+          "Germany",
+          "Argentina",
+          "Brazil",
+          "Italy"
+        ],
+        "ans": "Brazil",
+        "pts": 15,
+        "idx": 4,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the maximum score in a single game of bowling (a perfect game)?",
+        "type": "multiple-choice",
+        "options": [
+          "400",
+          "200",
+          "300",
+          "250"
+        ],
+        "ans": "300",
+        "pts": 15,
+        "idx": 5,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "In which sport can you score a 'home run'?",
+        "type": "multiple-choice",
+        "options": [
+          "Basketball",
+          "American football",
+          "Baseball",
+          "Cricket"
+        ],
+        "ans": "Baseball",
+        "pts": 15,
+        "idx": 6,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "How many pieces does a chess player start with at the beginning of a game?",
+        "type": "multiple-choice",
+        "options": [
+          "20",
+          "16",
+          "8",
+          "12"
+        ],
+        "ans": "16",
+        "pts": 15,
+        "idx": 7,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "How many holes does a standard golf course have?",
+        "type": "multiple-choice",
+        "options": [
+          "12",
+          "18",
+          "9",
+          "24"
+        ],
+        "ans": "18",
+        "pts": 15,
+        "idx": 8,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which legendary athlete has won the most Olympic gold medals in history?",
+        "type": "multiple-choice",
+        "options": [
+          "Larisa Latynina",
+          "Usain Bolt",
+          "Carl Lewis",
+          "Michael Phelps"
+        ],
+        "ans": "Michael Phelps",
+        "pts": 15,
+        "idx": 9,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which character did Harrison Ford play in the Star Wars films?",
+        "type": "multiple-choice",
+        "options": [
+          "Darth Vader",
+          "Obi-Wan Kenobi",
+          "Han Solo",
+          "Luke Skywalker"
+        ],
+        "ans": "Han Solo",
+        "pts": 15,
+        "idx": 10,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of the fictional country where the Black Panther story is set?",
+        "type": "multiple-choice",
+        "options": [
+          "El Dorado",
+          "Genovia",
+          "Zamunda",
+          "Wakanda"
+        ],
+        "ans": "Wakanda",
+        "pts": 15,
+        "idx": 11,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which 1997 film about a shipwreck won 11 Oscar awards?",
+        "type": "multiple-choice",
+        "options": [
+          "Avatar",
+          "Gladiator",
+          "Titanic",
+          "Lord of the Rings"
+        ],
+        "ans": "Titanic",
+        "pts": 15,
+        "idx": 12,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which famous artist played the role of Ally Campana in the film 'A Star Is Born' (2018)?",
+        "type": "multiple-choice",
+        "options": [
+          "Lady Gaga",
+          "Beyoncé",
+          "Rihanna",
+          "Taylor Swift"
+        ],
+        "ans": "Lady Gaga",
+        "pts": 15,
+        "idx": 13,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of the famous music event held annually in the UK (the world's largest greenfield festival)?",
+        "type": "multiple-choice",
+        "options": [
+          "Tomorrowland",
+          "Coachella",
+          "Roskilde",
+          "Glastonbury"
+        ],
+        "ans": "Glastonbury",
+        "pts": 15,
+        "idx": 14,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Who is considered the King of Pop?",
+        "type": "multiple-choice",
+        "options": [
+          "Elvis Presley",
+          "Freddie Mercury",
+          "Prince",
+          "Michael Jackson"
+        ],
+        "ans": "Michael Jackson",
+        "pts": 15,
+        "idx": 15,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "In which animated film series do we meet the toys Woody and Buzz Lightyear?",
+        "type": "multiple-choice",
+        "options": [
+          "Toy Story",
+          "Ice Age",
+          "Cars",
+          "Shrek"
+        ],
+        "ans": "Toy Story",
+        "pts": 15,
+        "idx": 16,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of Apple's streaming service that produced the series Ted Lasso?",
+        "type": "multiple-choice",
+        "options": [
+          "Apple Streaming",
+          "Apple Movies",
+          "Apple Arcade",
+          "Apple TV+"
+        ],
+        "ans": "Apple TV+",
+        "pts": 15,
+        "idx": 17,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which Swedish pop group won the Eurovision Song Contest in 1974 with the song Waterloo?",
+        "type": "multiple-choice",
+        "options": [
+          "ABBA",
+          "The Cardigans",
+          "Ace of Base",
+          "Roxette"
+        ],
+        "ans": "ABBA",
+        "pts": 15,
+        "idx": 18,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which film won the very first Oscar for Best Picture in 1929?",
+        "type": "multiple-choice",
+        "options": [
+          "Metropolis",
+          "Wings",
+          "The Jazz Singer",
+          "Sunrise"
+        ],
+        "ans": "Wings",
+        "pts": 15,
+        "idx": 19,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "How long is a tennis court in meters?",
+        "type": "multiple-choice",
+        "options": [
+          "20.50 m",
+          "22.00 m",
+          "23.77 m",
+          "25.00 m"
+        ],
+        "ans": "23.77 m",
+        "pts": 15,
+        "idx": 20,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which basketball player is widely known as 'Air Jordan'?",
+        "type": "multiple-choice",
+        "options": [
+          "Kobe Bryant",
+          "Michael Jordan",
+          "LeBron James",
+          "Shaquille O'Neal"
+        ],
+        "ans": "Michael Jordan",
+        "pts": 15,
+        "idx": 21,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which soccer club plays its home games at Old Trafford?",
+        "type": "multiple-choice",
+        "options": [
+          "Manchester United",
+          "Manchester City",
+          "Liverpool FC",
+          "Arsenal FC"
+        ],
+        "ans": "Manchester United",
+        "pts": 15,
+        "idx": 22,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "How many red balls do you start with in a game of Snooker?",
+        "type": "multiple-choice",
+        "options": [
+          "21",
+          "12",
+          "10",
+          "15"
+        ],
+        "ans": "15",
+        "pts": 15,
+        "idx": 23,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which board sport was added to the Olympic Games in Tokyo 2020?",
+        "type": "multiple-choice",
+        "options": [
+          "Snowboarding",
+          "Kitesurfing",
+          "Skateboarding",
+          "Wakeboarding"
+        ],
+        "ans": "Skateboarding",
+        "pts": 15,
+        "idx": 24,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Who is considered the most successful Formula 1 driver (most wins)?",
+        "type": "multiple-choice",
+        "options": [
+          "Michael Schumacher",
+          "Sebastian Vettel",
+          "Lewis Hamilton",
+          "Ayrton Senna"
+        ],
+        "ans": "Lewis Hamilton",
+        "pts": 15,
+        "idx": 25,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which German car manufacturer sponsors the football stadium of FC Bayern Munich?",
+        "type": "multiple-choice",
+        "options": [
+          "Audi",
+          "BMW",
+          "Porsche",
+          "Mercedes-Benz"
+        ],
+        "ans": "Audi",
+        "pts": 15,
+        "idx": 26,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which artist released the ground-breaking album 'Thriller' in 1982?",
+        "type": "multiple-choice",
+        "options": [
+          "Michael Jackson",
+          "David Bowie",
+          "Madonna",
+          "Prince"
+        ],
+        "ans": "Michael Jackson",
+        "pts": 15,
+        "idx": 27,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of the famous Opera House in Australia?",
+        "type": "multiple-choice",
+        "options": [
+          "Melbourne Opera",
+          "Sydney Opera House",
+          "Brisbane House",
+          "Adelaide Theatre"
+        ],
+        "ans": "Sydney Opera House",
+        "pts": 15,
+        "idx": 28,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Who is considered 'The Queen of Soul'?",
+        "type": "multiple-choice",
+        "options": [
+          "Whitney Houston",
+          "Tina Turner",
+          "Aretha Franklin",
+          "Diana Ross"
+        ],
+        "ans": "Aretha Franklin",
+        "pts": 15,
+        "idx": 29,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the oldest tennis tournament in the world?",
+        "type": "multiple-choice",
+        "options": [
+          "French Open",
+          "Australian Open",
+          "US Open",
+          "Wimbledon"
+        ],
+        "ans": "Wimbledon",
+        "pts": 15,
+        "idx": 30,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "How many points do you get for a 'field goal' in American football?",
+        "type": "multiple-choice",
+        "options": [
+          "6",
+          "1",
+          "2",
+          "3"
+        ],
+        "ans": "3",
+        "pts": 15,
+        "idx": 31,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which cyclist won the Tour de France 5 times in a row (1991-1995)?",
+        "type": "multiple-choice",
+        "options": [
+          "Miguel Indurain",
+          "Lance Armstrong",
+          "Eddy Merckx",
+          "Bernard Hinault"
+        ],
+        "ans": "Miguel Indurain",
+        "pts": 15,
+        "idx": 32,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which sport is played on ice with brooms and a heavy stone?",
+        "type": "multiple-choice",
+        "options": [
+          "Bandy",
+          "Curling",
+          "Ice hockey",
+          "Ice skating"
+        ],
+        "ans": "Curling",
+        "pts": 15,
+        "idx": 33,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Who is considered the most winning female skier in Winter Olympics history?",
+        "type": "multiple-choice",
+        "options": [
+          "Marit Bjoergen",
+          "Charlotte Kalla",
+          "Justyna Kowalczyk",
+          "Therese Johaug"
+        ],
+        "ans": "Marit Bjoergen",
+        "pts": 15,
+        "idx": 34,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the title of the highest-grossing film in history (adjusted for inflation)?",
+        "type": "multiple-choice",
+        "options": [
+          "Titanic",
+          "Avatar",
+          "Star Wars: A New Hope",
+          "Gone with the Wind"
+        ],
+        "ans": "Gone with the Wind",
+        "pts": 15,
+        "idx": 35,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "In what year was the streaming service Netflix founded?",
+        "type": "multiple-choice",
+        "options": [
+          "1995",
+          "2005",
+          "1997",
+          "2010"
+        ],
+        "ans": "1997",
+        "pts": 15,
+        "idx": 36,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which song performed by Luis Fonsi and Daddy Yankee became a global hit in 2017?",
+        "type": "multiple-choice",
+        "options": [
+          "Despacito",
+          "Bailando",
+          "Mi Gente",
+          "Gasolina"
+        ],
+        "ans": "Despacito",
+        "pts": 15,
+        "idx": 37,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of the famous game development studio that created the Grand Theft Auto and Red Dead Redemption games?",
+        "type": "multiple-choice",
+        "options": [
+          "Ubisoft",
+          "Rockstar Games",
+          "Electronic Arts",
+          "Activision Blizzard"
+        ],
+        "ans": "Rockstar Games",
+        "pts": 15,
+        "idx": 38,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which film directed by Bong Joon Ho became the first foreign language film to win the Oscar for Best Picture in 2020?",
+        "type": "multiple-choice",
+        "options": [
+          "Parasite",
+          "Roma",
+          "Minari",
+          "The Artist"
+        ],
+        "ans": "Parasite",
+        "pts": 15,
+        "idx": 39,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What breed of dog is Scooby-Doo?",
+        "type": "multiple-choice",
+        "options": [
+          "Great Dane",
+          "German Shepherd",
+          "Mastiff",
+          "Saint Bernard"
+        ],
+        "ans": "Great Dane",
+        "pts": 15,
+        "idx": 40,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which actor voiced the Genie in Disney's original animated Aladdin (1992)?",
+        "type": "multiple-choice",
+        "options": [
+          "Jim Carrey",
+          "Tom Hanks",
+          "Will Smith",
+          "Robin Williams"
+        ],
+        "ans": "Robin Williams",
+        "pts": 15,
+        "idx": 41,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which instrument did Louis Armstrong play?",
+        "type": "multiple-choice",
+        "options": [
+          "Trombone",
+          "Clarinet",
+          "Saxophone",
+          "Trumpet"
+        ],
+        "ans": "Trumpet",
+        "pts": 15,
+        "idx": 42,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Who is the creator of the comic strip 'Peanuts' featuring Snoopy and Charlie Brown?",
+        "type": "multiple-choice",
+        "options": [
+          "Stan Lee",
+          "Charles M. Schulz",
+          "Walt Disney",
+          "Matt Groening"
+        ],
+        "ans": "Charles M. Schulz",
+        "pts": 15,
+        "idx": 43,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which pop star has a loyal fanbase known as 'Swifties'?",
+        "type": "multiple-choice",
+        "options": [
+          "Billie Eilish",
+          "Ariana Grande",
+          "Katy Perry",
+          "Taylor Swift"
+        ],
+        "ans": "Taylor Swift",
+        "pts": 15,
+        "idx": 44,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "In which city were the 2012 Summer Olympics held?",
+        "type": "multiple-choice",
+        "options": [
+          "London",
+          "Athens",
+          "Beijing",
+          "Rio de Janeiro"
+        ],
+        "ans": "London",
+        "pts": 15,
+        "idx": 45,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of the famous game console released by Nintendo in 2017 that can be used both handheld and docked?",
+        "type": "multiple-choice",
+        "options": [
+          "Nintendo Switch",
+          "Nintendo DS",
+          "Nintendo 3DS",
+          "Nintendo Wii U"
+        ],
+        "ans": "Nintendo Switch",
+        "pts": 15,
+        "idx": 46,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Who wrote the epic fantasy novel series 'A Song of Ice and Fire' upon which the TV series Game of Thrones is based?",
+        "type": "multiple-choice",
+        "options": [
+          "Brandon Sanderson",
+          "George R.R. Martin",
+          "J.R.R. Tolkien",
+          "C.S. Lewis"
+        ],
+        "ans": "George R.R. Martin",
+        "pts": 15,
+        "idx": 47,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "Which Marvel superhero group includes Iron Man, Thor, and Captain America?",
+        "type": "multiple-choice",
+        "options": [
+          "The Avengers",
+          "Justice League",
+          "Fantastic Four",
+          "X-Men"
+        ],
+        "ans": "The Avengers",
+        "pts": 15,
+        "idx": 48,
+        "timer": 25,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of the character Keanu Reeves plays in the John Wick movies?",
+        "type": "multiple-choice",
+        "options": [
+          "Neo",
+          "John Wick",
+          "Ted Logan",
+          "Jack Traven"
+        ],
+        "ans": "John Wick",
+        "pts": 15,
+        "idx": 49,
+        "timer": 25,
+        "scale": 10
+      }
+    ]
+  },
+  {
+    "title": "[EN] Arts, Literature & Mythology (Hard)",
+    "description": "Explore questions regarding masterpiece paintings, classic novelists, and mythological tales.",
+    "questions": [
+      {
+        "text": "Which Norwegian artist painted the famous expressive work 'The Scream' in 1893?",
+        "type": "multiple-choice",
+        "options": [
+          "Harald Sohlberg",
+          "Christian Krohg",
+          "Odd Nerdrum",
+          "Edvard Munch"
+        ],
+        "ans": "Edvard Munch",
+        "pts": 20,
+        "idx": 0,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which author wrote the world-famous romantic tragedy 'Romeo and Juliet'?",
+        "type": "multiple-choice",
+        "options": [
+          "Charles Dickens",
+          "William Shakespeare",
+          "Mark Twain",
+          "Jane Austen"
+        ],
+        "ans": "William Shakespeare",
+        "pts": 20,
+        "idx": 1,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who is the most powerful god in Greek mythology, associated with thunder and the sky?",
+        "type": "multiple-choice",
+        "options": [
+          "Hades",
+          "Poseidon",
+          "Ares",
+          "Zeus"
+        ],
+        "ans": "Zeus",
+        "pts": 20,
+        "idx": 2,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which Renaissance painting by Leonardo da Vinci hanging in the Louvre shows a woman with a mysterious smile?",
+        "type": "multiple-choice",
+        "options": [
+          "The Last Supper",
+          "Lady with an Ermine",
+          "St. John the Baptist",
+          "Mona Lisa"
+        ],
+        "ans": "Mona Lisa",
+        "pts": 20,
+        "idx": 3,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who is the Norse god of thunder who rides across the sky in a chariot pulled by goats and wields the hammer Mjolnir?",
+        "type": "multiple-choice",
+        "options": [
+          "Thor",
+          "Balder",
+          "Loki",
+          "Odin"
+        ],
+        "ans": "Thor",
+        "pts": 20,
+        "idx": 4,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which British author wrote the fantasy success about the wizard boy Harry Potter?",
+        "type": "multiple-choice",
+        "options": [
+          "Roald Dahl",
+          "J.K. Rowling",
+          "J.R.R. Tolkien",
+          "C.S. Lewis"
+        ],
+        "ans": "J.K. Rowling",
+        "pts": 20,
+        "idx": 5,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who is the ruler of the underworld in Greek mythology?",
+        "type": "multiple-choice",
+        "options": [
+          "Hades",
+          "Hermes",
+          "Poseidon",
+          "Zeus"
+        ],
+        "ans": "Hades",
+        "pts": 20,
+        "idx": 6,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of Captain Nemo's ship in Jules Verne's classic 'Twenty Thousand Leagues Under the Sea'?",
+        "type": "multiple-choice",
+        "options": [
+          "Nautilus",
+          "Bounty",
+          "Pequod",
+          "Hispaniola"
+        ],
+        "ans": "Nautilus",
+        "pts": 20,
+        "idx": 7,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which famous Norwegian playwright wrote the socially critical play 'A Doll's House' in 1879?",
+        "type": "multiple-choice",
+        "options": [
+          "Bjoernstjerne Bjoernson",
+          "Knut Hamsun",
+          "Alexander Kielland",
+          "Henrik Ibsen"
+        ],
+        "ans": "Henrik Ibsen",
+        "pts": 20,
+        "idx": 8,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which Renaissance artist painted the grand ceiling of the Sistine Chapel in the Vatican?",
+        "type": "multiple-choice",
+        "options": [
+          "Michelangelo",
+          "Donatello",
+          "Leonardo da Vinci",
+          "Raphael"
+        ],
+        "ans": "Michelangelo",
+        "pts": 20,
+        "idx": 9,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which region do the myths about the gods Odin, Thor, and Loki originate from?",
+        "type": "multiple-choice",
+        "options": [
+          "Greece",
+          "Rome",
+          "Scandinavia",
+          "Egypt"
+        ],
+        "ans": "Scandinavia",
+        "pts": 20,
+        "idx": 10,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which Dutch post-impressionist artist painted 'The Starry Night' and cut off part of his own ear?",
+        "type": "multiple-choice",
+        "options": [
+          "Claude Monet",
+          "Johannes Vermeer",
+          "Rembrandt",
+          "Vincent van Gogh"
+        ],
+        "ans": "Vincent van Gogh",
+        "pts": 20,
+        "idx": 11,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which author wrote the epic fantasy series 'The Lord of the Rings'?",
+        "type": "multiple-choice",
+        "options": [
+          "J.R.R. Tolkien",
+          "C.S. Lewis",
+          "George R.R. Martin",
+          "Terry Pratchett"
+        ],
+        "ans": "J.R.R. Tolkien",
+        "pts": 20,
+        "idx": 12,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who is the goddess of beauty and love in Roman mythology (corresponding to Greek Aphrodite)?",
+        "type": "multiple-choice",
+        "options": [
+          "Minerva",
+          "Diana",
+          "Juno",
+          "Venus"
+        ],
+        "ans": "Venus",
+        "pts": 20,
+        "idx": 13,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which novel by Herman Melville is about the hunt for the great white whale?",
+        "type": "multiple-choice",
+        "options": [
+          "Typee",
+          "Billy Budd",
+          "Moby Dick",
+          "Omoo"
+        ],
+        "ans": "Moby Dick",
+        "pts": 20,
+        "idx": 14,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of the central location in Dante Alighieri's 'Divine Comedy' where the lost souls meet Lucifer?",
+        "type": "multiple-choice",
+        "options": [
+          "Purgatory",
+          "Paradise",
+          "Hell (Inferno)",
+          "Underworld"
+        ],
+        "ans": "Hell (Inferno)",
+        "pts": 20,
+        "idx": 15,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which Spanish surrealist artist painted 'The Persistence of Memory' featuring melting clocks?",
+        "type": "multiple-choice",
+        "options": [
+          "Joan Miro",
+          "Francisco Goya",
+          "Salvador Dali",
+          "Pablo Picasso"
+        ],
+        "ans": "Salvador Dali",
+        "pts": 20,
+        "idx": 16,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which author wrote the novel 'Don Quixote', considered the first modern novel?",
+        "type": "multiple-choice",
+        "options": [
+          "Miguel de Cervantes",
+          "Gabriel Garcia Marquez",
+          "Federico Garcia Lorca",
+          "Lope de Vega"
+        ],
+        "ans": "Miguel de Cervantes",
+        "pts": 20,
+        "idx": 17,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who is the Egyptian god of the sun and creation, often depicted with a falcon head?",
+        "type": "multiple-choice",
+        "options": [
+          "Horus",
+          "Osiris",
+          "Anubis",
+          "Ra"
+        ],
+        "ans": "Ra",
+        "pts": 20,
+        "idx": 18,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which French author wrote historical classics such as 'The Three Musketeers' and 'The Count of Monte Cristo'?",
+        "type": "multiple-choice",
+        "options": [
+          "Victor Hugo",
+          "Alexandre Dumas",
+          "Emile Zola",
+          "Gustave Flaubert"
+        ],
+        "ans": "Alexandre Dumas",
+        "pts": 20,
+        "idx": 19,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which famous monument in Agra, India, was built by Emperor Shah Jahan as a mausoleum for his wife?",
+        "type": "multiple-choice",
+        "options": [
+          "Qutub Minar",
+          "Taj Mahal",
+          "Golden Temple",
+          "Hawa Mahal"
+        ],
+        "ans": "Taj Mahal",
+        "pts": 20,
+        "idx": 20,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which era in European art history literally translates to 'rebirth'?",
+        "type": "multiple-choice",
+        "options": [
+          "Gothic",
+          "The Renaissance",
+          "Romanticism",
+          "The Baroque"
+        ],
+        "ans": "The Renaissance",
+        "pts": 20,
+        "idx": 21,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of the famous bronze sculpture by Auguste Rodin showing a man in deep thought?",
+        "type": "multiple-choice",
+        "options": [
+          "The Kiss",
+          "The Gates of Hell",
+          "The Burghers of Calais",
+          "The Thinker"
+        ],
+        "ans": "The Thinker",
+        "pts": 20,
+        "idx": 22,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who is the goddess of wisdom and war in Greek mythology, who gave her name to a major Greek city?",
+        "type": "multiple-choice",
+        "options": [
+          "Hera",
+          "Athena",
+          "Aphrodite",
+          "Artemis"
+        ],
+        "ans": "Athena",
+        "pts": 20,
+        "idx": 23,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which famous novel by Mary Shelley is considered one of the earliest works of science fiction?",
+        "type": "multiple-choice",
+        "options": [
+          "Frankenstein",
+          "Dracula",
+          "The Invisible Man",
+          "Jekyll and Hyde"
+        ],
+        "ans": "Frankenstein",
+        "pts": 20,
+        "idx": 24,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What was the name of the Trojan prince who triggered the Trojan War by abducting Helen?",
+        "type": "multiple-choice",
+        "options": [
+          "Hector",
+          "Paris",
+          "Achilles",
+          "Agamemnon"
+        ],
+        "ans": "Paris",
+        "pts": 20,
+        "idx": 25,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which author wrote the novel series 'The Legend of the Ice People'?",
+        "type": "multiple-choice",
+        "options": [
+          "Jo Nesbo",
+          "Knut Hamsun",
+          "Anne-Cath. Vestly",
+          "Margit Sandemo"
+        ],
+        "ans": "Margit Sandemo",
+        "pts": 20,
+        "idx": 26,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which instrument was Wolfgang Amadeus Mozart famous for mastering as a child prodigy?",
+        "type": "multiple-choice",
+        "options": [
+          "Harpsichord/Piano",
+          "Violin",
+          "Flute",
+          "Cello"
+        ],
+        "ans": "Harpsichord/Piano",
+        "pts": 20,
+        "idx": 27,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of Odin's eight-legged horse in Norse mythology?",
+        "type": "multiple-choice",
+        "options": [
+          "Gullfaxi",
+          "Sleipnir",
+          "Skinfaxi",
+          "Alsvid"
+        ],
+        "ans": "Sleipnir",
+        "pts": 20,
+        "idx": 28,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which German composer continued to create grand music even after becoming completely deaf?",
+        "type": "multiple-choice",
+        "options": [
+          "Richard Wagner",
+          "Ludwig van Beethoven",
+          "Johannes Brahms",
+          "Johann Sebastian Bach"
+        ],
+        "ans": "Ludwig van Beethoven",
+        "pts": 20,
+        "idx": 29,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of King Arthur's famous sword, which he pulled from a stone?",
+        "type": "multiple-choice",
+        "options": [
+          "Excalibur",
+          "Durandal",
+          "Mjolnir",
+          "Gram"
+        ],
+        "ans": "Excalibur",
+        "pts": 20,
+        "idx": 30,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which Russian author wrote the giant novels 'War and Peace' and 'Anna Karenina'?",
+        "type": "multiple-choice",
+        "options": [
+          "Alexander Pushkin",
+          "Leo Tolstoy",
+          "Anton Chekhov",
+          "Fyodor Dostoevsky"
+        ],
+        "ans": "Leo Tolstoy",
+        "pts": 20,
+        "idx": 31,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who is the Roman god of war (corresponding to Greek Ares)?",
+        "type": "multiple-choice",
+        "options": [
+          "Mercury",
+          "Mars",
+          "Vulcan",
+          "Jupiter"
+        ],
+        "ans": "Mars",
+        "pts": 20,
+        "idx": 32,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which French impressionist painter is famous for his many depictions of water lilies in his garden at Giverny?",
+        "type": "multiple-choice",
+        "options": [
+          "Pierre-Auguste Renoir",
+          "Paul Cezanne",
+          "Edgar Degas",
+          "Claude Monet"
+        ],
+        "ans": "Claude Monet",
+        "pts": 20,
+        "idx": 33,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which author wrote the novel '1984' warning against totalitarian surveillance?",
+        "type": "multiple-choice",
+        "options": [
+          "Aldous Huxley",
+          "H.G. Wells",
+          "George Orwell",
+          "Ray Bradbury"
+        ],
+        "ans": "George Orwell",
+        "pts": 20,
+        "idx": 34,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What were the names of Odin's ravens that flew across the world to gather information?",
+        "type": "multiple-choice",
+        "options": [
+          "Geri and Freki",
+          "Hugin and Munin",
+          "Munin and Torin",
+          "Hugin and Lodin"
+        ],
+        "ans": "Hugin and Munin",
+        "pts": 20,
+        "idx": 35,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which Spanish cubist painter created the monumental anti-war painting 'Guernica' in 1937?",
+        "type": "multiple-choice",
+        "options": [
+          "Pablo Picasso",
+          "Salvador Dali",
+          "Juan Gris",
+          "Joan Miro"
+        ],
+        "ans": "Pablo Picasso",
+        "pts": 20,
+        "idx": 36,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which American author is considered the master of detective and horror fiction and wrote 'The Raven'?",
+        "type": "multiple-choice",
+        "options": [
+          "Herman Melville",
+          "Washington Irving",
+          "Nathaniel Hawthorne",
+          "Edgar Allan Poe"
+        ],
+        "ans": "Edgar Allan Poe",
+        "pts": 20,
+        "idx": 37,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of the realm of giants in Norse mythology?",
+        "type": "multiple-choice",
+        "options": [
+          "Utgard",
+          "Midgard",
+          "Jotunheim",
+          "Asgard"
+        ],
+        "ans": "Jotunheim",
+        "pts": 20,
+        "idx": 38,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which German poet and scientist wrote the world-famous tragedy 'Faust'?",
+        "type": "multiple-choice",
+        "options": [
+          "Friedrich Schiller",
+          "Thomas Mann",
+          "Heinrich Heine",
+          "Johann Wolfgang von Goethe"
+        ],
+        "ans": "Johann Wolfgang von Goethe",
+        "pts": 20,
+        "idx": 39,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who wrote the novel 'Around the World in Eighty Days'?",
+        "type": "multiple-choice",
+        "options": [
+          "Charles Dickens",
+          "Mark Twain",
+          "Jules Verne",
+          "H.G. Wells"
+        ],
+        "ans": "Jules Verne",
+        "pts": 20,
+        "idx": 40,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which author wrote the 1897 gothic horror novel 'Dracula'?",
+        "type": "multiple-choice",
+        "options": [
+          "Mary Shelley",
+          "Edgar Allan Poe",
+          "H.P. Lovecraft",
+          "Bram Stoker"
+        ],
+        "ans": "Bram Stoker",
+        "pts": 20,
+        "idx": 41,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who is the Greek goddess of love and beauty?",
+        "type": "multiple-choice",
+        "options": [
+          "Artemis",
+          "Hera",
+          "Athena",
+          "Aphrodite"
+        ],
+        "ans": "Aphrodite",
+        "pts": 20,
+        "idx": 42,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who wrote the book 'The Little Prince'?",
+        "type": "multiple-choice",
+        "options": [
+          "Antoine de Saint-Exupery",
+          "Jules Verne",
+          "Victor Hugo",
+          "Albert Camus"
+        ],
+        "ans": "Antoine de Saint-Exupery",
+        "pts": 20,
+        "idx": 43,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which German poet wrote the poem 'Ode to Joy', used in Beethoven's 9th Symphony?",
+        "type": "multiple-choice",
+        "options": [
+          "Thomas Mann",
+          "Heinrich Heine",
+          "Johann Wolfgang von Goethe",
+          "Friedrich Schiller"
+        ],
+        "ans": "Friedrich Schiller",
+        "pts": 20,
+        "idx": 44,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who painted the famous artwork 'Girl with a Pearl Earring'?",
+        "type": "multiple-choice",
+        "options": [
+          "Claude Monet",
+          "Johannes Vermeer",
+          "Rembrandt",
+          "Vincent van Gogh"
+        ],
+        "ans": "Johannes Vermeer",
+        "pts": 20,
+        "idx": 45,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "What is the name of the Norse god of fertility, peace, and sunshine, who is the brother of Freya?",
+        "type": "multiple-choice",
+        "options": [
+          "Freyr",
+          "Heimdall",
+          "Balder",
+          "Njord"
+        ],
+        "ans": "Freyr",
+        "pts": 20,
+        "idx": 46,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who wrote the classic epic poems 'Odyssey' and 'Iliad'?",
+        "type": "multiple-choice",
+        "options": [
+          "Virgil",
+          "Plato",
+          "Sophocles",
+          "Homer"
+        ],
+        "ans": "Homer",
+        "pts": 20,
+        "idx": 47,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Which French sculptor designed the famous Statue of Liberty (given to the US)?",
+        "type": "multiple-choice",
+        "options": [
+          "Frederic-Auguste Bartholdi",
+          "Edgar Degas",
+          "Gustav Vigeland",
+          "Auguste Rodin"
+        ],
+        "ans": "Frederic-Auguste Bartholdi",
+        "pts": 20,
+        "idx": 48,
+        "timer": 30,
+        "scale": 10
+      },
+      {
+        "text": "Who is the goddess of wisdom in Roman mythology (corresponding to Greek Athena)?",
+        "type": "multiple-choice",
+        "options": [
+          "Juno",
+          "Minerva",
+          "Diana",
+          "Vesta"
+        ],
+        "ans": "Minerva",
+        "pts": 20,
+        "idx": 49,
+        "timer": 30,
+        "scale": 10
+      }
+    ]
+  }
+]
